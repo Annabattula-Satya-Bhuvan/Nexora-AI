@@ -1,1 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXORA AI | AI Workforce</title>
+<style>
+:root{--bg:#080a14;--panel:#101426;--border:#252b46;--blue:#438bff;--violet:#9565ff;--text:#f3f4ff;--muted:#929bb8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:235px;background:#0c1020;border-right:1px solid var(--border);padding:25px 15px;flex-shrink:0}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:0 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
+.nav-label{font-size:10px;color:#687493;padding:16px 10px 8px;letter-spacing:1px}
+.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:13px;margin:3px 0}
+.nav-link:hover,.nav-link.active{background:#202b50;color:white}
+.nav-link.active{border-left:3px solid var(--blue)}
+main{flex:1;min-width:0;padding:30px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px}
+.top p{color:var(--muted);font-size:12px;margin-top:5px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
+h1{font-size:32px;margin-bottom:10px}
+.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}
+.stat,.agent{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:19px}
+.stat p{font-size:12px;color:var(--muted)}
+.stat h2{font-size:27px;margin-top:12px}
+.toolbar{display:flex;gap:12px;justify-content:space-between;align-items:center;margin:28px 0 17px;flex-wrap:wrap}
+.toolbar h2{font-size:18px}
+input,select{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:11px;color:white;outline:none}
+#search{min-width:200px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.agent{padding:20px;transition:.2s}
+.agent:hover{border-color:#536caa;transform:translateY(-2px)}
+.agent-head{display:flex;justify-content:space-between;align-items:center}
+.agent-icon{width:47px;height:47px;border-radius:12px;background:#202b50;display:grid;place-items:center;font-size:23px}
+.status{font-size:10px;color:#4cdda5}
+.status.idle{color:#aab1c6}
+.agent h3{font-size:16px;margin:17px 0 7px}
+.agent p{font-size:12px;color:var(--muted);line-height:1.6;min-height:38px}
+.agent-meta{border-top:1px solid var(--border);margin-top:16px;padding-top:13px;display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+.agent button{margin-top:15px;width:100%;padding:10px;border:1px solid #394568;border-radius:8px;background:#202b50;color:white;cursor:pointer}
+.agent button:hover{background:#304477}
+.empty{color:var(--muted);padding:30px;text-align:center;grid-column:1/-1}
+#toast{position:fixed;bottom:25px;right:25px;background:#192744;border:1px solid #4564a4;padding:14px 18px;border-radius:9px;display:none;font-size:12px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.sidebar{display:none}main{padding:20px 14px}.grid{grid-template-columns:1fr}h1{font-size:26px}.stats{gap:9px}.stat{padding:13px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+<div class="nav-label">WORKSPACE</div>
+<a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+<a class="nav-link" href="command-center.html">⌘ Command Center</a>
+<a class="nav-link active" href="workforce.html">♟ AI Workforce</a>
+<a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+<a class="nav-link" href="agent-marketplace.html">▦ Agent Marketplace</a>
+<div class="nav-label">OPERATIONS</div>
+<a class="nav-link" href="missions.html">◉ Missions</a>
+<a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+<a class="nav-link" href="projects.html">▣ Projects</a>
+<a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+<div class="nav-label">INTELLIGENCE</div>
+<a class="nav-link" href="war-room.html">⚡ AI War Room</a>
+<a class="nav-link" href="collective-brain.html">◉ Collective Brain</a>
+<a class="nav-link" href="verification-center.html">✓ Verification Center</a>
+<a class="nav-link" href="execution-history.html">◷ Execution History</a>
+</aside>
 
+<main>
+<header class="top">
+<div><strong>AI WORKFORCE</strong><p>NEXORA AI / Agent Management</p></div>
+<div class="avatar">N</div>
+</header>
+
+<section>
+<p style="color:#38d9ed;font-size:11px;letter-spacing:2px;margin-bottom:12px">✦ YOUR DIGITAL TEAM</p>
+<h1>Meet Your <span class="gradient">AI Workforce</span></h1>
+<p class="subtitle">Manage your specialized AI agents and coordinate your intelligent workforce.</p>
+</section>
+
+<section class="stats">
+<div class="stat"><p>Total Specialists</p><h2>08</h2></div>
+<div class="stat"><p>Active (Demo)</p><h2>04</h2></div>
+<div class="stat"><p>Available (Demo)</p><h2>04</h2></div>
+<div class="stat"><p>Agent Categories</p><h2>08</h2></div>
+</section>
+
+<div class="toolbar">
+<h2>All Specialists</h2>
+<div style="display:flex;gap:9px;flex-wrap:wrap">
+<input id="search" placeholder="Search agents...">
+<select id="filter">
+<option value="all">All agents</option>
+<option value="active">Active</option>
+<option value="idle">Idle</option>
+</select>
+</div>
+</div>
+
+<section class="grid" id="agentGrid"></section>
+</main>
+</div>
+<div id="toast"></div>
+
+<script>
+const agents=[
+{name:"Research Agent",icon:"🔎",role:"Research & Discovery",description:"Finds information, investigates topics and organizes research findings.",status:"active"},
+{name:"Coding Agent",icon:"💻",role:"Software Development",description:"Supports code generation, debugging and software development tasks.",status:"active"},
+{name:"Planning Agent",icon:"🧠",role:"Strategy & Planning",description:"Breaks complex objectives into structured plans and actionable steps.",status:"active"},
+{name:"Fact-Checking Agent",icon:"🛡️",role:"Verification & Quality",description:"Reviews claims, checks evidence and identifies potential inaccuracies.",status:"idle"},
+{name:"Writing Agent",icon:"✍️",role:"Content & Communication",description:"Creates structured documents, reports and communication drafts.",status:"active"},
+{name:"Data Analyst",icon:"📊",role:"Data & Insights",description:"Analyzes datasets, identifies patterns and prepares useful insights.",status:"idle"},
+{name:"Security Agent",icon:"🔐",role:"Security & Risk",description:"Reviews security considerations and identifies potential risks.",status:"idle"},
+{name:"Testing Agent",icon:"🧪",role:"Testing & Validation",description:"Designs tests and checks software functionality and reliability.",status:"idle"}
+];
+
+const grid=document.getElementById("agentGrid");
+
+function showToast(message){
+const toast=document.getElementById("toast");
+toast.textContent=message;
+toast.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>toast.style.display="none",2500);
+}
+
+function renderAgents(){
+const query=document.getElementById("search").value.toLowerCase();
+const filter=document.getElementById("filter").value;
+const filtered=agents.filter(agent=>
+(agent.name+" "+agent.role+" "+agent.description).toLowerCase().includes(query)&&
+(filter==="all"||agent.status===filter)
+);
+grid.replaceChildren();
+
+if(!filtered.length){
+const empty=document.createElement("p");
+empty.className="empty";
+empty.textContent="No matching agents found.";
+grid.append(empty);
+return;
+}
+
+filtered.forEach(agent=>{
+const card=document.createElement("article");
+card.className="agent";
+
+const head=document.createElement("div");
+head.className="agent-head";
+
+const icon=document.createElement("div");
+icon.className="agent-icon";
+icon.textContent=agent.icon;
+
+const status=document.createElement("span");
+status.className="status"+(agent.status==="idle"?" idle":"");
+status.textContent=agent.status==="active"?"● ACTIVE · DEMO":"● IDLE · DEMO";
+
+head.append(icon,status);
+
+const title=document.createElement("h3");
+title.textContent=agent.name;
+
+const role=document.createElement("p");
+role.textContent=agent.role;
+
+const description=document.createElement("p");
+description.textContent=agent.description;
+
+const meta=document.createElement("div");
+meta.className="agent-meta";
+meta.textContent="NEXORA FOUNDATION AGENT";
+
+const button=document.createElement("button");
+button.textContent="View Agent";
+button.addEventListener("click",()=>showToast(agent.name+" profile module is coming soon."));
+
+card.append(head,title,role,description,meta,button);
+grid.append(card);
+});
+}
+
+document.getElementById("search").addEventListener("input",renderAgents);
+document.getElementById("filter").addEventListener("change",renderAgents);
+renderAgents();
+</script>
+</body>
+</html>
