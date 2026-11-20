@@ -1,1 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXORA AI | Agent Marketplace</title>
+<style>
+:root{--bg:#080a14;--panel:#101426;--border:#252b46;--blue:#438bff;--violet:#9565ff;--text:#f3f4ff;--muted:#929bb8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:235px;background:#0c1020;border-right:1px solid var(--border);padding:25px 15px;flex-shrink:0}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:0 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
+.nav-label{font-size:10px;color:#687493;padding:16px 10px 8px;letter-spacing:1px}
+.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:13px;margin:3px 0}
+.nav-link:hover,.nav-link.active{background:#202b50;color:white}
+.nav-link.active{border-left:3px solid var(--blue)}
+main{flex:1;min-width:0;padding:30px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px}
+.top p{color:var(--muted);font-size:12px;margin-top:5px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
+h1{font-size:32px;margin-bottom:10px}
+.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
+.toolbar{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin:28px 0 18px}
+input,select{background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:12px;color:white;outline:none}
+#search{min-width:210px}
+.filters{display:flex;gap:10px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;transition:.2s}
+.card:hover{border-color:#536caa;transform:translateY(-2px)}
+.card-head{display:flex;justify-content:space-between;align-items:center}
+.icon{width:48px;height:48px;background:#202b50;border-radius:12px;display:grid;place-items:center;font-size:23px}
+.tag{font-size:10px;color:#a7baff;background:#202b50;padding:6px 9px;border-radius:20px}
+.card h3{font-size:16px;margin:17px 0 8px}
+.card p{font-size:12px;color:var(--muted);line-height:1.6;min-height:58px}
+.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:17px;padding-top:14px;border-top:1px solid var(--border)}
+.card-footer span{font-size:10px;color:var(--muted)}
+button{border:0;border-radius:8px;padding:10px 14px;color:white;background:linear-gradient(90deg,#347df5,#8651ed);font-weight:bold;cursor:pointer}
+button:hover{opacity:.85}
+button.installed{background:#202b50;border:1px solid #3e5b87}
+.empty{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted);font-size:13px}
+.notice{margin-top:22px;background:#121a30;border:1px solid #303d60;padding:15px;border-radius:10px;color:var(--muted);font-size:11px;line-height:1.6}
+#toast{position:fixed;bottom:25px;right:25px;background:#192744;border:1px solid #4564a4;padding:14px 18px;border-radius:9px;display:none;font-size:12px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.sidebar{display:none}main{padding:20px 14px}.grid{grid-template-columns:1fr}h1{font-size:26px}.toolbar{align-items:stretch}#search{width:100%}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+<div class="nav-label">WORKSPACE</div>
+<a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+<a class="nav-link" href="command-center.html">⌘ Command Center</a>
+<a class="nav-link" href="workforce.html">♟ AI Workforce</a>
+<a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+<a class="nav-link active" href="agent-marketplace.html">▦ Agent Marketplace</a>
+<div class="nav-label">OPERATIONS</div>
+<a class="nav-link" href="missions.html">◉ Missions</a>
+<a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+<a class="nav-link" href="projects.html">▣ Projects</a>
+<a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+<div class="nav-label">INTELLIGENCE</div>
+<a class="nav-link" href="war-room.html">⚡ AI War Room</a>
+<a class="nav-link" href="collective-brain.html">◉ Collective Brain</a>
+<a class="nav-link" href="verification-center.html">✓ Verification Center</a>
+</aside>
 
+<main>
+<header class="top">
+<div><strong>AGENT MARKETPLACE</strong><p>NEXORA AI / Discover Specialists</p></div>
+<div class="avatar">N</div>
+</header>
+
+<section>
+<p style="color:#38d9ed;font-size:11px;letter-spacing:2px;margin-bottom:12px">✦ EXPAND YOUR AI WORKFORCE</p>
+<h1>Agent <span class="gradient">Marketplace</span></h1>
+<p class="subtitle">Discover specialized agents and add them to your personal AI workforce.</p>
+</section>
+
+<div class="toolbar">
+<h2 style="font-size:18px">Explore Agents</h2>
+<div class="filters">
+<input id="search" placeholder="Search agents...">
+<select id="category">
+<option value="all">All categories</option>
+<option>Research</option>
+<option>Development</option>
+<option>Business</option>
+<option>Content</option>
+<option>Security</option>
+<option>Productivity</option>
+</select>
+</div>
+</div>
+
+<section class="grid" id="agentGrid"></section>
+
+<div class="notice">
+<strong style="color:#dce5ff">Marketplace Preview</strong><br>
+These are sample agent listings. Adding an agent saves its selection in this browser. Live agent downloads, external developers and AI execution will be integrated later.
+</div>
+</main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const marketplaceAgents=[
+{name:"Deep Research Specialist",icon:"🔎",category:"Research",description:"Investigates complex topics, organizes sources and prepares structured research reports.",developer:"NEXORA Labs"},
+{name:"Full-Stack Developer",icon:"💻",category:"Development",description:"Supports frontend, backend and application development workflows.",developer:"NEXORA Labs"},
+{name:"Business Strategist",icon:"📈",category:"Business",description:"Helps develop business strategies, evaluate opportunities and structure plans.",developer:"NEXORA Labs"},
+{name:"Content Creator",icon:"✍️",category:"Content",description:"Creates articles, reports, marketing drafts and communication content.",developer:"NEXORA Labs"},
+{name:"Security Auditor",icon:"🛡️",category:"Security",description:"Reviews security practices, identifies potential weaknesses and suggests checks.",developer:"NEXORA Labs"},
+{name:"Data Intelligence Agent",icon:"📊",category:"Research",description:"Examines datasets, identifies trends and generates analytical summaries.",developer:"NEXORA Labs"},
+{name:"Project Coordinator",icon:"🗂️",category:"Productivity",description:"Organizes project tasks, milestones, responsibilities and progress.",developer:"NEXORA Labs"},
+{name:"Automation Designer",icon:"⚙️",category:"Productivity",description:"Plans repeatable workflows and identifies opportunities for automation.",developer:"NEXORA Labs"},
+{name:"Quality Assurance Agent",icon:"🧪",category:"Development",description:"Creates test plans and reviews application functionality and reliability.",developer:"NEXORA Labs"}
+];
+
+const grid=document.getElementById("agentGrid");
+const storageKey="nexoraMarketplaceAgents";
+
+function installedAgents(){
+return JSON.parse(localStorage.getItem(storageKey)||"[]");
+}
+
+function showToast(message){
+const toast=document.getElementById("toast");
+toast.textContent=message;
+toast.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>toast.style.display="none",2500);
+}
+
+function render(){
+const query=document.getElementById("search").value.toLowerCase();
+const category=document.getElementById("category").value;
+const installed=installedAgents();
+
+const results=marketplaceAgents.filter(agent=>
+(agent.name+" "+agent.description+" "+agent.category).toLowerCase().includes(query)&&
+(category==="all"||agent.category===category)
+);
+
+grid.replaceChildren();
+
+if(!results.length){
+const empty=document.createElement("p");
+empty.className="empty";
+empty.textContent="No agents match your search.";
+grid.append(empty);
+return;
+}
+
+results.forEach(agent=>{
+const card=document.createElement("article");
+card.className="card";
+
+const head=document.createElement("div");
+head.className="card-head";
+
+const icon=document.createElement("div");
+icon.className="icon";
+icon.textContent=agent.icon;
+
+const tag=document.createElement("span");
+tag.className="tag";
+tag.textContent=agent.category;
+
+head.append(icon,tag);
+
+const title=document.createElement("h3");
+title.textContent=agent.name;
+
+const description=document.createElement("p");
+description.textContent=agent.description;
+
+const footer=document.createElement("div");
+footer.className="card-footer";
+
+const developer=document.createElement("span");
+developer.textContent=agent.developer;
+
+const button=document.createElement("button");
+const isInstalled=installed.includes(agent.name);
+button.textContent=isInstalled?"✓ Added":"Add Agent +";
+if(isInstalled)button.className="installed";
+
+button.addEventListener("click",()=>{
+const current=installedAgents();
+if(current.includes(agent.name)){
+showToast("This agent is already in your collection.");
+return;
+}
+current.push(agent.name);
+localStorage.setItem(storageKey,JSON.stringify(current));
+render();
+showToast(agent.name+" added to your collection.");
+});
+
+footer.append(developer,button);
+card.append(head,title,description,footer);
+grid.append(card);
+});
+}
+
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("category").addEventListener("change",render);
+render();
+</script>
+</body>
+</html>
