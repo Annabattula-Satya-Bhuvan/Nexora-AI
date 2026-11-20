@@ -1,194 +1,849 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEXORA AI | AI Workforce</title>
+
 <style>
-:root{--bg:#080a14;--panel:#101426;--border:#252b46;--blue:#438bff;--violet:#9565ff;--text:#f3f4ff;--muted:#929bb8}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-a{color:inherit;text-decoration:none}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:235px;background:#0c1020;border-right:1px solid var(--border);padding:25px 15px;flex-shrink:0}
-.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:0 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
-.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
-.nav-label{font-size:10px;color:#687493;padding:16px 10px 8px;letter-spacing:1px}
-.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:13px;margin:3px 0}
-.nav-link:hover,.nav-link.active{background:#202b50;color:white}
-.nav-link.active{border-left:3px solid var(--blue)}
-main{flex:1;min-width:0;padding:30px}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px}
-.top p{color:var(--muted);font-size:12px;margin-top:5px}
-.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
-h1{font-size:32px;margin-bottom:10px}
-.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
-.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}
-.stat,.agent{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:19px}
-.stat p{font-size:12px;color:var(--muted)}
-.stat h2{font-size:27px;margin-top:12px}
-.toolbar{display:flex;gap:12px;justify-content:space-between;align-items:center;margin:28px 0 17px;flex-wrap:wrap}
-.toolbar h2{font-size:18px}
-input,select{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:11px;color:white;outline:none}
-#search{min-width:200px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.agent{padding:20px;transition:.2s}
-.agent:hover{border-color:#536caa;transform:translateY(-2px)}
-.agent-head{display:flex;justify-content:space-between;align-items:center}
-.agent-icon{width:47px;height:47px;border-radius:12px;background:#202b50;display:grid;place-items:center;font-size:23px}
-.status{font-size:10px;color:#4cdda5}
-.status.idle{color:#aab1c6}
-.agent h3{font-size:16px;margin:17px 0 7px}
-.agent p{font-size:12px;color:var(--muted);line-height:1.6;min-height:38px}
-.agent-meta{border-top:1px solid var(--border);margin-top:16px;padding-top:13px;display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
-.agent button{margin-top:15px;width:100%;padding:10px;border:1px solid #394568;border-radius:8px;background:#202b50;color:white;cursor:pointer}
-.agent button:hover{background:#304477}
-.empty{color:var(--muted);padding:30px;text-align:center;grid-column:1/-1}
-#toast{position:fixed;bottom:25px;right:25px;background:#192744;border:1px solid #4564a4;padding:14px 18px;border-radius:9px;display:none;font-size:12px}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:650px){.sidebar{display:none}main{padding:20px 14px}.grid{grid-template-columns:1fr}h1{font-size:26px}.stats{gap:9px}.stat{padding:13px}}
+:root {
+  --bg:#080a14;
+  --panel:#101426;
+  --border:#252b46;
+  --blue:#438bff;
+  --violet:#9565ff;
+  --text:#f3f4ff;
+  --muted:#929bb8;
+}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button,input,select {
+  font:inherit;
+}
+
+.layout {
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar {
+  width:245px;
+  background:#0c1020;
+  border-right:1px solid var(--border);
+  padding:25px 16px;
+  flex-shrink:0;
+}
+
+.logo {
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin:0 10px 30px;
+  background:linear-gradient(90deg,#58a1ff,#a77aff);
+  color:transparent;
+  background-clip:text;
+}
+
+.logo small {
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:3px;
+  margin-top:6px;
+}
+
+.nav-label {
+  font-size:10px;
+  color:#687493;
+  padding:16px 10px 8px;
+  letter-spacing:1px;
+}
+
+.nav-link {
+  display:block;
+  padding:11px 12px;
+  border-radius:8px;
+  color:#aeb6ce;
+  font-size:13px;
+  margin:3px 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background:#202b50;
+  color:white;
+}
+
+.nav-link.active {
+  border-left:3px solid var(--blue);
+}
+
+main {
+  flex:1;
+  min-width:0;
+  padding:30px;
+}
+
+.top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:35px;
+  gap:15px;
+}
+
+.top p {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+}
+
+.avatar {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--blue),var(--violet));
+  font-weight:bold;
+}
+
+h1 {
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.gradient {
+  background:linear-gradient(90deg,#56a0ff,#a477ff);
+  color:transparent;
+  background-clip:text;
+}
+
+.subtitle {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin:28px 0;
+}
+
+.stat,.agent {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:19px;
+}
+
+.stat p {
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat h2 {
+  font-size:28px;
+  margin-top:12px;
+}
+
+.toolbar {
+  display:flex;
+  gap:12px;
+  justify-content:space-between;
+  align-items:center;
+  margin:28px 0 18px;
+  flex-wrap:wrap;
+}
+
+.toolbar h2 {
+  font-size:18px;
+}
+
+.controls {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+input,select {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:11px;
+  color:white;
+  outline:none;
+}
+
+#search {
+  min-width:210px;
+}
+
+button {
+  border:0;
+  border-radius:9px;
+  padding:11px 16px;
+  color:white;
+  background:linear-gradient(90deg,#347df5,#8651ed);
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover {
+  opacity:.85;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+
+.agent {
+  padding:20px;
+  transition:.2s;
+}
+
+.agent:hover {
+  border-color:#536caa;
+  transform:translateY(-2px);
+}
+
+.agent-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.agent-icon {
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  background:#202b50;
+  display:grid;
+  place-items:center;
+  font-size:23px;
+}
+
+.status {
+  font-size:10px;
+  color:#4cdda5;
+}
+
+.status.idle {
+  color:#aab1c6;
+}
+
+.status.busy {
+  color:#f5bb62;
+}
+
+.agent h3 {
+  font-size:16px;
+  margin:18px 0 8px;
+}
+
+.agent p {
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.7;
+  min-height:42px;
+}
+
+.agent-meta {
+  border-top:1px solid var(--border);
+  margin-top:17px;
+  padding-top:13px;
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.agent-actions {
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.agent-actions button {
+  flex:1;
+  padding:9px 7px;
+  font-size:11px;
+}
+
+.secondary {
+  background:#202b50;
+  border:1px solid #394568;
+}
+
+.empty {
+  grid-column:1/-1;
+  text-align:center;
+  padding:45px;
+  color:var(--muted);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000b;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:10;
+}
+
+.modal-box {
+  width:100%;
+  max-width:440px;
+  background:#111a2e;
+  border:1px solid #304064;
+  border-radius:15px;
+  padding:24px;
+}
+
+.modal-box h2 {
+  margin-bottom:18px;
+}
+
+.modal-box label {
+  display:block;
+  color:#b8c3dc;
+  font-size:12px;
+  margin:13px 0 7px;
+}
+
+.modal-box input,
+.modal-box select {
+  width:100%;
+}
+
+.modal-actions {
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:20px;
+}
+
+#toast {
+  display:none;
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:#202b50;
+  border:1px solid #536caa;
+  border-radius:10px;
+  padding:14px 20px;
+  font-size:13px;
+  z-index:20;
+}
+
+footer {
+  color:#65708d;
+  font-size:11px;
+  margin-top:40px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+@media(max-width:1050px) {
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .stats {
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:750px) {
+  .sidebar {
+    display:none;
+  }
+  main {
+    padding:20px 14px;
+  }
+  h1 {
+    font-size:26px;
+  }
+  .grid {
+    grid-template-columns:1fr;
+  }
+  .stats {
+    grid-template-columns:1fr 1fr;
+  }
+  .toolbar {
+    align-items:stretch;
+  }
+  .controls {
+    width:100%;
+  }
+  #search {
+    flex:1;
+    min-width:0;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div class="layout">
+
 <aside class="sidebar">
-<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+
+<div class="logo">
+NEXORA AI
+<small>YOUR PERSONAL AI WORKFORCE</small>
+</div>
+
 <div class="nav-label">WORKSPACE</div>
+
 <a class="nav-link" href="dashboard.html">◈ Dashboard</a>
 <a class="nav-link" href="command-center.html">⌘ Command Center</a>
 <a class="nav-link active" href="workforce.html">♟ AI Workforce</a>
 <a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
 <a class="nav-link" href="agent-marketplace.html">▦ Agent Marketplace</a>
+
 <div class="nav-label">OPERATIONS</div>
+
 <a class="nav-link" href="missions.html">◉ Missions</a>
 <a class="nav-link" href="task-manager.html">☷ Task Manager</a>
 <a class="nav-link" href="projects.html">▣ Projects</a>
 <a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+
 <div class="nav-label">INTELLIGENCE</div>
+
 <a class="nav-link" href="war-room.html">⚡ AI War Room</a>
 <a class="nav-link" href="collective-brain.html">◉ Collective Brain</a>
 <a class="nav-link" href="verification-center.html">✓ Verification Center</a>
-<a class="nav-link" href="execution-history.html">◷ Execution History</a>
+
 </aside>
 
 <main>
+
 <header class="top">
-<div><strong>AI WORKFORCE</strong><p>NEXORA AI / Agent Management</p></div>
+<div>
+<strong>NEXORA / WORKFORCE</strong>
+<p>Your intelligent digital employees</p>
+</div>
 <div class="avatar">N</div>
 </header>
 
 <section>
-<p style="color:#38d9ed;font-size:11px;letter-spacing:2px;margin-bottom:12px">✦ YOUR DIGITAL TEAM</p>
-<h1>Meet Your <span class="gradient">AI Workforce</span></h1>
-<p class="subtitle">Manage your specialized AI agents and coordinate your intelligent workforce.</p>
+<p style="color:#38d9ed;font-size:11px;letter-spacing:2px;margin-bottom:12px">
+✦ YOUR INTELLIGENT TEAM
+</p>
+
+<h1>AI <span class="gradient">Workforce</span></h1>
+
+<p class="subtitle">
+Manage, monitor and organize your specialized AI employees
+from one intelligent workspace.
+</p>
 </section>
 
 <section class="stats">
-<div class="stat"><p>Total Specialists</p><h2>08</h2></div>
-<div class="stat"><p>Active (Demo)</p><h2>04</h2></div>
-<div class="stat"><p>Available (Demo)</p><h2>04</h2></div>
-<div class="stat"><p>Agent Categories</p><h2>08</h2></div>
+
+<div class="stat">
+<p>Total Agents</p>
+<h2 id="totalAgents">5</h2>
+</div>
+
+<div class="stat">
+<p>Active Agents</p>
+<h2 id="activeAgents">3</h2>
+</div>
+
+<div class="stat">
+<p>Idle Agents</p>
+<h2 id="idleAgents">2</h2>
+</div>
+
+<div class="stat">
+<p>Custom Agents</p>
+<h2 id="customAgents">0</h2>
+</div>
+
 </section>
 
+<section>
+
 <div class="toolbar">
-<h2>All Specialists</h2>
-<div style="display:flex;gap:9px;flex-wrap:wrap">
-<input id="search" placeholder="Search agents...">
+
+<h2>Meet Your AI Employees</h2>
+
+<div class="controls">
+
+<input
+type="search"
+id="search"
+placeholder="Search agents..."
+>
+
 <select id="filter">
-<option value="all">All agents</option>
-<option value="active">Active</option>
-<option value="idle">Idle</option>
+<option value="all">All Agents</option>
+<option value="Active">Active</option>
+<option value="Idle">Idle</option>
+<option value="Busy">Busy</option>
 </select>
+
+<button onclick="openModal()">+ Add Agent</button>
+
 </div>
 </div>
 
-<section class="grid" id="agentGrid"></section>
+<div class="grid" id="agentGrid"></div>
+
+</section>
+
+<footer>
+<span>© 2026 NEXORA AI. All rights reserved.</span>
+<span>WORKFORCE MODULE · ALPHA 1.0</span>
+</footer>
+
 </main>
 </div>
+
+<div class="modal" id="agentModal">
+
+<div class="modal-box">
+
+<h2>Create New Agent</h2>
+
+<form id="agentForm">
+
+<label for="agentName">Agent Name</label>
+<input id="agentName" maxlength="50" required placeholder="Enter agent name">
+
+<label for="agentRole">Agent Role</label>
+<select id="agentRole">
+<option>Research Specialist</option>
+<option>Software Developer</option>
+<option>Business Strategist</option>
+<option>Content Writer</option>
+<option>Data Analyst</option>
+<option>Security Specialist</option>
+<option>Custom Specialist</option>
+</select>
+
+<label for="agentDescription">Description</label>
+<input id="agentDescription" maxlength="200" required placeholder="Describe the agent's role">
+
+<div class="modal-actions">
+<button type="button" class="secondary" onclick="closeModal()">Cancel</button>
+<button type="submit">Create Agent</button>
+</div>
+
+</form>
+
+</div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-const agents=[
-{name:"Research Agent",icon:"🔎",role:"Research & Discovery",description:"Finds information, investigates topics and organizes research findings.",status:"active"},
-{name:"Coding Agent",icon:"💻",role:"Software Development",description:"Supports code generation, debugging and software development tasks.",status:"active"},
-{name:"Planning Agent",icon:"🧠",role:"Strategy & Planning",description:"Breaks complex objectives into structured plans and actionable steps.",status:"active"},
-{name:"Fact-Checking Agent",icon:"🛡️",role:"Verification & Quality",description:"Reviews claims, checks evidence and identifies potential inaccuracies.",status:"idle"},
-{name:"Writing Agent",icon:"✍️",role:"Content & Communication",description:"Creates structured documents, reports and communication drafts.",status:"active"},
-{name:"Data Analyst",icon:"📊",role:"Data & Insights",description:"Analyzes datasets, identifies patterns and prepares useful insights.",status:"idle"},
-{name:"Security Agent",icon:"🔐",role:"Security & Risk",description:"Reviews security considerations and identifies potential risks.",status:"idle"},
-{name:"Testing Agent",icon:"🧪",role:"Testing & Validation",description:"Designs tests and checks software functionality and reliability.",status:"idle"}
+const KEY = "nexoraWorkforce";
+
+const defaultAgents = [
+{
+id:1,
+name:"Research Agent",
+role:"Research Specialist",
+icon:"🔍",
+description:"Researches information, discovers insights and analyzes market trends.",
+status:"Active",
+custom:false
+},
+{
+id:2,
+name:"Coding Agent",
+role:"Software Developer",
+icon:"💻",
+description:"Develops applications, writes code and assists with technical problems.",
+status:"Active",
+custom:false
+},
+{
+id:3,
+name:"Planning Agent",
+role:"Business Strategist",
+icon:"🧠",
+description:"Creates intelligent strategies, organizes projects and plans execution.",
+status:"Active",
+custom:false
+},
+{
+id:4,
+name:"Fact-Checking Agent",
+role:"Verification Specialist",
+icon:"🛡️",
+description:"Checks information, verifies sources and evaluates factual accuracy.",
+status:"Idle",
+custom:false
+},
+{
+id:5,
+name:"Writing Agent",
+role:"Content Writer",
+icon:"✍️",
+description:"Creates professional content, documents and structured reports.",
+status:"Idle",
+custom:false
+}
 ];
 
-const grid=document.getElementById("agentGrid");
-
-function showToast(message){
-const toast=document.getElementById("toast");
-toast.textContent=message;
-toast.style.display="block";
-clearTimeout(window.toastTimer);
-window.toastTimer=setTimeout(()=>toast.style.display="none",2500);
+function getAgents() {
+try {
+const saved = localStorage.getItem(KEY);
+return saved ? JSON.parse(saved) : defaultAgents;
+} catch(error) {
+return defaultAgents;
+}
 }
 
-function renderAgents(){
-const query=document.getElementById("search").value.toLowerCase();
-const filter=document.getElementById("filter").value;
-const filtered=agents.filter(agent=>
-(agent.name+" "+agent.role+" "+agent.description).toLowerCase().includes(query)&&
-(filter==="all"||agent.status===filter)
-);
+let agents = getAgents();
+
+function saveAgents() {
+localStorage.setItem(KEY,JSON.stringify(agents));
+}
+
+function renderAgents() {
+
+const grid = document.getElementById("agentGrid");
+
+const query = document.getElementById("search").value.toLowerCase();
+
+const filter = document.getElementById("filter").value;
+
 grid.replaceChildren();
 
-if(!filtered.length){
-const empty=document.createElement("p");
-empty.className="empty";
-empty.textContent="No matching agents found.";
+const filtered = agents.filter(agent => {
+
+const matchesSearch =
+agent.name.toLowerCase().includes(query) ||
+agent.role.toLowerCase().includes(query) ||
+agent.description.toLowerCase().includes(query);
+
+const matchesFilter =
+filter === "all" || agent.status === filter;
+
+return matchesSearch && matchesFilter;
+
+});
+
+if(filtered.length === 0) {
+const empty = document.createElement("div");
+empty.className = "empty";
+empty.textContent = "No matching AI agents found.";
 grid.append(empty);
-return;
 }
 
-filtered.forEach(agent=>{
-const card=document.createElement("article");
-card.className="agent";
+filtered.forEach(agent => {
 
-const head=document.createElement("div");
-head.className="agent-head";
+const card = document.createElement("article");
+card.className = "agent";
 
-const icon=document.createElement("div");
-icon.className="agent-icon";
-icon.textContent=agent.icon;
+const head = document.createElement("div");
+head.className = "agent-head";
 
-const status=document.createElement("span");
-status.className="status"+(agent.status==="idle"?" idle":"");
-status.textContent=agent.status==="active"?"● ACTIVE · DEMO":"● IDLE · DEMO";
+const icon = document.createElement("div");
+icon.className = "agent-icon";
+icon.textContent = agent.icon || "🤖";
+
+const status = document.createElement("span");
+status.className = "status " + agent.status.toLowerCase();
+status.textContent = "● " + agent.status.toUpperCase();
 
 head.append(icon,status);
 
-const title=document.createElement("h3");
-title.textContent=agent.name;
+const title = document.createElement("h3");
+title.textContent = agent.name;
 
-const role=document.createElement("p");
-role.textContent=agent.role;
+const description = document.createElement("p");
+description.textContent = agent.description;
 
-const description=document.createElement("p");
-description.textContent=agent.description;
+const meta = document.createElement("div");
+meta.className = "agent-meta";
 
-const meta=document.createElement("div");
-meta.className="agent-meta";
-meta.textContent="NEXORA FOUNDATION AGENT";
+const role = document.createElement("span");
+role.textContent = agent.role;
 
-const button=document.createElement("button");
-button.textContent="View Agent";
-button.addEventListener("click",()=>showToast(agent.name+" profile module is coming soon."));
+const type = document.createElement("span");
+type.textContent = agent.custom ? "CUSTOM" : "CORE AGENT";
 
-card.append(head,title,role,description,meta,button);
-grid.append(card);
-});
+meta.append(role,type);
+
+const actions = document.createElement("div");
+actions.className = "agent-actions";
+
+const toggle = document.createElement("button");
+toggle.className = "secondary";
+toggle.textContent = agent.status === "Active" ? "Set Idle" : "Activate";
+toggle.addEventListener("click",() => toggleAgent(agent.id));
+
+const remove = document.createElement("button");
+remove.className = "secondary";
+remove.textContent = "Remove";
+remove.disabled = !agent.custom;
+
+if(!agent.custom) {
+remove.style.opacity = ".4";
 }
 
+remove.addEventListener("click",() => deleteAgent(agent.id));
+
+actions.append(toggle,remove);
+
+card.append(head,title,description,meta,actions);
+
+grid.append(card);
+
+});
+
+updateStats();
+
+}
+
+function updateStats() {
+
+document.getElementById("totalAgents").textContent = agents.length;
+
+document.getElementById("activeAgents").textContent =
+agents.filter(a => a.status === "Active").length;
+
+document.getElementById("idleAgents").textContent =
+agents.filter(a => a.status === "Idle").length;
+
+document.getElementById("customAgents").textContent =
+agents.filter(a => a.custom).length;
+
+}
+
+function toggleAgent(id) {
+
+agents = agents.map(agent => {
+
+if(agent.id === id) {
+return {
+...agent,
+status:agent.status === "Active" ? "Idle" : "Active"
+};
+}
+
+return agent;
+
+});
+
+saveAgents();
+renderAgents();
+showToast("Agent status updated.");
+
+}
+
+function openModal() {
+document.getElementById("agentModal").style.display = "flex";
+}
+
+function closeModal() {
+document.getElementById("agentModal").style.display = "none";
+}
+
+function deleteAgent(id) {
+
+const agent = agents.find(a => a.id === id);
+
+if(!agent || !agent.custom) return;
+
+if(!confirm("Remove this custom agent?")) return;
+
+agents = agents.filter(a => a.id !== id);
+
+saveAgents();
+renderAgents();
+
+showToast("Custom agent removed.");
+
+}
+
+document.getElementById("agentForm").addEventListener("submit",function(e) {
+
+e.preventDefault();
+
+const name = document.getElementById("agentName").value.trim();
+const role = document.getElementById("agentRole").value;
+const description = document.getElementById("agentDescription").value.trim();
+
+if(!name || !description) return;
+
+agents.push({
+id:Date.now(),
+name,
+role,
+icon:"🤖",
+description,
+status:"Idle",
+custom:true
+});
+
+saveAgents();
+renderAgents();
+
+this.reset();
+closeModal();
+
+showToast("New AI agent created successfully.");
+
+});
+
 document.getElementById("search").addEventListener("input",renderAgents);
+
 document.getElementById("filter").addEventListener("change",renderAgents);
+
+function showToast(message) {
+
+const toast = document.getElementById("toast");
+
+toast.textContent = message;
+toast.style.display = "block";
+
+clearTimeout(window.toastTimer);
+
+window.toastTimer = setTimeout(() => {
+toast.style.display = "none";
+},2500);
+
+}
+
 renderAgents();
 </script>
+
 </body>
 </html>
