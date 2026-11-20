@@ -1,1 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA AI — Projects</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,sans-serif;background:#080b14;color:#edf1ff;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:230px;background:#0d1220;border-right:1px solid #202942;padding:26px 16px;flex-shrink:0}
+.logo{font-size:23px;font-weight:800;color:#8b9cff;margin:0 10px 35px}
+.logo span{color:#fff}
+.nav a{display:block;color:#929db8;text-decoration:none;padding:12px 14px;border-radius:9px;margin:5px 0;font-size:14px}
+.nav a:hover,.nav a.active{background:#192344;color:#9eafff}
+main{flex:1;padding:38px;min-width:0}
+.header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:28px}
+h1{font-size:30px;margin-bottom:8px}
+.subtitle{color:#8994ae;font-size:14px}
+button,input,textarea,select{font:inherit;border-radius:8px}
+button{background:#5268e8;color:white;border:0;padding:11px 16px;cursor:pointer}
+button:hover{background:#687df5}
+input,textarea,select{background:#101729;border:1px solid #293754;color:white;padding:11px 13px;width:100%;margin:7px 0 14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:24px}
+.stat,.project{background:#101729;border:1px solid #202d49;border-radius:13px;padding:20px}
+.stat small{color:#8d9ab6}
+.stat strong{display:block;font-size:27px;margin-top:10px}
+.toolbar{display:flex;gap:10px;margin-bottom:18px}
+.toolbar input{flex:1}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+.project h3{font-size:17px;margin-bottom:10px}
+.project p{color:#929db8;font-size:13px;line-height:1.6;min-height:42px}
+.project-meta{font-size:12px;color:#8995b0;margin-top:15px}
+.project-actions{display:flex;gap:8px;margin-top:17px}
+.project-actions button{font-size:12px;padding:8px 10px;background:#1b2949;border:1px solid #344568}
+.project-actions .delete{background:#39202d;border-color:#613044}
+.progress{height:6px;background:#26324b;border-radius:8px;margin-top:13px;overflow:hidden}
+.progress span{display:block;height:100%;background:#788cff}
+.empty{text-align:center;color:#8995ae;padding:35px;background:#101729;border:1px solid #202d49;border-radius:13px;grid-column:1/-1}
+.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:18px;z-index:5}
+.modal-box{width:100%;max-width:450px;background:#111a2e;border:1px solid #304064;border-radius:15px;padding:24px}
+.modal-box h2{margin-bottom:18px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end}
+.secondary{background:#26324c}
+@media(max-width:750px){.sidebar{width:65px;padding:20px 7px}.logo{font-size:0;margin:0 0 25px}.logo:after{content:"N";font-size:22px}.nav a{font-size:0;text-align:center}.nav a:first-letter{font-size:17px}main{padding:22px 14px}.stats{grid-template-columns:1fr}h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA<span> AI</span></div>
+<nav class="nav">
+<a href="../index.html">⌂ Home</a>
+<a href="dashboard.html">▦ Dashboard</a>
+<a href="command-center.html">⌘ Command Center</a>
+<a href="workforce.html">♟ Workforce</a>
+<a href="agent-studio.html">✧ Agent Studio</a>
+<a href="agent-marketplace.html">▤ Marketplace</a>
+<a href="missions.html">◎ Missions</a>
+<a href="task-manager.html">☷ Task Manager</a>
+<a class="active" href="projects.html">▣ Projects</a>
+<a href="workflow-studio.html">◇ Workflow Studio</a>
+</nav>
+</aside>
 
+<main>
+<div class="header">
+<div>
+<h1>Projects</h1>
+<p class="subtitle">Organize missions and work into projects.</p>
+</div>
+<button onclick="openModal()">+ New Project</button>
+</div>
+
+<section class="stats">
+<div class="stat"><small>Total Projects</small><strong id="total">0</strong></div>
+<div class="stat"><small>Active Projects</small><strong id="active">0</strong></div>
+<div class="stat"><small>Completed Projects</small><strong id="completed">0</strong></div>
+</section>
+
+<div class="toolbar">
+<input id="search" placeholder="Search projects..." oninput="render()">
+</div>
+<section class="projects" id="projectList"></section>
+</main>
+</div>
+
+<div class="modal" id="modal">
+<div class="modal-box">
+<h2>Create Project</h2>
+<form id="projectForm">
+<label>Project name</label>
+<input id="projectName" required maxlength="100" placeholder="e.g. Website Launch">
+<label>Description</label>
+<textarea id="projectDescription" rows="3" maxlength="500" placeholder="What is this project about?"></textarea>
+<label>Target date</label>
+<input id="projectDate" type="date">
+<div class="modal-actions">
+<button type="button" class="secondary" onclick="closeModal()">Cancel</button>
+<button type="submit">Create Project</button>
+</div>
+</form>
+</div>
+</div>
+
+<script>
+const KEY="nexoraProjects";
+
+function getProjects(){
+  try{return JSON.parse(localStorage.getItem(KEY))||[]}
+  catch{return []}
+}
+function saveProjects(items){
+  localStorage.setItem(KEY,JSON.stringify(items));
+}
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+function openModal(){
+  document.getElementById("modal").style.display="flex";
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+document.getElementById("projectForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  const projects=getProjects();
+  projects.unshift({
+    name:document.getElementById("projectName").value.trim(),
+    description:document.getElementById("projectDescription").value.trim(),
+    targetDate:document.getElementById("projectDate").value,
+    status:"Active",
+    progress:0,
+    created:new Date().toLocaleDateString()
+  });
+  saveProjects(projects);
+  this.reset();
+  closeModal();
+  render();
+});
+function updateStatus(index,status){
+  const projects=getProjects();
+  if(!projects[index])return;
+  projects[index].status=status;
+  if(status==="Completed")projects[index].progress=100;
+  saveProjects(projects);
+  render();
+}
+function updateProgress(index){
+  const projects=getProjects();
+  if(!projects[index])return;
+  const value=prompt("Enter project progress (0–100):",projects[index].progress||0);
+  if(value===null)return;
+  const number=Number(value);
+  if(!Number.isInteger(number)||number<0||number>100){
+    alert("Enter a whole number from 0 to 100.");
+    return;
+  }
+  projects[index].progress=number;
+  if(number===100)projects[index].status="Completed";
+  else if(projects[index].status==="Completed")projects[index].status="Active";
+  saveProjects(projects);
+  render();
+}
+function deleteProject(index){
+  if(!confirm("Delete this project?"))return;
+  const projects=getProjects();
+  projects.splice(index,1);
+  saveProjects(projects);
+  render();
+}
+function render(){
+  const projects=getProjects();
+  const search=document.getElementById("search").value.toLowerCase();
+
+  document.getElementById("total").textContent=projects.length;
+  document.getElementById("active").textContent=projects.filter(p=>p.status==="Active").length;
+  document.getElementById("completed").textContent=projects.filter(p=>p.status==="Completed").length;
+
+  const filtered=projects.map((p,index)=>({...p,index})).filter(p=>
+    p.name.toLowerCase().includes(search)
+  );
+  const list=document.getElementById("projectList");
+
+  if(!filtered.length){
+    list.innerHTML='<div class="empty">No projects found. Create your first project.</div>';
+    return;
+  }
+
+  list.innerHTML=filtered.map(p=>`
+    <article class="project">
+      <h3>${escapeHTML(p.name)}</h3>
+      <p>${escapeHTML(p.description||"No description added.")}</p>
+      <div class="progress"><span style="width:${Number(p.progress)||0}%"></span></div>
+      <div class="project-meta">
+        Status: ${escapeHTML(p.status)}<br>
+        Progress: ${Number(p.progress)||0}%<br>
+        Target: ${escapeHTML(p.targetDate||"Not set")}<br>
+        Created: ${escapeHTML(p.created||"")}
+      </div>
+      <div class="project-actions">
+        <button onclick="updateProgress(${p.index})">Update Progress</button>
+        <button onclick="updateStatus(${p.index},'Completed')">Complete</button>
+        <button class="delete" onclick="deleteProject(${p.index})">Delete</button>
+      </div>
+    </article>
+  `).join("");
+}
+render();
+</script>
+</body>
+</html>
