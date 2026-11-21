@@ -1,1 +1,27 @@
+<section class="nx-notification-center" id="nxNotificationCenter"
+  aria-label="Notification center" aria-live="polite">
+  <div class="nx-notification-header">
+    <strong>NEXORA NOTIFICATIONS</strong>
+    <button type="button" data-notification-clear>Clear All</button>
+  </div>
 
+  <div class="nx-notification-list" data-notification-list>
+    <div class="nx-notification-empty">
+      <span>♧</span>
+      <p>No new notifications.</p>
+    </div>
+  </div>
+
+  <template id="nxNotificationTemplate">
+    <article class="nx-notification-item">
+      <span class="nx-notification-icon" data-notification-icon>✦</span>
+      <div>
+        <strong data-notification-title>Notification</strong>
+        <p data-notification-message>Notification message</p>
+        <small data-notification-time>Just now</small>
+      </div>
+      <button type="button" data-notification-dismiss
+        aria-label="Dismiss notification">✕</button>
+    </article>
+  </template>
+</section>
