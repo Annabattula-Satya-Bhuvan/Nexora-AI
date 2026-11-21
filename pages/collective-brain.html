@@ -1,1 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA AI | Collective Brain</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,sans-serif;background:#080d1b;color:#eef2ff;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#0d1528;border-right:1px solid #202c46;padding:28px 17px;flex-shrink:0}
+.logo{font-size:22px;font-weight:800;margin-bottom:38px}
+.logo span{color:#8b7cff}
+.nav a{display:block;text-decoration:none;color:#9eabc5;padding:12px;border-radius:9px;font-size:13px;margin:4px 0}
+.nav a:hover,.nav a.active{background:#202b49;color:white}
+.nav-label{font-size:10px;letter-spacing:2px;color:#697895;margin:22px 10px 10px}
+main{flex:1;padding:35px;min-width:0}
+.header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:25px}
+h1{font-size:29px}
+.subtitle{color:#8997b4;font-size:14px;margin-top:8px}
+button{border:0;border-radius:8px;padding:10px 14px;background:#7164ed;color:white;font-weight:700;cursor:pointer}
+button:hover{background:#887cff}
+button.secondary{background:#26334e}
+button.danger{background:#6c2c42}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat,.panel,.knowledge-card{background:#101a30;border:1px solid #24314e;border-radius:13px;padding:18px}
+.stat small{color:#91a0bd}
+.stat strong{display:block;font-size:26px;margin-top:8px}
+.notice{font-size:12px;color:#a7b4cd;line-height:1.6;background:#171d37;border:1px solid #39365f;padding:12px;border-radius:9px;margin-bottom:18px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+input,select,textarea{background:#0b1427;border:1px solid #2b3a5a;color:white;border-radius:8px;padding:11px;font:inherit}
+input{flex:1;min-width:180px}
+select{min-width:145px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.knowledge-card{min-width:0}
+.card-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.category{font-size:10px;color:#b7aaff;background:#29264d;padding:5px 8px;border-radius:20px}
+.status{font-size:10px;color:#f5cf82}
+.status.approved{color:#6ee7b7}
+.knowledge-card h3{font-size:16px;margin:13px 0 8px}
+.knowledge-card p{font-size:13px;color:#aab7ce;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.meta{font-size:10px;color:#7888a6;margin-top:12px}
+.card-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.card-actions button{font-size:11px;padding:8px 10px}
+.empty{grid-column:1/-1;text-align:center;color:#8997b4;padding:45px 10px;font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:18px;z-index:5}
+.modal.show{display:flex}
+.modal-box{background:#101a30;border:1px solid #344363;border-radius:15px;padding:22px;width:100%;max-width:540px;max-height:90vh;overflow:auto}
+.modal-box h2{margin-bottom:18px}
+.field{margin-bottom:14px}
+.field label{display:block;color:#9eabc5;font-size:12px;margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%}
+.field textarea{min-height:120px;resize:vertical}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:750px){
+.sidebar{width:65px;padding:20px 7px}
+.logo{font-size:0;margin-bottom:25px}
+.logo:after{content:"N";font-size:22px}
+.nav-label{display:none}
+.nav a{font-size:0;text-align:center;padding:13px 5px}
+.nav a:first-letter{font-size:17px}
+main{padding:22px 14px}
+.grid{grid-template-columns:1fr}
+h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA<span> AI</span></div>
+<nav class="nav">
+<div class="nav-label">WORKSPACE</div>
+<a href="../index.html">⌂ Home</a>
+<a href="dashboard.html">▦ Dashboard</a>
+<a href="command-center.html">⌘ Command Center</a>
+<a href="workforce.html">♟ Workforce</a>
+<a href="agent-studio.html">✧ Agent Studio</a>
+<a href="agent-marketplace.html">▤ Marketplace</a>
+<div class="nav-label">OPERATIONS</div>
+<a href="missions.html">◎ Missions</a>
+<a href="task-manager.html">☷ Task Manager</a>
+<a href="projects.html">▣ Projects</a>
+<a href="workflow-studio.html">◇ Workflow Studio</a>
+<a href="mission-templates.html">▤ Mission Templates</a>
+<div class="nav-label">INTELLIGENCE</div>
+<a href="war-room.html">⚡ AI War Room</a>
+<a class="active" href="collective-brain.html">◉ Collective Brain</a>
+<a href="verification-center.html">✓ Verification Center</a>
+<a href="execution-history.html">◷ Execution History</a>
+<a href="digital-twin.html">◇ Digital Twin</a>
+<div class="nav-label">RESOURCES</div>
+<a href="knowledge-base.html">▤ Knowledge Base</a>
+<a href="file-manager.html">▱ File Manager</a>
+<a href="integrations.html">⌘ Integrations</a>
+<a href="analytics.html">▥ Analytics</a>
+</nav>
+</aside>
 
+<main>
+<div class="header">
+<div>
+<h1>◉ Collective Brain</h1>
+<p class="subtitle">A shared library of approved knowledge for your AI workforce.</p>
+</div>
+<button onclick="openModal()">+ Add Knowledge</button>
+</div>
+
+<div class="notice">
+Demo mode: knowledge entries are saved in this browser using local storage. Approved entries are marked as shared knowledge, but agents cannot access them automatically until backend integration is implemented.
+</div>
+
+<section class="stats">
+<div class="stat"><small>Total Entries</small><strong id="totalCount">0</strong></div>
+<div class="stat"><small>Approved</small><strong id="approvedCount">0</strong></div>
+<div class="stat"><small>Pending Review</small><strong id="pendingCount">0</strong></div>
+<div class="stat"><small>Categories</small><strong id="categoryCount">0</strong></div>
+</section>
+
+<div class="toolbar">
+<input id="search" placeholder="Search shared knowledge..." oninput="render()">
+<select id="filter" onchange="render()">
+<option value="all">All Entries</option>
+<option value="Approved">Approved Only</option>
+<option value="Pending">Pending Review</option>
+</select>
+<select id="categoryFilter" onchange="render()">
+<option value="all">All Categories</option>
+<option>Research</option>
+<option>Projects</option>
+<option>Technical</option>
+<option>Business</option>
+<option>General</option>
+</select>
+</div>
+
+<section class="grid" id="knowledgeGrid"></section>
+</main>
+</div>
+
+<div class="modal" id="knowledgeModal">
+<div class="modal-box">
+<h2>Add Knowledge</h2>
+<form id="knowledgeForm">
+<div class="field">
+<label for="title">Knowledge Title</label>
+<input id="title" maxlength="120" required placeholder="Enter a clear title">
+</div>
+<div class="field">
+<label for="category">Category</label>
+<select id="category" required>
+<option>Research</option>
+<option>Projects</option>
+<option>Technical</option>
+<option>Business</option>
+<option>General</option>
+</select>
+</div>
+<div class="field">
+<label for="content">Knowledge / Information</label>
+<textarea id="content" maxlength="5000" required placeholder="Enter useful information that can be shared with the workforce..."></textarea>
+</div>
+<div class="field">
+<label for="source">Source or Reference (optional)</label>
+<input id="source" maxlength="300" placeholder="Add a source, URL or reference">
+</div>
+<div class="modal-actions">
+<button type="button" class="secondary" onclick="closeModal()">Cancel</button>
+<button type="submit">Save Entry</button>
+</div>
+</form>
+</div>
+</div>
+
+<script>
+const KEY = "nexoraCollectiveBrain";
+
+function readEntries(){
+  try{
+    return JSON.parse(localStorage.getItem(KEY)) || [];
+  }catch{
+    return [];
+  }
+}
+
+function saveEntries(entries){
+  localStorage.setItem(KEY, JSON.stringify(entries));
+}
+
+function openModal(){
+  document.getElementById("knowledgeModal").classList.add("show");
+}
+
+function closeModal(){
+  document.getElementById("knowledgeModal").classList.remove("show");
+}
+
+document.getElementById("knowledgeForm").addEventListener("submit", function(event){
+  event.preventDefault();
+
+  const entries = readEntries();
+
+  entries.unshift({
+    id: Date.now().toString(),
+    title: document.getElementById("title").value.trim(),
+    category: document.getElementById("category").value,
+    content: document.getElementById("content").value.trim(),
+    source: document.getElementById("source").value.trim(),
+    status: "Pending",
+    created: new Date().toISOString()
+  });
+
+  saveEntries(entries);
+  this.reset();
+  closeModal();
+  render();
+});
+
+function approveEntry(id){
+  const entries = readEntries();
+  const item = entries.find(entry => entry.id === id);
+  if(!item) return;
+
+  item.status = "Approved";
+  item.approvedAt = new Date().toISOString();
+
+  saveEntries(entries);
+  render();
+}
+
+function deleteEntry(id){
+  if(!confirm("Delete this knowledge entry?")) return;
+
+  saveEntries(readEntries().filter(entry => entry.id !== id));
+  render();
+}
+
+function copyEntry(id){
+  const item = readEntries().find(entry => entry.id === id);
+  if(!item) return;
+
+  const text = item.title + "\n\n" + item.content +
+    (item.source ? "\n\nSource: " + item.source : "");
+
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text)
+      .then(() => alert("Knowledge copied."))
+      .catch(() => alert("Could not copy automatically. Please copy the entry manually."));
+  }else{
+    alert("Clipboard access is unavailable in this browser.");
+  }
+}
+
+function render(){
+  const entries = readEntries();
+  const search = document.getElementById("search").value.toLowerCase();
+  const status = document.getElementById("filter").value;
+  const category = document.getElementById("categoryFilter").value;
+
+  const approved = entries.filter(entry => entry.status === "Approved");
+  const pending = entries.filter(entry => entry.status === "Pending");
+  const categories = new Set(entries.map(entry => entry.category));
+
+  document.getElementById("totalCount").textContent = entries.length;
+  document.getElementById("approvedCount").textContent = approved.length;
+  document.getElementById("pendingCount").textContent = pending.length;
+  document.getElementById("categoryCount").textContent = categories.size;
+
+  const filtered = entries.filter(entry => {
+    const matchesSearch =
+      entry.title.toLowerCase().includes(search) ||
+      entry.content.toLowerCase().includes(search) ||
+      (entry.source || "").toLowerCase().includes(search);
+
+    const matchesStatus = status === "all" || entry.status === status;
+    const matchesCategory = category === "all" || entry.category === category;
+
+    return matchesSearch && matchesStatus && matchesCategory;
+  });
+
+  const grid = document.getElementById("knowledgeGrid");
+  grid.replaceChildren();
+
+  if(!filtered.length){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = entries.length
+      ? "No entries match your search or filters."
+      : "Your Collective Brain is empty. Add your first knowledge entry.";
+    grid.append(empty);
+    return;
+  }
+
+  filtered.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "knowledge-card";
+
+    const top = document.createElement("div");
+    top.className = "card-top";
+
+    const categoryTag = document.createElement("span");
+    categoryTag.className = "category";
+    categoryTag.textContent = item.category;
+
+    const statusTag = document.createElement("span");
+    statusTag.className = "status " + (item.status === "Approved" ? "approved" : "");
+    statusTag.textContent = item.status;
+
+    top.append(categoryTag, statusTag);
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const content = document.createElement("p");
+    content.textContent = item.content;
+
+    const source = document.createElement("div");
+    source.className = "meta";
+    source.textContent = item.source ? "Source: " + item.source : "No source provided";
+
+    const date = document.createElement("div");
+    date.className = "meta";
+    date.textContent = "Added: " + new Date(item.created).toLocaleString();
+
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    const copy = document.createElement("button");
+    copy.className = "secondary";
+    copy.textContent = "Copy";
+    copy.onclick = () => copyEntry(item.id);
+    actions.append(copy);
+
+    if(item.status !== "Approved"){
+      const approve = document.createElement("button");
+      approve.textContent = "Approve";
+      approve.onclick = () => approveEntry(item.id);
+      actions.append(approve);
+    }
+
+    const remove = document.createElement("button");
+    remove.className = "danger";
+    remove.textContent = "Delete";
+    remove.onclick = () => deleteEntry(item.id);
+    actions.append(remove);
+
+    card.append(top, title, content, source, date, actions);
+    grid.append(card);
+  });
+}
+
+document.getElementById("knowledgeModal").addEventListener("click", function(event){
+  if(event.target === this) closeModal();
+});
+
+render();
+</script>
+</body>
+</html>
