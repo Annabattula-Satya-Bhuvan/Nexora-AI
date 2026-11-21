@@ -1,1 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA AI | Mission Templates</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,sans-serif;background:#080d1b;color:#eef2ff;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#0d1528;border-right:1px solid #202c46;padding:28px 17px;flex-shrink:0}
+.logo{font-size:22px;font-weight:800;margin-bottom:38px}
+.logo span{color:#8b7cff}
+.nav a{display:block;text-decoration:none;color:#9eabc5;padding:12px;border-radius:9px;font-size:13px;margin:4px 0}
+.nav a:hover,.nav a.active{background:#202b49;color:#fff}
+.nav-label{font-size:10px;letter-spacing:2px;color:#697895;margin:22px 10px 10px}
+main{flex:1;padding:38px;min-width:0}
+.header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px;flex-wrap:wrap}
+h1{font-size:30px}
+.subtitle{color:#8997b4;font-size:14px;margin-top:8px}
+button{border:0;border-radius:8px;padding:10px 14px;background:#7164ed;color:white;font-weight:700;cursor:pointer}
+button:hover{background:#887cff}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:25px}
+.stat,.template{background:#101a30;border:1px solid #24314e;border-radius:13px;padding:19px}
+.stat small{color:#91a0bd}
+.stat strong{display:block;font-size:27px;margin-top:9px}
+.toolbar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+input,select,textarea{background:#101a30;border:1px solid #2b3a5a;color:white;border-radius:8px;padding:12px;font:inherit}
+.toolbar input{flex:1;min-width:180px}
+.toolbar select{min-width:160px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}
+.template{display:flex;flex-direction:column;min-height:240px}
+.template-icon{font-size:27px;margin-bottom:15px}
+.template h3{font-size:17px}
+.template p{font-size:13px;color:#94a1bb;line-height:1.6;margin-top:9px;flex:1}
+.tag{display:inline-block;font-size:10px;color:#b7aaff;background:#28234b;border-radius:20px;padding:6px 10px;margin-top:14px;width:max-content}
+.template button{margin-top:18px;width:100%}
+.empty{text-align:center;color:#8997b4;padding:45px 15px}
+.notice{background:#111a30;border:1px solid #293653;border-radius:10px;padding:14px;color:#9eabc5;font-size:12px;margin-bottom:20px;line-height:1.6}
+@media(max-width:750px){
+.sidebar{width:65px;padding:20px 7px}
+.logo{font-size:0;margin-bottom:25px}
+.logo:after{content:"N";font-size:22px}
+.nav-label{display:none}
+.nav a{font-size:0;text-align:center;padding:13px 5px}
+.nav a:first-letter{font-size:17px}
+main{padding:22px 14px}
+.stats{grid-template-columns:1fr}
+h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA<span> AI</span></div>
+<nav class="nav">
+<div class="nav-label">WORKSPACE</div>
+<a href="../index.html">⌂ Home</a>
+<a href="dashboard.html">▦ Dashboard</a>
+<a href="command-center.html">⌘ Command Center</a>
+<a href="workforce.html">♟ Workforce</a>
+<a href="agent-studio.html">✧ Agent Studio</a>
+<a href="agent-marketplace.html">▤ Marketplace</a>
 
+<div class="nav-label">OPERATIONS</div>
+<a href="missions.html">◎ Missions</a>
+<a href="task-manager.html">☷ Task Manager</a>
+<a href="projects.html">▣ Projects</a>
+<a href="workflow-studio.html">◇ Workflow Studio</a>
+<a class="active" href="mission-templates.html">▤ Mission Templates</a>
+
+<div class="nav-label">INTELLIGENCE</div>
+<a href="war-room.html">⚡ AI War Room</a>
+<a href="collective-brain.html">◉ Collective Brain</a>
+<a href="verification-center.html">✓ Verification Center</a>
+<a href="execution-history.html">◷ Execution History</a>
+</nav>
+</aside>
+
+<main>
+<div class="header">
+<div>
+<h1>Mission Templates</h1>
+<p class="subtitle">Launch common AI missions using ready-made templates.</p>
+</div>
+<button onclick="location.href='command-center.html'">Open Command Center</button>
+</div>
+
+<section class="stats">
+<div class="stat"><small>Available Templates</small><strong id="total">0</strong></div>
+<div class="stat"><small>Mission Launches</small><strong id="launches">0</strong></div>
+<div class="stat"><small>Template Categories</small><strong id="categories">0</strong></div>
+</section>
+
+<div class="notice">
+Choose a template to prepare a mission. NEXORA will open the Command Center with the suggested task. AI execution is not enabled in this frontend preview.
+</div>
+
+<div class="toolbar">
+<input id="search" placeholder="Search templates..." oninput="render()">
+<select id="category" onchange="render()">
+<option value="all">All Categories</option>
+<option value="Research">Research</option>
+<option value="Development">Development</option>
+<option value="Business">Business</option>
+<option value="Content">Content</option>
+<option value="Analysis">Analysis</option>
+</select>
+</div>
+
+<section class="grid" id="templateGrid"></section>
+</main>
+</div>
+
+<script>
+const templates = [
+{
+id:"website",
+icon:"🌐",
+name:"Build a Website",
+category:"Development",
+description:"Plan and create a professional website with design, development and testing tasks.",
+task:"Plan and build a professional website. Define the requirements, create the design, develop the pages, and prepare a testing checklist."
+},
+{
+id:"market-research",
+icon:"🔎",
+name:"Market Research",
+category:"Research",
+description:"Investigate a market, identify competitors and organize useful findings.",
+task:"Conduct market research for my chosen business or product. Identify the target audience, competitors, market opportunities and key findings."
+},
+{
+id:"business-plan",
+icon:"📊",
+name:"Business Plan",
+category:"Business",
+description:"Prepare a structured business plan with objectives, strategy and milestones.",
+task:"Create a structured business plan. Include the business concept, target market, value proposition, operations, marketing strategy, risks and milestones."
+},
+{
+id:"content",
+icon:"✍️",
+name:"Content Strategy",
+category:"Content",
+description:"Develop a content plan with topics, audience focus and publishing ideas.",
+task:"Create a content strategy for my brand. Define the target audience, content pillars, topic ideas, publishing schedule and performance measures."
+},
+{
+id:"data-analysis",
+icon:"📈",
+name:"Data Analysis",
+category:"Analysis",
+description:"Organize a data analysis task and identify trends, patterns and insights.",
+task:"Analyze the data I provide. Identify important patterns, trends, anomalies and insights, and prepare a clear summary of the findings."
+},
+{
+id:"product-launch",
+icon:"🚀",
+name:"Product Launch",
+category:"Business",
+description:"Prepare a product launch plan with positioning, marketing and launch activities.",
+task:"Create a product launch plan. Include positioning, audience, messaging, marketing channels, launch timeline and success metrics."
+},
+{
+id:"code-review",
+icon:"💻",
+name:"Code Review",
+category:"Development",
+description:"Review a software project for quality, bugs, maintainability and security concerns.",
+task:"Review the code I provide. Identify bugs, security concerns, performance issues and maintainability improvements. Explain recommended fixes."
+},
+{
+id:"fact-check",
+icon:"✓",
+name:"Fact Verification",
+category:"Research",
+description:"Check important claims against reliable sources and flag uncertainty.",
+task:"Verify the claims and information I provide. Identify supporting evidence, reliable sources, contradictions and claims that remain uncertain."
+},
+{
+id:"marketing",
+icon:"📣",
+name:"Marketing Campaign",
+category:"Content",
+description:"Develop a marketing campaign with messaging, channels and measurable goals.",
+task:"Develop a marketing campaign for my product or service. Define the audience, campaign message, content ideas, channels, schedule and measurable goals."
+},
+{
+id:"project-plan",
+icon:"🗂️",
+name:"Project Planning",
+category:"Business",
+description:"Break a project into milestones, tasks, dependencies and deliverables.",
+task:"Create a detailed project plan. Break the objective into milestones, tasks, dependencies, responsibilities, risks and deliverables."
+},
+{
+id:"competitor",
+icon:"⚖️",
+name:"Competitor Analysis",
+category:"Analysis",
+description:"Compare competitors and identify their strengths, weaknesses and opportunities.",
+task:"Conduct a competitor analysis. Compare key competitors, their products, positioning, strengths, weaknesses and potential opportunities."
+},
+{
+id:"technical-docs",
+icon:"📚",
+name:"Technical Documentation",
+category:"Development",
+description:"Create organized technical documentation for a software project.",
+task:"Prepare technical documentation for my software project. Cover its purpose, architecture, setup, features, configuration and usage."
+}
+];
+
+const LAUNCH_KEY = "nexoraTemplateLaunches";
+
+function getLaunches(){
+  try {
+    return JSON.parse(localStorage.getItem(LAUNCH_KEY)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function render(){
+  const query = document.getElementById("search").value.toLowerCase();
+  const category = document.getElementById("category").value;
+
+  document.getElementById("total").textContent = templates.length;
+  document.getElementById("launches").textContent = getLaunches().length;
+  document.getElementById("categories").textContent =
+    new Set(templates.map(t => t.category)).size;
+
+  const filtered = templates.filter(template => {
+    const matchesSearch =
+      template.name.toLowerCase().includes(query) ||
+      template.description.toLowerCase().includes(query);
+
+    const matchesCategory =
+      category === "all" || template.category === category;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  const grid = document.getElementById("templateGrid");
+  grid.replaceChildren();
+
+  if(!filtered.length){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "No templates match your search.";
+    grid.append(empty);
+    return;
+  }
+
+  filtered.forEach(template => {
+    const card = document.createElement("article");
+    card.className = "template";
+
+    const icon = document.createElement("div");
+    icon.className = "template-icon";
+    icon.textContent = template.icon;
+
+    const title = document.createElement("h3");
+    title.textContent = template.name;
+
+    const description = document.createElement("p");
+    description.textContent = template.description;
+
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = template.category;
+
+    const button = document.createElement("button");
+    button.textContent = "Use This Template";
+    button.addEventListener("click", () => useTemplate(template.id));
+
+    card.append(icon, title, description, tag, button);
+    grid.append(card);
+  });
+}
+
+function useTemplate(id){
+  const template = templates.find(t => t.id === id);
+  if(!template) return;
+
+  const launches = getLaunches();
+
+  launches.unshift({
+    id: Date.now().toString(),
+    templateId: template.id,
+    name: template.name,
+    launched: new Date().toISOString()
+  });
+
+  localStorage.setItem(LAUNCH_KEY, JSON.stringify(launches));
+
+  const destination =
+    "command-center.html?task=" + encodeURIComponent(template.task);
+
+  window.location.href = destination;
+}
+
+render();
+</script>
+</body>
+</html>
