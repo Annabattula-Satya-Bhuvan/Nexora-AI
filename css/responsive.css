@@ -1,1 +1,105 @@
+@media (max-width: 1200px) {
+  .nx-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
+  .nx-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --nx-sidebar-width: 0px;
+    --nx-navbar-height: 68px;
+  }
+
+  .nx-sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 250ms ease;
+  }
+
+  .nx-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .nx-navbar {
+    left: 0;
+    padding-inline: 18px;
+  }
+
+  .nx-main {
+    margin-left: 0;
+    padding: 22px;
+    padding-top: calc(var(--nx-navbar-height) + 22px);
+  }
+
+  .nx-dashboard-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nx-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .nx-main {
+    padding: 16px;
+    padding-top: calc(var(--nx-navbar-height) + 18px);
+  }
+
+  .nx-navbar {
+    padding-inline: 14px;
+  }
+
+  .nx-navbar-search {
+    display: none;
+  }
+
+  .nx-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nx-welcome-panel {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 23px;
+  }
+
+  .nx-stat-grid,
+  .nx-grid-2,
+  .nx-grid-3,
+  .nx-grid-4,
+  .nx-agent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nx-card {
+    padding: 17px;
+  }
+
+  .nx-stat-value {
+    font-size: 27px;
+  }
+
+  .nx-command-input {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .nx-command-input .nx-btn {
+    width: 100%;
+  }
+
+  .nx-between {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nx-welcome-title {
+    font-size: 29px;
+  }
+}
