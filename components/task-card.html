@@ -1,1 +1,24 @@
+<template id="nxTaskCardTemplate">
+  <article class="nx-task-card" data-task-card>
+    <div class="nx-task-heading">
+      <label class="nx-task-check">
+        <input type="checkbox" data-task-checkbox>
+        <span data-task-title>Task title</span>
+      </label>
+      <span data-task-status class="nx-task-status">PENDING</span>
+    </div>
 
+    <p data-task-description>Task description goes here.</p>
+
+    <div class="nx-task-meta">
+      <span>Assigned: <strong data-task-agent>Unassigned</strong></span>
+      <span>Priority: <strong data-task-priority>Normal</strong></span>
+      <span>Due: <strong data-task-due>Not set</strong></span>
+    </div>
+
+    <div class="nx-task-footer">
+      <span data-task-category>GENERAL TASK</span>
+      <button type="button" data-task-open>Open Task ↗</button>
+    </div>
+  </article>
+</template>
