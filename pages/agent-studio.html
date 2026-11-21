@@ -1,146 +1,242 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NEXORA AI | Agent Studio</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#080b14;color:#eef2ff;font-family:Arial,sans-serif}
-header{padding:22px 7%;border-bottom:1px solid #202944;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:22px;font-weight:bold;color:#65aaff}
-a{color:#8ebcff;text-decoration:none}
-main{max-width:1100px;margin:45px auto;padding:0 22px}
-h1{font-size:34px;margin-bottom:8px}
-.sub{color:#8995ae;margin-bottom:30px}
-.panel,.agent{background:#101729;border:1px solid #243451;border-radius:14px;padding:24px}
-.panel{max-width:650px;margin-bottom:35px}
-label{display:block;margin:17px 0 8px;color:#b8c6df}
-input,textarea,select{width:100%;padding:13px;background:#080f20;border:1px solid #30415f;border-radius:8px;color:white;font-size:15px}
-textarea{min-height:90px;resize:vertical}
-button{padding:12px 18px;border:0;border-radius:8px;background:linear-gradient(90deg,#287cff,#7657ff);color:white;font-weight:bold;cursor:pointer}
-button:hover{opacity:.88}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
-.agent h3{margin:8px 0}
-.agent p{color:#9eabc4;line-height:1.5}
-.agent small{color:#68dba8}
-.delete{background:#542b3b;margin-top:14px}
-.notice{color:#8c9bb5;font-size:13px;margin-top:18px}
+:root{--bg:#080a14;--panel:#101426;--border:#252b46;--blue:#438bff;--violet:#9565ff;--text:#f3f4ff;--muted:#929bb8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:235px;background:#0c1020;border-right:1px solid var(--border);padding:25px 15px;flex-shrink:0}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:0 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
+.nav-label{font-size:10px;color:#687493;padding:16px 10px 8px;letter-spacing:1px}
+.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:13px;margin:3px 0}
+.nav-link:hover,.nav-link.active{background:#202b50;color:white}
+.nav-link.active{border-left:3px solid var(--blue)}
+main{flex:1;min-width:0;padding:30px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px}
+.top p{color:var(--muted);font-size:12px;margin-top:5px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
+h1{font-size:32px;margin-bottom:10px}
+.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
+.builder{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:25px}
+h2{font-size:17px;margin-bottom:18px}
+label{display:block;font-size:12px;color:#bdc5dd;margin:16px 0 8px}
+input,textarea,select{width:100%;background:#0b1020;border:1px solid #303956;border-radius:9px;padding:12px;color:white;outline:none}
+textarea{min-height:115px;resize:vertical;line-height:1.6}
+input:focus,textarea:focus,select:focus{border-color:var(--blue)}
+button{border:0;border-radius:9px;padding:12px 17px;color:white;background:linear-gradient(90deg,#347df5,#8651ed);font-weight:bold;cursor:pointer}
+button:hover{opacity:.85}
+.secondary{background:#202b50;border:1px solid #394568}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.option{display:flex;align-items:center;gap:9px;margin:13px 0;font-size:12px;color:#bdc5dd}
+.option input{width:auto}
+.agent-card{border:1px solid var(--border);border-radius:10px;padding:15px;margin-bottom:12px}
+.agent-card strong{font-size:13px}
+.agent-card p{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5}
+.agent-icon{font-size:22px;margin-bottom:9px}
+.agent-list{margin-top:22px}
+.agent-list-item{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--border);font-size:12px}
+.agent-list-item span{color:#48dba5;font-size:10px}
+.empty{font-size:12px;color:var(--muted);padding:15px 0}
+#toast{position:fixed;bottom:25px;right:25px;background:#192744;border:1px solid #4564a4;padding:14px 18px;border-radius:9px;display:none;font-size:12px}
+@media(max-width:850px){.builder{grid-template-columns:1fr}}
+@media(max-width:650px){.sidebar{display:none}main{padding:20px 14px}h1{font-size:26px}}
 </style>
 </head>
 <body>
-<header>
-<div class="logo">NEXORA AI</div>
-<a href="../index.html">← Back to Home</a>
-</header>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+<div class="nav-label">WORKSPACE</div>
+<a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+<a class="nav-link" href="command-center.html">⌘ Command Center</a>
+<a class="nav-link" href="workforce.html">♟ AI Workforce</a>
+<a class="nav-link active" href="agent-studio.html">✧ Agent Studio</a>
+<a class="nav-link" href="agent-marketplace.html">▦ Agent Marketplace</a>
+<div class="nav-label">OPERATIONS</div>
+<a class="nav-link" href="missions.html">◉ Missions</a>
+<a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+<a class="nav-link" href="projects.html">▣ Projects</a>
+<a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+<div class="nav-label">INTELLIGENCE</div>
+<a class="nav-link" href="war-room.html">⚡ AI War Room</a>
+<a class="nav-link" href="collective-brain.html">◉ Collective Brain</a>
+<a class="nav-link" href="verification-center.html">✓ Verification Center</a>
+</aside>
 
 <main>
-<h1>Agent Studio</h1>
-<p class="sub">Design, configure and manage your AI workforce.</p>
+<header class="top">
+<div><strong>AGENT STUDIO</strong><p>NEXORA AI / Agent Builder</p></div>
+<div class="avatar">N</div>
+</header>
 
-<section class="panel">
-<h2>Create a New Agent</h2>
-
-<form id="agentForm">
-<label for="name">Agent Name</label>
-<input id="name" placeholder="e.g. Research Assistant" required>
-
-<label for="role">Agent Role</label>
-<select id="role" required>
-<option value="">Choose a role</option>
-<option>Research</option>
-<option>Marketing</option>
-<option>Development</option>
-<option>Operations</option>
-<option>Finance</option>
-<option>Customer Support</option>
-<option>Custom</option>
-</select>
-
-<label for="icon">Agent Icon (emoji)</label>
-<input id="icon" value="🤖" maxlength="4">
-
-<label for="description">Agent Description</label>
-<textarea id="description" placeholder="What should this agent help with?" required></textarea>
-
-<button type="submit">+ Create Agent</button>
-</form>
-<p class="notice">Agents are saved in this browser and shared with the Workforce page on this device.</p>
+<section>
+<p style="color:#38d9ed;font-size:11px;letter-spacing:2px;margin-bottom:12px">✦ DESIGN YOUR OWN INTELLIGENCE</p>
+<h1>Agent <span class="gradient">Studio</span></h1>
+<p class="subtitle">Create and configure specialized AI agents for your workforce.</p>
 </section>
 
-<h2>Your Custom Agents</h2>
-<div class="grid" id="agents"></div>
+<div class="builder">
+<section class="panel">
+<h2>✧ Create a New Agent</h2>
+<form id="agentForm">
+<label for="agentName">Agent Name</label>
+<input id="agentName" maxlength="50" placeholder="Example: Marketing Strategist" required>
+
+<label for="role">Agent Role</label>
+<select id="role">
+<option>Research Specialist</option>
+<option>Software Developer</option>
+<option>Business Strategist</option>
+<option>Data Analyst</option>
+<option>Content Writer</option>
+<option>Security Specialist</option>
+<option>Customer Support</option>
+<option>Custom Specialist</option>
+</select>
+
+<label for="description">Agent Description</label>
+<textarea id="description" maxlength="500" placeholder="What should this agent do?" required></textarea>
+
+<label for="instructions">Core Instructions</label>
+<textarea id="instructions" maxlength="1500" placeholder="Describe the agent's responsibilities, working style and rules..."></textarea>
+
+<label for="model">Preferred AI Model</label>
+<select id="model">
+<option>Model selection — configure later</option>
+<option>OpenAI</option>
+<option>Anthropic</option>
+<option>Google</option>
+<option>Other provider</option>
+</select>
+
+<label>Agent Capabilities</label>
+<div class="option"><input type="checkbox" name="capability" value="Research"> Research</div>
+<div class="option"><input type="checkbox" name="capability" value="Analysis"> Analysis</div>
+<div class="option"><input type="checkbox" name="capability" value="Writing"> Writing</div>
+<div class="option"><input type="checkbox" name="capability" value="Coding"> Coding</div>
+<div class="option"><input type="checkbox" name="capability" value="Planning"> Planning</div>
+<div class="option"><input type="checkbox" name="capability" value="Verification"> Verification</div>
+
+<div class="actions">
+<button type="submit">Create Agent ↗</button>
+<button type="reset" class="secondary">Reset</button>
+</div>
+<p class="subtitle" style="margin-top:15px;font-size:11px">Preview mode: agent configurations are stored in this browser only. No AI model is connected.</p>
+</form>
+</section>
+
+<section class="panel">
+<h2>◈ Agent Configuration</h2>
+<div class="agent-card">
+<div class="agent-icon">🧠</div>
+<strong>Identity & Role</strong>
+<p>Define the agent's name, specialization and responsibilities.</p>
+</div>
+<div class="agent-card">
+<div class="agent-icon">📋</div>
+<strong>Instructions</strong>
+<p>Set operating guidelines, objectives and behavior.</p>
+</div>
+<div class="agent-card">
+<div class="agent-icon">⚙️</div>
+<strong>Model Provider</strong>
+<p>Choose a preferred provider. API integration comes later.</p>
+</div>
+<div class="agent-card">
+<div class="agent-icon">🔧</div>
+<strong>Capabilities</strong>
+<p>Specify the skills and tools the agent may eventually use.</p>
+</div>
+
+<div class="agent-list">
+<h2 style="margin-bottom:5px">Your Custom Agents</h2>
+<div id="customAgents"><p class="empty">No custom agents created yet.</p></div>
+</div>
+</section>
+</div>
 </main>
+</div>
+
+<div id="toast"></div>
 
 <script>
-const STORAGE_KEY = "nexoraWorkforce";
+const form=document.getElementById("agentForm");
+const container=document.getElementById("customAgents");
 
-function getAgents(){
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  } catch {
-    return [];
-  }
+function showToast(message){
+const toast=document.getElementById("toast");
+toast.textContent=message;
+toast.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>toast.style.display="none",2600);
 }
 
-function saveAgents(agents){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(agents));
+function getAgents(){
+return JSON.parse(localStorage.getItem("nexoraCustomAgents")||"[]");
 }
 
 function renderAgents(){
-  const agents = getAgents().filter(agent => agent.custom);
-  const container = document.getElementById("agents");
+const agents=getAgents();
+container.replaceChildren();
 
-  if(!agents.length){
-    container.innerHTML = '<p class="sub">No custom agents yet. Create your first agent above.</p>';
-    return;
-  }
-
-  container.innerHTML = agents.map(agent => `
-    <article class="agent">
-      <div style="font-size:30px">${escapeHTML(agent.icon || "🤖")}</div>
-      <h3>${escapeHTML(agent.name)}</h3>
-      <small>${escapeHTML(agent.role)}</small>
-      <p>${escapeHTML(agent.description)}</p>
-      <button class="delete" data-delete="${escapeHTML(agent.id)}">Delete Agent</button>
-    </article>
-  `).join("");
+if(!agents.length){
+const empty=document.createElement("p");
+empty.className="empty";
+empty.textContent="No custom agents created yet.";
+container.append(empty);
+return;
 }
 
-function escapeHTML(value){
-  return String(value).replace(/[&<>"']/g, char => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[char]);
+agents.forEach(agent=>{
+const item=document.createElement("div");
+item.className="agent-list-item";
+
+const name=document.createElement("strong");
+name.textContent=agent.name+" · "+agent.role;
+
+const status=document.createElement("span");
+status.textContent="SAVED · DEMO";
+
+item.append(name,status);
+container.append(item);
+});
 }
 
-document.getElementById("agentForm").addEventListener("submit", function(event){
-  event.preventDefault();
+form.addEventListener("submit",e=>{
+e.preventDefault();
 
-  const agents = getAgents();
-  const agent = {
-    id: "agent-" + Date.now(),
-    name: document.getElementById("name").value.trim(),
-    role: document.getElementById("role").value,
-    icon: document.getElementById("icon").value.trim() || "🤖",
-    description: document.getElementById("description").value.trim(),
-    status: "Active",
-    custom: true
-  };
+const name=document.getElementById("agentName").value.trim();
+const description=document.getElementById("description").value.trim();
 
-  agents.push(agent);
-  saveAgents(agents);
-  this.reset();
-  document.getElementById("icon").value = "🤖";
-  renderAgents();
+if(!name||!description){
+showToast("Enter an agent name and description.");
+return;
+}
+
+const agents=getAgents();
+agents.unshift({
+name,
+role:document.getElementById("role").value,
+description,
+instructions:document.getElementById("instructions").value.trim(),
+model:document.getElementById("model").value,
+capabilities:[...document.querySelectorAll('input[name="capability"]:checked')].map(x=>x.value),
+created:new Date().toLocaleString()
 });
 
-document.getElementById("agents").addEventListener("click", function(event){
-  const id = event.target.dataset.delete;
-  if(!id) return;
-
-  const updated = getAgents().filter(agent => agent.id !== id);
-  saveAgents(updated);
-  renderAgents();
+localStorage.setItem("nexoraCustomAgents",JSON.stringify(agents));
+form.reset();
+renderAgents();
+showToast("Custom agent configuration saved.");
 });
 
 renderAgents();
