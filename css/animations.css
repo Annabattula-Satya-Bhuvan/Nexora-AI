@@ -1,1 +1,94 @@
+@keyframes nx-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+@keyframes nx-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.35);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 8px rgba(139, 92, 246, 0);
+  }
+}
+
+@keyframes nx-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes nx-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes nx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.nx-animate-in {
+  animation: nx-fade-in 500ms ease both;
+}
+
+.nx-animate-float {
+  animation: nx-float 5s ease-in-out infinite;
+}
+
+.nx-animate-pulse {
+  animation: nx-pulse 2.5s ease-in-out infinite;
+}
+
+.nx-animate-gradient {
+  background-size: 200% 200%;
+  animation: nx-gradient-shift 7s ease infinite;
+}
+
+.nx-spinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--nx-primary-light);
+  border-radius: 50%;
+  animation: nx-spin 800ms linear infinite;
+}
+
+.nx-hover-lift {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.nx-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--nx-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
