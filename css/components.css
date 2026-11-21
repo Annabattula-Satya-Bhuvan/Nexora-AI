@@ -1,1 +1,316 @@
+/* Buttons */
+.nx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 10px 17px;
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius-sm);
+  background: var(--nx-surface-2);
+  color: var(--nx-text);
+  font-weight: 600;
+  transition: var(--nx-transition);
+}
 
+.nx-btn:hover {
+  border-color: var(--nx-border-strong);
+  transform: translateY(-2px);
+}
+
+.nx-btn-primary {
+  border: 0;
+  background: var(--nx-gradient-primary);
+  box-shadow: 0 6px 22px rgba(124, 58, 237, 0.25);
+}
+
+.nx-btn-primary:hover {
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+}
+
+.nx-btn-outline {
+  background: transparent;
+  border-color: var(--nx-border-strong);
+}
+
+.nx-btn-danger {
+  color: var(--nx-danger);
+  border-color: rgba(251, 113, 133, 0.25);
+  background: rgba(251, 113, 133, 0.08);
+}
+
+/* Cards */
+.nx-card {
+  position: relative;
+  min-width: 0;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius-lg);
+  background: linear-gradient(
+    145deg,
+    rgba(21, 26, 48, 0.94),
+    rgba(12, 15, 31, 0.96)
+  );
+  box-shadow: var(--nx-shadow);
+  transition: border-color var(--nx-transition), transform var(--nx-transition);
+}
+
+.nx-card:hover {
+  border-color: var(--nx-border-strong);
+}
+
+.nx-card-glow::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -110px;
+  right: -80px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.18);
+  filter: blur(45px);
+  pointer-events: none;
+}
+
+.nx-card-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.nx-card-description {
+  color: var(--nx-muted);
+  font-size: 13px;
+}
+
+/* Status badges */
+.nx-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--nx-border);
+  border-radius: 30px;
+  background: rgba(139, 92, 246, 0.09);
+  color: var(--nx-primary-light);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.nx-badge-success {
+  color: var(--nx-success);
+  background: rgba(52, 211, 153, 0.09);
+  border-color: rgba(52, 211, 153, 0.2);
+}
+
+.nx-badge-warning {
+  color: var(--nx-warning);
+  background: rgba(251, 191, 36, 0.09);
+}
+
+.nx-badge-danger {
+  color: var(--nx-danger);
+  background: rgba(251, 113, 133, 0.09);
+}
+
+/* Forms */
+.nx-input,
+.nx-select,
+.nx-textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 14px;
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius-sm);
+  outline: none;
+  background: rgba(7, 8, 18, 0.7);
+  color: var(--nx-text);
+  transition: var(--nx-transition);
+}
+
+.nx-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.nx-input::placeholder,
+.nx-textarea::placeholder {
+  color: var(--nx-muted);
+}
+
+.nx-input:focus,
+.nx-select:focus,
+.nx-textarea:focus {
+  border-color: var(--nx-primary);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+}
+
+/* Sidebar */
+.nx-sidebar {
+  position: fixed;
+  z-index: 100;
+  inset: 0 auto 0 0;
+  display: flex;
+  flex-direction: column;
+  width: var(--nx-sidebar-width);
+  padding: 22px 16px;
+  overflow-y: auto;
+  border-right: 1px solid var(--nx-border);
+  background: rgba(9, 11, 24, 0.96);
+  backdrop-filter: blur(20px);
+}
+
+.nx-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 10px 25px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.nx-sidebar-nav {
+  display: grid;
+  gap: 5px;
+}
+
+.nx-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 13px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--nx-text-soft);
+  font-size: 13px;
+  transition: var(--nx-transition);
+}
+
+.nx-sidebar-link:hover,
+.nx-sidebar-link.active {
+  border-color: var(--nx-border);
+  background: rgba(139, 92, 246, 0.12);
+  color: #fff;
+}
+
+.nx-sidebar-link.active {
+  box-shadow: inset 3px 0 var(--nx-primary);
+}
+
+/* Navbar */
+.nx-navbar {
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  right: 0;
+  left: var(--nx-sidebar-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--nx-navbar-height);
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--nx-border);
+  background: rgba(7, 8, 18, 0.82);
+  backdrop-filter: blur(20px);
+}
+
+.nx-navbar-search {
+  width: min(360px, 35vw);
+}
+
+/* Agent and mission cards */
+.nx-agent-card,
+.nx-mission-card,
+.nx-task-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.nx-agent-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--nx-border);
+  border-radius: 14px;
+  background: rgba(139, 92, 246, 0.13);
+  font-size: 22px;
+}
+
+.nx-avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--nx-gradient-primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Progress */
+.nx-progress {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nx-progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--nx-gradient);
+  transition: width 500ms ease;
+}
+
+/* Tables */
+.nx-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.nx-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.nx-table th,
+.nx-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--nx-border);
+  white-space: nowrap;
+}
+
+.nx-table th {
+  color: var(--nx-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.nx-table td {
+  color: var(--nx-text-soft);
+  font-size: 13px;
+}
+
+/* Modal */
+.nx-modal {
+  width: min(560px, calc(100% - 30px));
+  padding: 25px;
+  border: 1px solid var(--nx-border-strong);
+  border-radius: var(--nx-radius-lg);
+  background: var(--nx-surface);
+  color: var(--nx-text);
+  box-shadow: var(--nx-shadow);
+}
+
+.nx-modal::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(5px);
+}
