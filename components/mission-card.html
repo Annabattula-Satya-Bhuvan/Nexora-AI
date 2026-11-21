@@ -1,1 +1,33 @@
+<template id="nxMissionCardTemplate">
+  <article class="nx-mission-card" data-mission-card>
+    <div class="nx-mission-heading">
+      <div>
+        <span class="nx-card-eyebrow">MISSION</span>
+        <h3 data-mission-title>Mission Title</h3>
+      </div>
+      <span class="nx-mission-status" data-mission-status>
+        PENDING
+      </span>
+    </div>
 
+    <p data-mission-description>Mission description goes here.</p>
+
+    <div class="nx-mission-details">
+      <span>◉ <span data-mission-agents>0 agents</span></span>
+      <span>⚑ <span data-mission-priority>Normal</span></span>
+      <span>◷ <span data-mission-date>Not scheduled</span></span>
+    </div>
+
+    <div class="nx-mission-progress">
+      <div class="nx-progress-track">
+        <span data-mission-progress-bar style="width:0%"></span>
+      </div>
+      <small data-mission-progress>0% complete</small>
+    </div>
+
+    <div class="nx-mission-actions">
+      <button type="button" data-mission-open>View Mission</button>
+      <button type="button" data-mission-more>More Options</button>
+    </div>
+  </article>
+</template>
