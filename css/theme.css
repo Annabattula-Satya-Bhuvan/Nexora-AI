@@ -1,1 +1,43 @@
+:root {
+  color-scheme: dark;
 
+  --nx-bg: #070812;
+  --nx-bg-soft: #0b0d1b;
+  --nx-surface: #101326;
+  --nx-surface-2: #151a30;
+  --nx-surface-3: #1b2140;
+
+  --nx-primary: #8b5cf6;
+  --nx-primary-light: #a78bfa;
+  --nx-blue: #3b82f6;
+  --nx-cyan: #22d3ee;
+  --nx-violet: #7c3aed;
+
+  --nx-text: #f4f5ff;
+  --nx-text-soft: #c2c6dc;
+  --nx-muted: #858ba8;
+
+  --nx-success: #34d399;
+  --nx-warning: #fbbf24;
+  --nx-danger: #fb7185;
+
+  --nx-border: rgba(167, 139, 250, 0.16);
+  --nx-border-strong: rgba(139, 92, 246, 0.38);
+
+  --nx-gradient: linear-gradient(120deg, #3b82f6, #8b5cf6, #22d3ee);
+  --nx-gradient-primary: linear-gradient(135deg, #7c3aed, #3b82f6);
+  --nx-gradient-dark: linear-gradient(145deg, #15152d, #0b1020);
+
+  --nx-glow: 0 0 35px rgba(139, 92, 246, 0.2);
+  --nx-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+
+  --nx-radius-sm: 8px;
+  --nx-radius-md: 14px;
+  --nx-radius-lg: 20px;
+  --nx-radius-xl: 26px;
+
+  --nx-sidebar-width: 260px;
+  --nx-navbar-height: 76px;
+
+  --nx-transition: 220ms ease;
+}
