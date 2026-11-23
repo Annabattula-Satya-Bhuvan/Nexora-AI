@@ -1,1 +1,60 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security | NEXORA AI</title>
+<style>
+:root{--bg:#090b16;--panel:#12172a;--line:#252d48;--text:#f4f5ff;--muted:#9ba5c2;--purple:#9678ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}.layout{display:flex;min-height:100vh}.side{width:245px;background:#0d1120;border-right:1px solid var(--line);padding:25px 15px;flex-shrink:0}.brand{font-size:20px;font-weight:800;padding:0 12px 28px}.brand span{color:var(--purple)}.label{font-size:10px;letter-spacing:1.5px;color:#697493;padding:18px 12px 8px}.nav a{display:block;padding:11px 12px;color:var(--muted);text-decoration:none;border-radius:8px;font-size:13px;margin:3px 0}.nav a:hover,.nav a.active{background:#252044;color:white}.main{flex:1;min-width:0;padding:30px 4% 60px}.top{margin-bottom:25px}.top p{color:var(--muted);font-size:13px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px;margin-bottom:16px}.panel h2{font-size:17px;margin:0 0 7px}.desc{color:var(--muted);font-size:12px;line-height:1.6;margin:0 0 18px}.item{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:15px 0;border-top:1px solid var(--line)}.item strong{font-size:13px}.item p{color:var(--muted);font-size:12px;margin:5px 0 0;line-height:1.5}.switch{width:44px;height:24px;flex-shrink:0;position:relative}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;border-radius:20px;background:#3b435c;cursor:pointer;transition:.2s}.slider:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s}.switch input:checked+.slider{background:#8064e9}.switch input:checked+.slider:before{transform:translateX(20px)}.badge{display:inline-block;font-size:11px;padding:6px 10px;border-radius:20px;background:#e6a53b20;color:#f1c36d}.btn{background:linear-gradient(110deg,#7859ec,#328fcf);color:white;border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;font-size:12px}.btn.secondary{background:#202640;border:1px solid var(--line)}.session{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:13px 0;border-top:1px solid var(--line)}.session small{color:var(--muted)}.warning{padding:13px;border:1px solid #a67c3b55;background:#b8872510;border-radius:9px;color:#e9c77f;font-size:12px;line-height:1.6;margin-top:15px}#toast{position:fixed;bottom:22px;right:22px;background:#202747;border:1px solid #514b86;padding:13px 18px;border-radius:9px;display:none}
+@media(max-width:680px){.side{width:66px;padding:20px 7px}.brand{font-size:0;padding:0 7px 25px}.brand:after{content:"✦";font-size:23px}.label{display:none}.nav a{font-size:0;text-align:center;padding:13px 3px}.nav a:first-letter{font-size:17px}.main{padding:22px 15px}.item{gap:10px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+<div class="brand">✦ NEXORA<span> AI</span></div>
+<nav class="nav">
+<div class="label">WORKSPACE</div><a href="dashboard.html">⌂ Dashboard</a><a href="command-center.html">⌘ Command Center</a><a href="workforce.html">♙ AI Workforce</a><a href="agent-studio.html">◇ Agent Studio</a>
+<div class="label">TASK MANAGEMENT</div><a href="missions.html">◉ Missions</a><a href="task-manager.html">☷ Task Manager</a><a href="projects.html">▣ Projects</a><a href="workflow-studio.html">⌘ Workflow Studio</a><a href="mission-templates.html">▤ Mission Templates</a>
+<div class="label">RESOURCES</div><a href="knowledge-base.html">▤ Knowledge Base</a><a href="file-manager.html">▱ File Manager</a><a href="integrations.html">⌘ Integrations</a><a href="notifications.html">♧ Notifications</a>
+<div class="label">ADMINISTRATION</div><a class="active" href="security.html">⬡ Security</a><a href="subscription.html">◇ Subscription</a>
+</nav>
+</aside>
+<main class="main">
+<header class="top"><h1 style="margin:0">Security Center</h1><p>Review security preferences and account protection options.</p></header>
+<section class="panel">
+<h2>Security overview</h2><p class="desc">Your security controls and account protection status.</p>
+<span class="badge">DEMO MODE · NOT ENFORCED</span>
+<div class="item"><div><strong>Two-factor authentication</strong><p>Extra verification when signing in. Actual authentication requires backend support.</p></div><label class="switch"><input type="checkbox" data-setting="twoFactor"><span class="slider"></span></label></div>
+<div class="item"><div><strong>Login notifications</strong><p>Preference for alerts about new sign-in activity.</p></div><label class="switch"><input type="checkbox" data-setting="loginAlerts" checked><span class="slider"></span></label></div>
+<div class="item"><div><strong>Security activity reminders</strong><p>Preference for reminders about security reviews.</p></div><label class="switch"><input type="checkbox" data-setting="securityReminders" checked><span class="slider"></span></label></div>
+</section>
+<section class="panel">
+<h2>Password & authentication</h2><p class="desc">Password management will be handled by the authentication service when connected.</p>
+<div class="item"><div><strong>Password management</strong><p>Use your configured identity provider to change your password.</p></div><span class="badge">NOT CONNECTED</span></div>
+<div class="item"><div><strong>Recovery options</strong><p>Account recovery methods are not configured in this frontend preview.</p></div><span class="badge">NOT CONNECTED</span></div>
+</section>
+<section class="panel">
+<h2>Session overview</h2><p class="desc">This preview does not have access to real login sessions.</p>
+<div class="session"><div><strong>Current browser session</strong><br><small>Local frontend preview · This device</small></div><span class="badge">DEMO SESSION</span></div>
+<button class="btn secondary" onclick="showInfo()">Review session guidance</button>
+</section>
+<section class="panel">
+<h2>Security recommendations</h2>
+<div class="item"><div><strong>Use a unique, strong password</strong><p>Avoid reusing passwords across services.</p></div><span>✓</span></div>
+<div class="item"><div><strong>Enable multi-factor authentication</strong><p>Turn on MFA with your authentication provider when available.</p></div><span>✓</span></div>
+<div class="item"><div><strong>Review connected applications</strong><p>Check third-party access and revoke services you no longer use.</p></div><span>✓</span></div>
+<div class="warning">Important: these switches only save display preferences in your browser. They do not activate MFA, change passwords, manage sessions, or provide real security protection.</div>
+</section>
+</main>
+</div>
+<div id="toast"></div>
+<script>
+const KEY="nexoraSecuritySettings";
+function getSettings(){try{return JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){return{}}}
+function notify(message){const t=document.getElementById("toast");t.textContent=message;t.style.display="block";setTimeout(()=>t.style.display="none",2600)}
+const settings=getSettings();
+document.querySelectorAll("[data-setting]").forEach(input=>{const key=input.dataset.setting;if(typeof settings[key]==="boolean")input.checked=settings[key];input.addEventListener("change",()=>{const updated=getSettings();updated[key]=input.checked;localStorage.setItem(KEY,JSON.stringify(updated));notify("Preference saved in this browser.")})});
+function showInfo(){notify("Real session management will be added with backend authentication.")}
+</script>
+</body>
+</html>
