@@ -2,209 +2,201 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEXORA AI | Command Center</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Center | NEXORA AI</title>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
 <style>
-:root{--bg:#080a14;--panel:#101426;--border:#252b46;--blue:#438bff;--violet:#9565ff;--cyan:#38d9ed;--text:#f3f4ff;--muted:#929bb8}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
-button,input,textarea,select{font:inherit}
-a{color:inherit;text-decoration:none}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:245px;background:#0c1020;border-right:1px solid var(--border);padding:25px 16px;flex-shrink:0}
-.logo{font-size:22px;font-weight:900;letter-spacing:2px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text;margin:0 10px 30px}
-.logo small{display:block;font-size:9px;color:var(--muted);letter-spacing:3px;margin-top:6px}
-.nav-label{font-size:10px;color:#687493;letter-spacing:1.5px;padding:16px 10px 8px}
-.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:13px;margin:3px 0}
-.nav-link:hover,.nav-link.active{background:#202b50;color:white}
-.nav-link.active{border-left:3px solid var(--blue)}
-.main{flex:1;min-width:0;padding:28px 32px}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px;gap:15px}
-.topbar p{color:var(--muted);font-size:12px}
-.avatar{background:linear-gradient(135deg,var(--blue),var(--violet));width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:bold}
-h1{font-size:32px;margin-bottom:10px}
-.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
-.subtitle{color:var(--muted);font-size:13px;line-height:1.7}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:21px}
-.workspace{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-top:25px}
-.section-title{font-size:16px;margin-bottom:16px}
-textarea{width:100%;min-height:155px;resize:vertical;background:#0b1020;border:1px solid #303956;border-radius:10px;padding:15px;color:white;outline:none;line-height:1.6}
-textarea:focus,input:focus,select:focus{border-color:var(--blue)}
-.row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
-select{background:#0b1020;border:1px solid #303956;color:white;padding:12px;border-radius:9px;flex:1;min-width:130px}
-button{border:0;border-radius:9px;padding:12px 18px;color:white;background:linear-gradient(90deg,#347df5,#8651ed);font-weight:bold;cursor:pointer}
-button:hover{opacity:.85}
-.secondary{background:#202b50;border:1px solid #394568}
-.agent{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border)}
-.agent:last-child{border:0}
-.agent-icon{width:38px;height:38px;background:#202b50;border-radius:10px;display:grid;place-items:center;font-size:18px}
-.agent-info{flex:1}
-.agent-info strong{font-size:13px}
-.agent-info p{font-size:11px;color:var(--muted);margin-top:5px}
-.check{color:#48dba4;font-size:11px}
-.history{margin-top:20px}
-.mission{padding:14px 0;border-bottom:1px solid var(--border)}
-.mission:last-child{border:0}
-.mission strong{font-size:13px}
-.mission p{font-size:11px;color:var(--muted);margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere}
-.empty{color:var(--muted);font-size:12px;padding:15px 0}
-#toast{position:fixed;bottom:24px;right:24px;background:#192744;border:1px solid #4564a4;padding:14px 18px;border-radius:9px;display:none;font-size:12px}
-@media(max-width:850px){.sidebar{width:205px}.workspace{grid-template-columns:1fr}}
-@media(max-width:620px){.sidebar{display:none}.main{padding:20px 15px}h1{font-size:26px}.topbar{margin-bottom:25px}}
+:root{--bg:#090b17;--panel:#111426;--panel2:#171a30;--line:#272b45;--text:#f4f4fb;--muted:#969bb5;--purple:#9b7bff;--cyan:#35d6e8;--green:#40d69a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}.layout{display:flex;min-height:100vh}.sidebar{width:245px;background:#0d1020;border-right:1px solid var(--line);padding:25px 17px;flex-shrink:0}.brand{font-size:21px;font-weight:800;letter-spacing:1px;margin:5px 10px 30px}.brand span{color:var(--purple)}.nav-label{font-size:10px;color:#777e9d;letter-spacing:1.5px;margin:24px 10px 9px}.nav-link{display:block;color:#aeb3ca;text-decoration:none;padding:11px 12px;border-radius:9px;font-size:13px;margin:3px 0}.nav-link:hover,.nav-link.active{background:#201b3c;color:#c7b6ff}.sidebar-note{font-size:11px;color:#727995;line-height:1.6;margin:30px 10px}.main{flex:1;min-width:0;padding:32px;max-width:1550px;margin:auto;width:100%}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.eyebrow{color:var(--purple);font-size:11px;letter-spacing:1.7px;font-weight:700}.title{font-size:29px;margin:8px 0}.sub{color:var(--muted);font-size:13px;line-height:1.6}.pill{border:1px solid #33445b;color:#75d8c2;background:#10251f;border-radius:30px;padding:8px 12px;font-size:11px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:17px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px}.chat-panel{display:flex;flex-direction:column;min-height:650px}.chat-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px}.chat-head h2{font-size:15px;margin:0}.chat-head span{font-size:10px;color:var(--green)}.messages{flex:1;min-height:360px;padding:20px 0;display:flex;flex-direction:column;gap:14px}.message{max-width:85%;padding:13px 15px;border-radius:12px;font-size:12px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}.message.system{background:#171b31;border:1px solid #292e49;color:#c5c9dc;align-self:flex-start}.message.user{background:#29204b;border:1px solid #493a79;color:#eee8ff;align-self:flex-end}.message small{display:block;color:#9299b8;font-size:10px;margin-bottom:5px}.composer{border-top:1px solid var(--line);padding-top:17px}.composer textarea{width:100%;min-height:100px;resize:vertical;background:#0c1020;border:1px solid var(--line);border-radius:11px;color:var(--text);padding:14px;font:inherit;font-size:13px;outline:none}.composer textarea:focus,.field:focus{border-color:var(--purple)}.composer-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px}.hint{font-size:10px;color:#7f86a2}.btn{border:0;border-radius:9px;padding:11px 16px;background:linear-gradient(120deg,#7957e8,#536ee8);color:white;font-weight:700;cursor:pointer;font-size:12px}.btn.secondary{background:#20243a;border:1px solid var(--line);color:#d5d8e8}.btn:disabled{opacity:.5;cursor:not-allowed}.side-title{font-size:14px;margin:0 0 15px}.agent-option{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252941}.agent-option:last-child{border:0}.agent-option input{accent-color:var(--purple)}.agent-icon{width:34px;height:34px;border-radius:10px;background:#242044;display:grid;place-items:center;color:#c6b6ff}.agent-name{font-size:12px;font-weight:700}.agent-role{font-size:10px;color:var(--muted);margin-top:3px}.field{background:#0d1020;border:1px solid var(--line);border-radius:9px;padding:10px;color:var(--text);font:inherit;font-size:12px;width:100%;margin:8px 0 16px}.side-note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:17px}.recent{margin-top:17px}.recent-item{padding:11px 0;border-bottom:1px solid var(--line);font-size:11px;color:#c6c9da;line-height:1.5}.recent-item small{display:block;color:#7f86a2;margin-top:4px}.empty-recent{font-size:11px;color:var(--muted)}.toast{display:none;margin-top:10px;color:var(--green);font-size:11px}.toast.show{display:block}
+@media(max-width:950px){.workspace{grid-template-columns:1fr}.chat-panel{min-height:560px}.agent-panel{order:-1}}
+@media(max-width:620px){.layout{display:block}.sidebar{width:100%;padding:12px}.brand{margin:5px 8px 12px}.sidebar nav{display:flex;overflow:auto;gap:5px}.nav-label,.sidebar-note{display:none}.nav-link{white-space:nowrap}.main{padding:17px}.top{align-items:flex-start;flex-direction:column}.title{font-size:25px}.chat-panel{min-height:520px}.message{max-width:95%}.composer-bottom{align-items:flex-start;flex-direction:column}.composer-bottom .btn{width:100%}}
 </style>
 </head>
 <body>
 <div class="layout">
 <aside class="sidebar">
-  <div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
-  <div class="nav-label">WORKSPACE</div>
-  <a class="nav-link" href="dashboard.html">◈ Dashboard</a>
-  <a class="nav-link active" href="command-center.html">⌘ Command Center</a>
-  <a class="nav-link" href="workforce.html">♟ AI Workforce</a>
-  <a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
-  <a class="nav-link" href="agent-marketplace.html">▦ Agent Marketplace</a>
-  <div class="nav-label">TASK MANAGEMENT</div>
-  <a class="nav-link" href="missions.html">◉ Missions</a>
-  <a class="nav-link" href="task-manager.html">☷ Task Manager</a>
-  <a class="nav-link" href="projects.html">▣ Projects</a>
-  <a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
-  <div class="nav-label">INTELLIGENCE</div>
-  <a class="nav-link" href="war-room.html">⚡ AI War Room</a>
-  <a class="nav-link" href="collective-brain.html">◉ Collective Brain</a>
-  <a class="nav-link" href="verification-center.html">✓ Verification Center</a>
-  <a class="nav-link" href="execution-history.html">◷ Execution History</a>
-  <div class="nav-label">SYSTEM</div>
-  <a class="nav-link" href="integrations.html">⌘ Integrations</a>
-  <a class="nav-link" href="analytics.html">▥ Analytics</a>
-  <a class="nav-link" href="security.html">⬡ Security</a>
+  <div class="brand">✦ NEXORA<span> AI</span></div>
+  <nav>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+    <a class="nav-link active" href="command-center.html">⌘ Command Center</a>
+    <a class="nav-link" href="workforce.html">♙ AI Workforce</a>
+    <a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+    <div class="nav-label">TASK MANAGEMENT</div>
+    <a class="nav-link" href="missions.html">◎ Missions</a>
+    <a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+    <a class="nav-link" href="projects.html">▣ Projects</a>
+    <div class="nav-label">INTELLIGENCE</div>
+    <a class="nav-link" href="war-room.html">⚡ AI War Room</a>
+    <a class="nav-link" href="collective-brain.html">◉ Collective Brain</a>
+    <a class="nav-link" href="execution-history.html">◷ Execution History</a>
+    <a class="nav-link" href="../index.html">← Landing Page</a>
+  </nav>
+  <p class="sidebar-note">NEXORA ALPHA 1.0<br>Command interface preview</p>
 </aside>
 
 <main class="main">
-<header class="topbar">
-  <div><strong>COMMAND CENTER</strong><p>NEXORA AI / Mission Control</p></div>
-  <div class="avatar">N</div>
-</header>
+  <header class="top">
+    <div>
+      <div class="eyebrow">NEXORA INTELLIGENCE CORE</div>
+      <h1 class="title">AI Command Center</h1>
+      <p class="sub">Give your workforce an objective. Choose the specialists you want involved.</p>
+    </div>
+    <span class="pill">● FRONTEND PREVIEW</span>
+  </header>
 
-<section>
-  <p style="color:var(--cyan);font-size:11px;letter-spacing:2px;margin-bottom:12px">✦ CENTRAL INTELLIGENCE INTERFACE</p>
-  <h1>Command <span class="gradient">Center</span></h1>
-  <p class="subtitle">Define a mission, select your AI specialists and organize your next operation.</p>
-</section>
-
-<div class="workspace">
-  <section class="panel">
-    <h2 class="section-title">⌘ Create a Mission</h2>
-    <form id="missionForm">
-      <textarea id="missionInput" placeholder="Describe exactly what you want NEXORA AI to accomplish..." required></textarea>
-      <div class="row">
-        <select id="priority">
-          <option value="Normal">Normal priority</option>
-          <option value="High">High priority</option>
-          <option value="Critical">Critical priority</option>
-        </select>
-        <select id="missionType">
-          <option value="Research">Research</option>
-          <option value="Development">Development</option>
-          <option value="Business">Business</option>
-          <option value="Analysis">Data analysis</option>
-          <option value="General">General task</option>
-        </select>
+  <div class="workspace">
+    <section class="panel chat-panel">
+      <div class="chat-head">
+        <h2>✦ Workforce conversation</h2>
+        <span>● Demo mode</span>
       </div>
-      <h3 class="section-title" style="margin-top:22px">Select AI Specialists</h3>
-      <div class="row" style="gap:17px">
-        <label><input type="checkbox" name="agents" value="Research Agent" checked> Research</label>
-        <label><input type="checkbox" name="agents" value="Coding Agent"> Coding</label>
-        <label><input type="checkbox" name="agents" value="Planning Agent" checked> Planning</label>
-        <label><input type="checkbox" name="agents" value="Fact-Checking Agent"> Fact-checking</label>
-        <label><input type="checkbox" name="agents" value="Writing Agent"> Writing</label>
-        <label><input type="checkbox" name="agents" value="Data Analyst"> Data Analyst</label>
-      </div>
-      <div class="row">
-        <button type="submit">Create Mission ↗</button>
-        <button type="reset" class="secondary">Clear</button>
-      </div>
-    </form>
-    <p class="subtitle" style="margin-top:15px;font-size:11px">Preview mode: missions are saved in this browser only. AI agents are not executing tasks yet.</p>
-  </section>
 
-  <section class="panel">
-    <h2 class="section-title">♟ Available Specialists</h2>
-    <div class="agent"><div class="agent-icon">🔎</div><div class="agent-info"><strong>Research Agent</strong><p>Research and discovery</p></div><span class="check">READY</span></div>
-    <div class="agent"><div class="agent-icon">💻</div><div class="agent-info"><strong>Coding Agent</strong><p>Development and debugging</p></div><span class="check">READY</span></div>
-    <div class="agent"><div class="agent-icon">🧠</div><div class="agent-info"><strong>Planning Agent</strong><p>Strategy and coordination</p></div><span class="check">READY</span></div>
-    <div class="agent"><div class="agent-icon">🛡️</div><div class="agent-info"><strong>Fact-Checking Agent</strong><p>Verification and quality</p></div><span class="check">READY</span></div>
-    <div class="agent"><div class="agent-icon">✍️</div><div class="agent-info"><strong>Writing Agent</strong><p>Content and communication</p></div><span class="check">READY</span></div>
-    <div class="agent"><div class="agent-icon">📊</div><div class="agent-info"><strong>Data Analyst</strong><p>Data and insights</p></div><span class="check">READY</span></div>
-  </section>
-</div>
+      <div class="messages" id="messages" aria-live="polite">
+        <div class="message system">
+          <small>NEXORA INTELLIGENCE CORE</small>
+          Welcome. What would you like your AI workforce to accomplish today?
+          <br><br>
+          Describe your objective, select the agents you need, and submit your instruction to create a demo mission.
+        </div>
+      </div>
 
-<section class="panel history">
-  <h2 class="section-title">◷ Mission Queue</h2>
-  <div id="missionList"><p class="empty">No missions created in this browser yet.</p></div>
-</section>
+      <form class="composer" id="commandForm">
+        <textarea id="commandInput" maxlength="2000" required placeholder="Example: Research the market for my new product and prepare a launch strategy..."></textarea>
+        <div class="composer-bottom">
+          <span class="hint">Be clear about the goal and expected deliverable.</span>
+          <button class="btn" type="submit" id="submitBtn">✦ Create mission</button>
+        </div>
+        <div class="toast" id="toast">Demo mission saved in this browser.</div>
+      </form>
+    </section>
+
+    <aside class="panel agent-panel">
+      <h2 class="side-title">Select your workforce</h2>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Planning Agent" checked>
+        <span class="agent-icon">◈</span>
+        <span><span class="agent-name">Planning Agent</span><span class="agent-role">Plans and decomposes tasks</span></span>
+      </label>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Research Agent" checked>
+        <span class="agent-icon">⌕</span>
+        <span><span class="agent-name">Research Agent</span><span class="agent-role">Finds information and insights</span></span>
+      </label>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Coding Agent">
+        <span class="agent-icon">⌘</span>
+        <span><span class="agent-name">Coding Agent</span><span class="agent-role">Writes and reviews code</span></span>
+      </label>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Writing Agent">
+        <span class="agent-icon">✎</span>
+        <span><span class="agent-name">Writing Agent</span><span class="agent-role">Creates written content</span></span>
+      </label>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Data Analyst">
+        <span class="agent-icon">▥</span>
+        <span><span class="agent-name">Data Analyst</span><span class="agent-role">Analyzes data and patterns</span></span>
+      </label>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Fact-Checking Agent" checked>
+        <span class="agent-icon">✓</span>
+        <span><span class="agent-name">Fact-Checking Agent</span><span class="agent-role">Checks claims and accuracy</span></span>
+      </label>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Testing Agent">
+        <span class="agent-icon">⌁</span>
+        <span><span class="agent-name">Testing Agent</span><span class="agent-role">Tests and identifies issues</span></span>
+      </label>
+      <label class="agent-option">
+        <input type="checkbox" name="agents" value="Security Agent">
+        <span class="agent-icon">⬡</span>
+        <span><span class="agent-name">Security Agent</span><span class="agent-role">Reviews security concerns</span></span>
+      </label>
+
+      <p class="side-note">Selected agents are saved with the demo mission. They will not execute tasks until the NEXORA backend and AI provider connections are implemented.</p>
+
+      <div class="recent">
+        <h2 class="side-title">Recent demo missions</h2>
+        <div id="recentList"><p class="empty-recent">No missions created yet.</p></div>
+      </div>
+    </aside>
+  </div>
 </main>
 </div>
-<div id="toast"></div>
 
 <script>
-const form=document.getElementById("missionForm");
-const list=document.getElementById("missionList");
+const MISSION_KEY="nexoraCommandMissions";
+const messages=document.getElementById("messages");
+const form=document.getElementById("commandForm");
+const input=document.getElementById("commandInput");
+const recentList=document.getElementById("recentList");
+const toast=document.getElementById("toast");
 
-function showToast(message){
-  const toast=document.getElementById("toast");
-  toast.textContent=message;
-  toast.style.display="block";
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>toast.style.display="none",2800);
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 }
-
 function loadMissions(){
-  const missions=JSON.parse(localStorage.getItem("nexoraMissions")||"[]");
-  list.replaceChildren();
+  try{return JSON.parse(localStorage.getItem(MISSION_KEY)||"[]")}catch(error){return []}
+}
+function saveMissions(items){localStorage.setItem(MISSION_KEY,JSON.stringify(items))}
+function selectedAgents(){
+  return [...document.querySelectorAll('input[name="agents"]:checked')].map(x=>x.value);
+}
+function addMessage(type,label,content){
+  const node=document.createElement("div");
+  node.className="message "+type;
+  const small=document.createElement("small");
+  small.textContent=label;
+  const body=document.createElement("div");
+  body.textContent=content;
+  node.append(small,body);
+  messages.appendChild(node);
+  messages.scrollTop=messages.scrollHeight;
+}
+function renderRecent(){
+  const missions=loadMissions().slice(0,5);
   if(!missions.length){
-    const empty=document.createElement("p");
-    empty.className="empty";
-    empty.textContent="No missions created in this browser yet.";
-    list.append(empty);
+    recentList.innerHTML='<p class="empty-recent">No missions created yet.</p>';
     return;
   }
-  missions.forEach(m=>{
-    const item=document.createElement("div");
-    item.className="mission";
-    const heading=document.createElement("strong");
-    heading.textContent=m.type+" · "+m.priority+" priority";
-    const description=document.createElement("p");
-    description.textContent=m.task;
-    const agents=document.createElement("p");
-    agents.textContent="Specialists: "+m.agents.join(", ");
-    const date=document.createElement("p");
-    date.textContent=m.date+" · Preview mission";
-    item.append(heading,description,agents,date);
-    list.append(item);
-  });
+  recentList.innerHTML=missions.map(m=>`
+    <div class="recent-item">
+      ${escapeHTML(m.command.length>65?m.command.slice(0,65)+"…":m.command)}
+      <small>${new Date(m.createdAt).toLocaleString()} · ${m.agents.length} agents selected</small>
+    </div>`).join("");
 }
-
-form.addEventListener("submit",e=>{
-  e.preventDefault();
-  const task=document.getElementById("missionInput").value.trim();
-  const agents=[...document.querySelectorAll('input[name="agents"]:checked')].map(x=>x.value);
-  if(!task){showToast("Enter a mission description.");return}
-  if(!agents.length){showToast("Select at least one specialist.");return}
-  const missions=JSON.parse(localStorage.getItem("nexoraMissions")||"[]");
-  missions.unshift({
-    task,
+form.addEventListener("submit",event=>{
+  event.preventDefault();
+  const command=input.value.trim();
+  const agents=selectedAgents();
+  if(!command)return;
+  if(!agents.length){
+    alert("Please select at least one agent.");
+    return;
+  }
+  const mission={
+    id:"NX-"+Date.now(),
+    command,
     agents,
-    priority:document.getElementById("priority").value,
-    type:document.getElementById("missionType").value,
-    date:new Date().toLocaleString()
-  });
-  localStorage.setItem("nexoraMissions",JSON.stringify(missions));
-  form.reset();
-  loadMissions();
-  showToast("Mission added to your local queue.");
+    status:"Pending",
+    createdAt:new Date().toISOString()
+  };
+  const missions=loadMissions();
+  missions.unshift(mission);
+  saveMissions(missions);
+  addMessage("user","YOU",command);
+  addMessage("system","NEXORA · DEMO RESPONSE",
+    "Your instruction has been saved as "+mission.id+".\n\nSelected workforce: "+agents.join(", ")+".\n\nStatus: Pending — this is a frontend demonstration. No AI agents have been started and no external task has been executed.");
+  input.value="";
+  toast.classList.add("show");
+  renderRecent();
 });
-
-loadMissions();
+renderRecent();
 </script>
 </body>
 </html>
