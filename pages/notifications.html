@@ -1,1 +1,84 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Notifications | NEXORA AI</title>
+<style>
+:root{--bg:#090b16;--panel:#12172a;--line:#252d48;--text:#f4f5ff;--muted:#9ba5c2;--purple:#9678ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}.layout{display:flex;min-height:100vh}.side{width:245px;background:#0d1120;border-right:1px solid var(--line);padding:25px 15px;flex-shrink:0}.brand{font-size:20px;font-weight:800;padding:0 12px 28px}.brand span{color:var(--purple)}.label{font-size:10px;letter-spacing:1.5px;color:#697493;padding:18px 12px 8px}.nav a{display:block;padding:11px 12px;color:var(--muted);text-decoration:none;border-radius:8px;font-size:13px;margin:3px 0}.nav a:hover,.nav a.active{background:#252044;color:white}.main{flex:1;min-width:0;padding:30px 4% 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}.top p{color:var(--muted);font-size:13px;margin:6px 0}.btn{border:1px solid var(--line);border-radius:8px;padding:10px 13px;color:#e4e7ff;background:#202640;cursor:pointer;font-size:12px}.btn.primary{background:linear-gradient(110deg,#7859ec,#328fcf);border:0;font-weight:700}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 20px;min-width:130px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:23px;margin-top:5px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:20px}.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px}.filter{background:#0d1222;border:1px solid var(--line);color:var(--muted);padding:9px 13px;border-radius:8px;cursor:pointer}.filter.active{background:#302653;color:white;border-color:#7059b9}.notice{display:flex;gap:14px;align-items:flex-start;padding:17px 5px;border-bottom:1px solid var(--line)}.notice:last-child{border-bottom:0}.notice.unread{background:#9678ff09}.symbol{width:39px;height:39px;flex-shrink:0;border-radius:11px;background:#9678ff20;display:grid;place-items:center;font-size:18px}.body{flex:1;min-width:0}.body strong{font-size:14px}.body p{font-size:13px;color:var(--muted);line-height:1.6;margin:6px 0}.time{font-size:11px;color:#7e89a8}.actions{display:flex;gap:6px;flex-wrap:wrap}.action{background:#202846;color:#dce2ff;border:1px solid #343e60;border-radius:6px;padding:7px 9px;cursor:pointer;font-size:11px}.empty{text-align:center;padding:40px;color:var(--muted)}.note{color:var(--muted);font-size:12px;margin-top:18px}#toast{position:fixed;bottom:22px;right:22px;background:#202747;border:1px solid #514b86;padding:13px 18px;border-radius:9px;display:none}
+@media(max-width:680px){.side{width:66px;padding:20px 7px}.brand{font-size:0;padding:0 7px 25px}.brand:after{content:"✦";font-size:23px}.label{display:none}.nav a{font-size:0;text-align:center;padding:13px 3px}.nav a:first-letter{font-size:17px}.main{padding:22px 15px}.top{align-items:flex-start;flex-direction:column}.notice{flex-wrap:wrap}.actions{width:100%;padding-left:52px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+<div class="brand">✦ NEXORA<span> AI</span></div>
+<nav class="nav">
+<div class="label">WORKSPACE</div>
+<a href="dashboard.html">⌂ Dashboard</a><a href="command-center.html">⌘ Command Center</a><a href="workforce.html">♙ AI Workforce</a><a href="agent-studio.html">◇ Agent Studio</a>
+<div class="label">TASK MANAGEMENT</div>
+<a href="missions.html">◉ Missions</a><a href="task-manager.html">☷ Task Manager</a><a href="projects.html">▣ Projects</a><a href="workflow-studio.html">⌘ Workflow Studio</a><a href="mission-templates.html">▤ Mission Templates</a>
+<div class="label">RESOURCES</div>
+<a href="knowledge-base.html">▤ Knowledge Base</a><a href="file-manager.html">▱ File Manager</a><a href="integrations.html">⌘ Integrations</a>
+<div class="label">ADMINISTRATION</div>
+<a class="active" href="notifications.html">♧ Notifications</a><a href="user-management.html">♙ User Management</a><a href="security.html">⬡ Security</a><a href="approvals.html">✓ Approvals</a>
+</nav>
+</aside>
+<main class="main">
+<header class="top">
+<div><h1 style="margin:0">Notifications</h1><p>Stay updated on mission activity and workspace events.</p></div>
+<div class="actions"><button class="btn" onclick="markAllRead()">Mark all as read</button><button class="btn" onclick="clearAll()">Clear all</button></div>
+</header>
+<section class="stats">
+<div class="stat"><small>Total notifications</small><strong id="total">0</strong></div>
+<div class="stat"><small>Unread</small><strong id="unread">0</strong></div>
+<div class="stat"><small>Read</small><strong id="read">0</strong></div>
+</section>
+<section class="panel">
+<div class="filters">
+<button class="filter active" data-filter="all">All</button>
+<button class="filter" data-filter="unread">Unread</button>
+<button class="filter" data-filter="mission">Missions</button>
+<button class="filter" data-filter="system">System</button>
+</div>
+<div id="notificationList"></div>
+<div class="empty" id="empty" style="display:none">You're all caught up. No notifications to display.</div>
+</section>
+<p class="note">Frontend preview: notifications are stored in this browser. Live alerts require backend event processing and notification services.</p>
+</main>
+</div>
+<div id="toast"></div>
+<script>
+const KEY="nexoraNotifications";
+const initial=[
+{id:1,type:"mission",title:"Welcome to NEXORA AI",message:"Your workspace preview is ready. Explore missions and mission templates to get started.",time:"Just now",read:false},
+{id:2,type:"system",title:"Frontend preview active",message:"Your current NEXORA pages use browser-based demo storage. Backend services can be connected in a later stage.",time:"Today",read:false},
+{id:3,type:"mission",title:"Mission Control is ready",message:"Create a mission or start from one of the available templates.",time:"Today",read:true}
+];
+let currentFilter="all";
+function getItems(){try{const data=JSON.parse(localStorage.getItem(KEY));return Array.isArray(data)?data:initial}catch(e){return initial}}
+function saveItems(items){localStorage.setItem(KEY,JSON.stringify(items))}
+function esc(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(message){const t=document.getElementById("toast");t.textContent=message;t.style.display="block";setTimeout(()=>t.style.display="none",2500)}
+function render(){
+const items=getItems();
+document.getElementById("total").textContent=items.length;
+document.getElementById("unread").textContent=items.filter(n=>!n.read).length;
+document.getElementById("read").textContent=items.filter(n=>n.read).length;
+const shown=items.filter(n=>(currentFilter==="all"||(currentFilter==="unread"&&!n.read)||(currentFilter===n.type)));
+document.getElementById("notificationList").innerHTML=shown.map(n=>`<article class="notice ${n.read?"":"unread"}"><div class="symbol">${n.type==="mission"?"◉":"⚙"}</div><div class="body"><strong>${esc(n.title)}</strong><p>${esc(n.message)}</p><span class="time">${esc(n.time)}</span></div><div class="actions">${n.read?"":`<button class="action" onclick="markRead(${Number(n.id)})">Mark read</button>`}<button class="action" onclick="removeOne(${Number(n.id)})">Dismiss</button></div></article>`).join("");
+document.getElementById("empty").style.display=shown.length?"none":"block";
+}
+function markRead(id){const items=getItems();const n=items.find(x=>Number(x.id)===id);if(n)n.read=true;saveItems(items);render()}
+function markAllRead(){const items=getItems().map(n=>({...n,read:true}));saveItems(items);render();toast("All notifications marked as read.")}
+function removeOne(id){saveItems(getItems().filter(n=>Number(n.id)!==id));render();toast("Notification dismissed.")}
+function clearAll(){if(!confirm("Clear all notifications?"))return;saveItems([]);render();toast("Notifications cleared.")}
+document.querySelectorAll(".filter").forEach(button=>button.addEventListener("click",()=>{
+currentFilter=button.dataset.filter;
+document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b===button));
+render();
+}));
+if(localStorage.getItem(KEY)===null)saveItems(initial);
+render();
+</script>
+</body>
+</html>
