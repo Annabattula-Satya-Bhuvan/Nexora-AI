@@ -1,264 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NEXORA AI - Your Personal AI Workforce">
-  <title>NEXORA AI | Your Personal AI Workforce</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA AI | AI Workforce</title>
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #070914;
-      color: #ffffff;
-      min-height: 100vh;
-    }
-
-    header {
-      height: 75px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 8%;
-      border-bottom: 1px solid #20233d;
-      background: #0b0e1b;
-    }
-
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-      color: #818cf8;
-      letter-spacing: 2px;
-    }
-
-    nav {
-      display: flex;
-      gap: 28px;
-    }
-
-    nav a {
-      color: #b7bdd4;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    nav a:hover {
-      color: #818cf8;
-    }
-
-    .hero {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
-      background:
-        radial-gradient(ellipse at top, #22205b 0%, transparent 55%);
-    }
-
-    .tag {
-      color: #a5b4fc;
-      border: 1px solid #5145a8;
-      padding: 9px 18px;
-      border-radius: 30px;
-      font-size: 12px;
-      margin-bottom: 30px;
-    }
-
-    h1 {
-      font-size: clamp(42px, 8vw, 76px);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 22px;
-    }
-
-    h1 span {
-      background: linear-gradient(90deg, #3b82f6, #a78bfa);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      color: #a5acc4;
-      font-size: 17px;
-      line-height: 1.8;
-      max-width: 650px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 15px;
-      margin-top: 35px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      padding: 14px 25px;
-      border-radius: 9px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .primary {
-      background: linear-gradient(90deg, #2563eb, #7c3aed);
-      color: white;
-    }
-
-    .secondary {
-      border: 1px solid #44476b;
-      color: white;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      opacity: 0.85;
-    }
-
-    .features {
-      padding: 70px 8%;
-      text-align: center;
-    }
-
-    .features h2 {
-      font-size: 32px;
-      margin-bottom: 35px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .feature {
-      background: #11152a;
-      border: 1px solid #272d4d;
-      border-radius: 15px;
-      padding: 30px 20px;
-      transition: 0.3s;
-    }
-
-    .feature:hover {
-      border-color: #818cf8;
-      transform: translateY(-5px);
-    }
-
-    .feature h3 {
-      color: #a5b4fc;
-      margin-bottom: 12px;
-    }
-
-    .feature p {
-      color: #9ca3bd;
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    footer {
-      border-top: 1px solid #20233d;
-      padding: 25px;
-      text-align: center;
-      color: #777f9e;
-      font-size: 13px;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 0 5%;
-      }
-
-      nav {
-        gap: 12px;
-      }
-
-      nav a {
-        font-size: 11px;
-      }
-    }
-  </style>
+    <!-- Main stylesheets -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">NEXORA AI</div>
+<header>
+    <h2>NEXORA AI</h2>
+    <p>Your Personal AI Workforce</p>
+</header>
+
+<main>
+    <h1>NEXORA Command Hub</h1>
+    <p>One Command. An Entire Workforce.</p>
+
+    <h2>Core Workspace</h2>
     <nav>
-      <a href="#home">Home</a>
-      <a href="#features">Features</a>
-      <a href="#about">About</a>
+        <a href="pages/dashboard.html">Dashboard</a>
+        <a href="pages/command-center.html">Command Center</a>
+        <a href="pages/workforce.html">AI Workforce</a>
+        <a href="pages/agent-studio.html">Agent Studio</a>
+        <a href="pages/agent-marketplace.html">Agent Marketplace</a>
     </nav>
-  </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="tag">✦ YOUR PERSONAL AI WORKFORCE</div>
+    <h2>Task Management</h2>
+    <nav>
+        <a href="pages/missions.html">Missions</a>
+        <a href="pages/task-manager.html">Task Manager</a>
+        <a href="pages/projects.html">Projects</a>
+        <a href="pages/workflow-studio.html">Workflow Studio</a>
+        <a href="pages/mission-templates.html">Mission Templates</a>
+    </nav>
 
-      <h1>
-        One Command.<br>
-        <span>An Entire Workforce.</span>
-      </h1>
+    <h2>Intelligence & Collaboration</h2>
+    <nav>
+        <a href="pages/war-room.html">War Room</a>
+        <a href="pages/collective-brain.html">Collective Brain</a>
+        <a href="pages/verification-center.html">Verification Center</a>
+        <a href="pages/execution-history.html">Execution History</a>
+        <a href="pages/digital-twin.html">Digital Twin</a>
+    </nav>
 
-      <p>
-        Meet the next generation of AI collaboration.
-        Create specialized intelligent agents, delegate tasks,
-        and bring your ideas to life with NEXORA AI.
-      </p>
+    <h2>Knowledge & Resources</h2>
+    <nav>
+        <a href="pages/knowledge-base.html">Knowledge Base</a>
+        <a href="pages/file-manager.html">File Manager</a>
+        <a href="pages/integrations.html">Integrations</a>
+    </nav>
 
-      <div class="actions">
-        <a href="#features" class="btn primary">Explore NEXORA</a>
-        <a href="#about" class="btn secondary">Discover More</a>
-      </div>
-    </section>
+    <h2>Analytics & Automation</h2>
+    <nav>
+        <a href="pages/analytics.html">Analytics</a>
+        <a href="pages/automation.html">Automation</a>
+        <a href="pages/notifications.html">Notifications</a>
+    </nav>
 
-    <section class="features" id="features">
-      <h2>Meet Your AI Workforce</h2>
+    <h2>Administration</h2>
+    <nav>
+        <a href="pages/user-management.html">User Management</a>
+        <a href="pages/security.html">Security</a>
+        <a href="pages/approvals.html">Approvals</a>
+        <a href="pages/subscription.html">Subscription</a>
+    </nav>
+</main>
 
-      <div class="feature-grid">
+<footer>
+    NEXORA AI © 2026
+</footer>
 
-        <div class="feature">
-          <h3>Research Agent</h3>
-          <p>Researches information and discovers useful insights.</p>
-        </div>
-
-        <div class="feature">
-          <h3>Coding Agent</h3>
-          <p>Writes code, solves errors and assists development.</p>
-        </div>
-
-        <div class="feature">
-          <h3>Planning Agent</h3>
-          <p>Organizes projects and creates intelligent plans.</p>
-        </div>
-
-        <div class="feature">
-          <h3>Fact-Checking Agent</h3>
-          <p>Checks information and validates important claims.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="features" id="about">
-      <h2>Intelligence. Collaboration. Execution.</h2>
-      <p style="color:#a5acc4;">
-        NEXORA AI brings multiple specialized AI agents
-        together in one intelligent workspace.
-      </p>
-    </section>
-  </main>
-
-  <footer>
-    © 2026 NEXORA AI. All rights reserved.
-  </footer>
+<!-- Main JavaScript entry point -->
+<script type="module" src="js/app.js"></script>
 
 </body>
 </html>
