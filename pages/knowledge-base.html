@@ -1,1 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXORA AI | Knowledge Base</title>
+<style>
+:root{
+--bg:#080a14;--panel:#101426;--border:#252b46;
+--blue:#438bff;--violet:#9565ff;--text:#f3f4ff;
+--muted:#929bb8;--green:#45d9a0
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;flex-shrink:0;background:#0c1020;border-right:1px solid var(--border);padding:24px 14px}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:5px 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
+.nav-label{font-size:10px;color:#687493;padding:15px 10px 7px;letter-spacing:1px}
+.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:12px;margin:3px 0}
+.nav-link:hover,.nav-link.active{background:#202b50;color:white}
+.nav-link.active{border-left:3px solid var(--blue)}
+main{flex:1;min-width:0;padding:30px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+.top p{font-size:12px;color:var(--muted);margin-top:5px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
+.eyebrow{color:#38d9ed;font-size:11px;letter-spacing:2px;margin-bottom:12px}
+h1{font-size:32px;margin-bottom:10px}
+.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px 0}
+.stat,.panel,.entry{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:18px}
+.stat small{font-size:12px;color:var(--muted)}
+.stat strong{display:block;font-size:27px;margin-top:12px}
+.workspace{display:grid;grid-template-columns:350px minmax(0,1fr);gap:16px}
+.panel h2{font-size:16px;margin-bottom:18px}
+label{display:block;font-size:11px;color:var(--muted);margin:13px 0 7px}
+input,select,textarea{width:100%;background:#101729;border:1px solid #303956;border-radius:8px;padding:11px;color:white;outline:none}
+textarea{resize:vertical;min-height:140px;line-height:1.6}
+input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+button{background:linear-gradient(90deg,#347df5,#8651ed);border:0;border-radius:8px;color:white;padding:11px 15px;cursor:pointer;font-weight:bold}
+button:hover{opacity:.85}
+.secondary{background:#202b50;border:1px solid #394568}
+.danger{background:#482435;border:1px solid #754057}
+.form-actions{display:flex;gap:9px;margin-top:15px}
+.form-actions button{flex:1}
+.toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+#search{flex:1;min-width:150px}
+.entries{display:grid;gap:12px}
+.entry{min-width:0}
+.entry-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.entry h3{font-size:14px;overflow-wrap:anywhere}
+.category{font-size:10px;color:#b9c9ff;background:#202b50;padding:6px 9px;border-radius:20px;white-space:nowrap}
+.entry-content{font-size:12px;color:#aab5ce;line-height:1.8;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.entry-meta{font-size:10px;color:#74809d;margin-top:12px}
+.entry-actions{display:flex;gap:8px;margin-top:13px}
+.entry-actions button{font-size:10px;padding:8px 12px}
+.empty{text-align:center;padding:35px;color:var(--muted);font-size:12px}
+.note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:15px}
+#toast{display:none;position:fixed;bottom:22px;right:22px;background:#192744;border:1px solid #4564a4;padding:13px 18px;border-radius:9px;font-size:12px;z-index:20}
+footer{margin-top:28px;border-top:1px solid var(--border);padding-top:16px;color:#737d9a;font-size:11px}
+@media(max-width:1100px){.workspace{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:750px){.sidebar{display:none}main{padding:20px 14px}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+<div class="nav-label">WORKSPACE</div>
+<a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+<a class="nav-link" href="command-center.html">⌘ Command Center</a>
+<a class="nav-link" href="workforce.html">♟ AI Workforce</a>
+<a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+<div class="nav-label">OPERATIONS</div>
+<a class="nav-link" href="missions.html">◉ Missions</a>
+<a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+<a class="nav-link" href="projects.html">▣ Projects</a>
+<a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+<div class="nav-label">INTELLIGENCE</div>
+<a class="nav-link" href="digital-twin.html">◇ Digital Twin</a>
+<a class="nav-link" href="execution-history.html">◷ Execution History</a>
+<div class="nav-label">RESOURCES</div>
+<a class="nav-link" href="file-manager.html">▱ File Manager</a>
+<a class="nav-link active" href="knowledge-base.html">▤ Knowledge Base</a>
+<a class="nav-link" href="integrations.html">⌘ Integrations</a>
+</aside>
 
+<main>
+<header class="top">
+<div><strong>NEXORA / KNOWLEDGE BASE</strong><p>Centralized information workspace</p></div>
+<div class="avatar">N</div>
+</header>
+
+<section>
+<div class="eyebrow">✦ INTELLIGENCE / KNOWLEDGE MANAGEMENT</div>
+<h1>Knowledge <span class="gradient">Base</span></h1>
+<p class="subtitle">Build and organize a searchable library of information for your NEXORA workspace.</p>
+</section>
+
+<section class="stats">
+<div class="stat"><small>Total Entries</small><strong id="total">0</strong></div>
+<div class="stat"><small>Categories</small><strong id="categories">0</strong></div>
+<div class="stat"><small>Created Today</small><strong id="today">0</strong></div>
+<div class="stat"><small>Recently Updated</small><strong id="recent">0</strong></div>
+</section>
+
+<div class="workspace">
+
+<section class="panel">
+<h2 id="formTitle">＋ Add Knowledge</h2>
+
+<form id="knowledgeForm">
+<label for="title">Entry Title</label>
+<input id="title" maxlength="120" required placeholder="Enter a knowledge title">
+
+<label for="category">Category</label>
+<select id="category">
+<option>General</option>
+<option>Research</option>
+<option>Technology</option>
+<option>Business</option>
+<option>Development</option>
+<option>Projects</option>
+<option>Documentation</option>
+<option>Strategy</option>
+<option>Other</option>
+</select>
+
+<label for="content">Knowledge Content</label>
+<textarea id="content" maxlength="20000" required placeholder="Write your knowledge, notes or information here..."></textarea>
+
+<div class="form-actions">
+<button type="submit" id="saveBtn">Save Entry</button>
+<button type="button" class="secondary" id="cancelBtn" hidden>Cancel</button>
+</div>
+</form>
+
+<p class="note">Entries are stored locally in this browser. They are not automatically sent to AI models or external services.</p>
+</section>
+
+<section class="panel">
+<div class="toolbar">
+<h2>Knowledge Library</h2>
+<input type="search" id="search" placeholder="Search knowledge...">
+</div>
+
+<div class="toolbar">
+<select id="filter" style="max-width:220px">
+<option value="all">All Categories</option>
+<option>General</option>
+<option>Research</option>
+<option>Technology</option>
+<option>Business</option>
+<option>Development</option>
+<option>Projects</option>
+<option>Documentation</option>
+<option>Strategy</option>
+<option>Other</option>
+</select>
+<span id="resultCount" style="font-size:11px;color:var(--muted);align-self:center"></span>
+</div>
+
+<div class="entries" id="entries"></div>
+</section>
+
+</div>
+
+<footer>© 2026 NEXORA AI · KNOWLEDGE BASE · ALPHA 1.2</footer>
+</main>
+</div>
+<div id="toast"></div>
+
+<script>
+const KEY="nexoraKnowledgeBase";
+let entries=[];
+let editingId=null;
+
+function load(){
+try{
+const value=JSON.parse(localStorage.getItem(KEY));
+return Array.isArray(value)?value:[];
+}catch{return [];}
+}
+function save(){
+try{
+localStorage.setItem(KEY,JSON.stringify(entries));
+return true;
+}catch{
+showToast("Unable to save. Browser storage may be full.");
+return false;
+}
+}
+function showToast(message){
+const el=document.getElementById("toast");
+el.textContent=message;
+el.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>el.style.display="none",2600);
+}
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function resetForm(){
+editingId=null;
+document.getElementById("knowledgeForm").reset();
+document.getElementById("formTitle").textContent="＋ Add Knowledge";
+document.getElementById("saveBtn").textContent="Save Entry";
+document.getElementById("cancelBtn").hidden=true;
+}
+function render(){
+const query=document.getElementById("search").value.toLowerCase();
+const filter=document.getElementById("filter").value;
+const today=new Date().toDateString();
+
+document.getElementById("total").textContent=entries.length;
+document.getElementById("categories").textContent=new Set(entries.map(e=>e.category)).size;
+document.getElementById("today").textContent=entries.filter(e=>new Date(e.created).toDateString()===today).length;
+document.getElementById("recent").textContent=entries.filter(e=>e.updated&&Date.now()-new Date(e.updated).getTime()<7*86400000).length;
+
+const visible=entries.filter(e=>{
+const text=(e.title+" "+e.content+" "+e.category).toLowerCase();
+return text.includes(query)&&(filter==="all"||e.category===filter);
+});
+
+document.getElementById("resultCount").textContent=visible.length+" entries";
+const container=document.getElementById("entries");
+container.replaceChildren();
+
+if(!visible.length){
+container.innerHTML='<div class="empty">No knowledge entries found. Create your first entry.</div>';
+return;
+}
+
+visible.forEach(entry=>{
+const card=document.createElement("article");
+card.className="entry";
+
+const head=document.createElement("div");
+head.className="entry-head";
+
+const title=document.createElement("h3");
+title.textContent=entry.title;
+
+const category=document.createElement("span");
+category.className="category";
+category.textContent=entry.category;
+
+head.append(title,category);
+
+const content=document.createElement("p");
+content.className="entry-content";
+content.textContent=entry.content;
+
+const meta=document.createElement("div");
+meta.className="entry-meta";
+meta.textContent="Created: "+new Date(entry.created).toLocaleString()+
+(entry.updated?" · Updated: "+new Date(entry.updated).toLocaleString():"");
+
+const actions=document.createElement("div");
+actions.className="entry-actions";
+
+const edit=document.createElement("button");
+edit.className="secondary";
+edit.textContent="Edit";
+edit.addEventListener("click",()=>editEntry(entry.id));
+
+const remove=document.createElement("button");
+remove.className="danger";
+remove.textContent="Delete";
+remove.addEventListener("click",()=>deleteEntry(entry.id));
+
+actions.append(edit,remove);
+card.append(head,content,meta,actions);
+container.append(card);
+});
+}
+function editEntry(id){
+const entry=entries.find(e=>e.id===id);
+if(!entry)return;
+
+editingId=id;
+document.getElementById("title").value=entry.title;
+document.getElementById("category").value=entry.category;
+document.getElementById("content").value=entry.content;
+document.getElementById("formTitle").textContent="Edit Knowledge";
+document.getElementById("saveBtn").textContent="Update Entry";
+document.getElementById("cancelBtn").hidden=false;
+document.getElementById("title").focus();
+}
+function deleteEntry(id){
+if(!confirm("Delete this knowledge entry?"))return;
+const previous=entries;
+entries=entries.filter(e=>e.id!==id);
+if(save()){
+render();
+showToast("Knowledge entry deleted.");
+}else{
+entries=previous;
+}
+}
+document.getElementById("knowledgeForm").addEventListener("submit",e=>{
+e.preventDefault();
+
+const title=document.getElementById("title").value.trim();
+const category=document.getElementById("category").value;
+const content=document.getElementById("content").value.trim();
+
+if(!title||!content)return;
+
+const previous=entries;
+
+if(editingId!==null){
+entries=entries.map(entry=>entry.id===editingId?
+{...entry,title,category,content,updated:new Date().toISOString()}:entry
+);
+}else{
+entries.unshift({
+id:Date.now()+Math.random(),
+title,
+category,
+content,
+created:new Date().toISOString(),
+updated:null
+});
+}
+
+if(save()){
+resetForm();
+render();
+showToast(editingId===null?"Knowledge entry created.":"Knowledge entry updated.");
+}else{
+entries=previous;
+}
+});
+
+document.getElementById("cancelBtn").addEventListener("click",resetForm);
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("filter").addEventListener("change",render);
+window.addEventListener("storage",()=>{
+entries=load();
+render();
+});
+
+entries=load();
+render();
+</script>
+</body>
+</html>
