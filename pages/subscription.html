@@ -1,1 +1,51 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subscription | NEXORA AI</title>
+<style>
+:root{--bg:#090b16;--panel:#12172a;--line:#252d48;--text:#f4f5ff;--muted:#9ba5c2;--purple:#9678ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}.layout{display:flex;min-height:100vh}.side{width:245px;background:#0d1120;border-right:1px solid var(--line);padding:25px 15px;flex-shrink:0}.brand{font-size:20px;font-weight:800;padding:0 12px 28px}.brand span{color:var(--purple)}.label{font-size:10px;letter-spacing:1.5px;color:#697493;padding:18px 12px 8px}.nav a{display:block;padding:11px 12px;color:var(--muted);text-decoration:none;border-radius:8px;font-size:13px;margin:3px 0}.nav a:hover,.nav a.active{background:#252044;color:white}.main{flex:1;min-width:0;padding:30px 4% 60px}.top{margin-bottom:25px}.top p{color:var(--muted);font-size:13px}.panel,.plan{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:21px}.current{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.tag{display:inline-block;background:#9678ff20;color:#c8baff;border-radius:20px;padding:6px 10px;font-size:11px}.muted{color:var(--muted);font-size:13px}.usage{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:18px 0}.metric{background:#0d1222;border:1px solid var(--line);border-radius:10px;padding:16px}.metric strong{font-size:24px;display:block;margin:8px 0}.bar{height:6px;background:#2a314c;border-radius:10px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#8061ef,#38c8e6)}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.plan{display:flex;flex-direction:column}.plan h3{margin:8px 0}.price{font-size:30px;font-weight:800;margin:10px 0}.plan ul{padding-left:18px;color:var(--muted);font-size:13px;line-height:2.1;flex:1}.btn{border:0;border-radius:8px;padding:11px 15px;color:white;background:linear-gradient(110deg,#7859ec,#328fcf);font-weight:700;cursor:pointer;font-size:12px}.btn.secondary{background:#202640;border:1px solid var(--line)}.note{color:var(--muted);font-size:12px;line-height:1.7;margin-top:17px}.section-title{margin:28px 0 8px;font-size:18px}#toast{position:fixed;bottom:22px;right:22px;background:#202747;border:1px solid #514b86;padding:13px 18px;border-radius:9px;display:none}
+@media(max-width:900px){.plans{grid-template-columns:1fr 1fr}}@media(max-width:680px){.side{width:66px;padding:20px 7px}.brand{font-size:0;padding:0 7px 25px}.brand:after{content:"✦";font-size:23px}.label{display:none}.nav a{font-size:0;text-align:center;padding:13px 3px}.nav a:first-letter{font-size:17px}.main{padding:22px 15px}.plans,.usage{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+<div class="brand">✦ NEXORA<span> AI</span></div>
+<nav class="nav">
+<div class="label">WORKSPACE</div><a href="dashboard.html">⌂ Dashboard</a><a href="command-center.html">⌘ Command Center</a><a href="workforce.html">♙ AI Workforce</a><a href="agent-studio.html">◇ Agent Studio</a>
+<div class="label">TASK MANAGEMENT</div><a href="missions.html">◉ Missions</a><a href="task-manager.html">☷ Task Manager</a><a href="projects.html">▣ Projects</a><a href="workflow-studio.html">⌘ Workflow Studio</a><a href="mission-templates.html">▤ Mission Templates</a>
+<div class="label">RESOURCES</div><a href="knowledge-base.html">▤ Knowledge Base</a><a href="file-manager.html">▱ File Manager</a><a href="integrations.html">⌘ Integrations</a><a href="notifications.html">♧ Notifications</a>
+<div class="label">ADMINISTRATION</div><a href="security.html">⬡ Security</a><a class="active" href="subscription.html">◇ Subscription</a>
+</nav>
+</aside>
+<main class="main">
+<header class="top"><h1 style="margin:0">Subscription & Usage</h1><p>Review your plan options and workspace usage preview.</p></header>
+<section class="panel">
+<div class="current"><div><span class="tag">CURRENT DEMO PLAN</span><h2 style="margin:12px 0 5px">NEXORA Starter</h2><p class="muted" style="margin:0">Frontend preview · No active billing account</p></div><span class="tag">FREE PREVIEW</span></div>
+<div class="usage">
+<div class="metric"><small class="muted">Missions created</small><strong id="missionCount">0</strong><div class="bar"><span id="missionBar"></span></div><small class="muted">Demo count only</small></div>
+<div class="metric"><small class="muted">Projects created</small><strong id="projectCount">0</strong><div class="bar"><span id="projectBar"></span></div><small class="muted">Demo count only</small></div>
+<div class="metric"><small class="muted">Tasks created</small><strong id="taskCount">0</strong><div class="bar"><span id="taskBar"></span></div><small class="muted">Demo count only</small></div>
+</div>
+</section>
+<h2 class="section-title">Choose a plan</h2><p class="muted">Illustrative plan tiers. Prices and limits are not live offers.</p>
+<section class="plans">
+<article class="plan"><span class="tag">STARTER</span><h3>Starter</h3><div class="price">Free</div><p class="muted">Explore the NEXORA workspace.</p><ul><li>Basic workspace access</li><li>Demo missions and projects</li><li>Basic task organization</li><li>Frontend feature previews</li></ul><button class="btn secondary" onclick="selectPlan('Starter')">Current demo plan</button></article>
+<article class="plan" style="border-color:#7961d9"><span class="tag">POPULAR · PREVIEW</span><h3>Professional</h3><div class="price">Custom</div><p class="muted">For individuals and growing teams.</p><ul><li>Expanded agent capabilities</li><li>Advanced mission workflows</li><li>Team collaboration</li><li>Extended usage options</li></ul><button class="btn" onclick="selectPlan('Professional')">Explore plan</button></article>
+<article class="plan"><span class="tag">ENTERPRISE</span><h3>Enterprise</h3><div class="price">Custom</div><p class="muted">For organizations with advanced needs.</p><ul><li>Organization controls</li><li>Advanced security options</li><li>Custom integrations</li><li>Dedicated deployment options</li></ul><button class="btn secondary" onclick="selectPlan('Enterprise')">Explore plan</button></article>
+</section>
+<p class="note">Billing is not connected. Plan buttons only display an informational message; they do not create a subscription, process payments, or change account access. Usage numbers are calculated from demo records stored in this browser.</p>
+</main>
+</div>
+<div id="toast"></div>
+<script>
+function count(key){try{const v=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(v)?v.length:0}catch(e){return 0}}
+function setUsage(id,barId,value,limit){document.getElementById(id).textContent=value;document.getElementById(barId).style.width=Math.min(100,value/limit*100)+"%"}
+setUsage("missionCount","missionBar",count("nexoraMissions"),20);
+setUsage("projectCount","projectBar",count("nexoraProjects"),10);
+setUsage("taskCount","taskBar",count("nexoraTasks"),50);
+function selectPlan(name){const t=document.getElementById("toast");t.textContent=name==="Starter"?"Starter is the current demo plan.":name+" plan information selected. Billing is not connected.";t.style.display="block";setTimeout(()=>t.style.display="none",3000)}
+</script>
+</body>
+</html>
