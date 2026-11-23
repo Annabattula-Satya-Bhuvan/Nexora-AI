@@ -1,1 +1,95 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA | User Management</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090b16;color:#eef0ff;font-family:Arial,sans-serif;display:flex;min-height:100vh}
+aside{width:230px;background:#101326;padding:25px 17px;border-right:1px solid #252943;flex-shrink:0}
+.logo{font-size:21px;font-weight:bold;color:#a78bfa;margin-bottom:35px}
+nav a{display:block;color:#aeb4d0;text-decoration:none;padding:11px;border-radius:9px;margin:4px 0;font-size:13px}
+nav a:hover,nav a.active{background:#28234a;color:white}
+main{padding:35px;width:100%;max-width:1300px;margin:auto}
+h1{margin:0 0 8px;font-size:28px}.muted{color:#9299b8;font-size:13px}
+.card{background:#12162a;border:1px solid #292e4d;border-radius:14px;padding:20px;margin-top:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.stat strong{display:block;font-size:27px;margin-top:10px;color:#a78bfa}
+input,select{background:#0b0e1d;color:white;border:1px solid #303653;border-radius:8px;padding:11px;margin:5px 5px 5px 0}
+button{background:linear-gradient(120deg,#6655df,#9333ea);color:white;border:0;padding:11px 15px;border-radius:8px;cursor:pointer}
+button.danger{background:#702d48}button.secondary{background:#303653}
+table{width:100%;border-collapse:collapse;margin-top:15px;font-size:13px}
+th,td{text-align:left;padding:13px 9px;border-bottom:1px solid #292e4d}
+th{color:#9299b8}.pill{padding:5px 9px;border-radius:20px;background:#25284a;font-size:11px}
+@media(max-width:750px){aside{width:65px;padding:15px 5px}aside .logo{font-size:12px}nav a{font-size:0}main{padding:18px}.stats{grid-template-columns:1fr}table{font-size:11px}}
+</style>
+</head>
+<body>
+<aside>
+<div class="logo">✦ NEXORA</div>
+<nav>
+<a href="../index.html">Dashboard</a>
+<a href="missions.html">Missions</a>
+<a href="task-manager.html">Task Manager</a>
+<a href="projects.html">Projects</a>
+<a href="workflow-studio.html">Workflow Studio</a>
+<a href="war-room.html">AI War Room</a>
+<a href="verification-center.html">Verification</a>
+<a href="user-management.html" class="active">User Management</a>
+<a href="security.html">Security</a>
+</nav>
+</aside>
+<main>
+<h1>User Management</h1>
+<p class="muted">Manage workspace members, roles and account status.</p>
+<div class="stats">
+<div class="card stat">Total Users<strong id="total">0</strong></div>
+<div class="card stat">Active Users<strong id="active">0</strong></div>
+<div class="card stat">Administrators<strong id="admins">0</strong></div>
+</div>
+<div class="card">
+<h3>Add Workspace User</h3>
+<input id="name" placeholder="Full name">
+<input id="email" type="email" placeholder="Email address">
+<select id="role"><option>Member</option><option>Administrator</option><option>Manager</option><option>Viewer</option></select>
+<button onclick="addUser()">Add User</button>
+</div>
+<div class="card">
+<h3>Workspace Members</h3>
+<input id="search" placeholder="Search users..." oninput="render()">
+<table>
+<thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</main>
+<script>
+const key="nexoraUsers";
+let users=JSON.parse(localStorage.getItem(key)||"null")||[
+{id:1,name:"Workspace Owner",email:"owner@nexora.ai",role:"Administrator",status:"Active"},
+{id:2,name:"Alex Morgan",email:"alex@nexora.ai",role:"Manager",status:"Active"},
+{id:3,name:"Jordan Lee",email:"jordan@nexora.ai",role:"Member",status:"Invited"}
+];
+function save(){localStorage.setItem(key,JSON.stringify(users));render()}
+function addUser(){
+let name=document.getElementById("name").value.trim(),email=document.getElementById("email").value.trim(),role=document.getElementById("role").value;
+if(!name||!email||!email.includes("@"))return alert("Enter a valid name and email.");
+if(users.some(u=>u.email.toLowerCase()===email.toLowerCase()))return alert("This email already exists.");
+users.push({id:Date.now(),name,email,role,status:"Invited"});
+document.getElementById("name").value="";document.getElementById("email").value="";save();
+}
+function changeRole(id,value){users=users.map(u=>u.id===id?{...u,role:value}:u);save()}
+function toggle(id){users=users.map(u=>u.id===id?{...u,status:u.status==="Active"?"Suspended":"Active"}:u);save()}
+function removeUser(id){if(confirm("Delete this user?")){users=users.filter(u=>u.id!==id);save()}}
+function render(){
+let q=document.getElementById("search").value.toLowerCase();
+document.getElementById("total").textContent=users.length;
+document.getElementById("active").textContent=users.filter(u=>u.status==="Active").length;
+document.getElementById("admins").textContent=users.filter(u=>u.role==="Administrator").length;
+document.getElementById("rows").innerHTML=users.filter(u=>(u.name+" "+u.email).toLowerCase().includes(q)).map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td><select onchange="changeRole(${u.id},this.value)">${["Administrator","Manager","Member","Viewer"].map(r=>`<option ${u.role===r?"selected":""}>${r}</option>`).join("")}</select></td><td><span class="pill">${u.status}</span></td><td><button class="secondary" onclick="toggle(${u.id})">${u.status==="Active"?"Suspend":"Activate"}</button> <button class="danger" onclick="removeUser(${u.id})">Delete</button></td></tr>`).join("");
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+render();
+</script>
+</body>
+</html>
