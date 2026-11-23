@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analytics | NEXORA AI</title>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<style>
+.analytics{display:grid;grid-template-columns:235px 1fr;min-height:100vh}.side{background:#0b0d19;border-right:1px solid #292b40;padding:25px 16px}.brand{font-size:21px;font-weight:800;margin:8px 10px 30px;letter-spacing:2px}.brand span{color:#9b7cff}.nav a{display:block;padding:12px;margin:5px 0;border-radius:9px;color:#aeb1c8;text-decoration:none;font-size:14px}.nav a:hover,.nav .active{background:#211b3b;color:#c9baff}.main{padding:30px 4%;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}.muted{color:#969bb3}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:20px 0}.panel,.stat{background:#111426;border:1px solid #2b3049;border-radius:15px;padding:20px}.stat small{color:#9ca1ba}.stat strong{display:block;font-size:30px;margin:12px 0 6px}.positive{color:#67dfb0;font-size:12px}.charts{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}.panel h3{margin-top:0}.chart-wrap{height:245px;position:relative}.chart-wrap canvas{width:100%;height:100%}.bars{display:grid;gap:16px}.bar-row{display:grid;grid-template-columns:105px 1fr 35px;gap:10px;align-items:center;font-size:13px}.bar-track{height:9px;background:#262a40;border-radius:10px;overflow:hidden}.bar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,#7655dc,#32b6e8)}.activity{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.activity-item{padding:12px 0;border-bottom:1px solid #292d43;font-size:13px;color:#c7c9d9}.activity-item small{display:block;color:#9298b1;margin-top:5px}.select{background:#111426;color:white;border:1px solid #343950;padding:10px;border-radius:9px}
+@media(max-width:950px){.stats{grid-template-columns:repeat(2,1fr)}.charts,.activity{grid-template-columns:1fr}}
+@media(max-width:750px){.analytics{grid-template-columns:1fr}.side{display:none}.main{padding:20px 15px}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="analytics">
+<aside class="side">
+  <div class="brand">NEXORA <span>AI</span></div>
+  <nav class="nav">
+    <a href="dashboard.html">⌂ &nbsp; Dashboard</a>
+    <a href="workforce.html">◈ &nbsp; AI Workforce</a>
+    <a href="agent-studio.html">✧ &nbsp; Agent Studio</a>
+    <a href="agent-marketplace.html">▦ &nbsp; Marketplace</a>
+    <a href="missions.html">◉ &nbsp; Missions</a>
+    <a class="active" href="analytics.html">▥ &nbsp; Analytics</a>
+    <a href="approvals.html">✓ &nbsp; Approvals</a>
+    <a href="../index.html">↗ &nbsp; Back to Home</a>
+  </nav>
+</aside>
+<main class="main">
+  <header class="top">
+    <div><small class="muted">NEXORA WORKSPACE / INTELLIGENCE</small><h2 style="margin:7px 0">Workforce Analytics</h2><p class="muted">Understand activity and performance across your AI workforce.</p></div>
+    <select class="select" id="period"><option value="7">Last 7 days</option><option value="14">Last 14 days</option><option value="30">Last 30 days</option></select>
+  </header>
 
+  <section class="stats">
+    <article class="stat"><small>Total agents</small><strong id="totalAgents">8</strong><span class="positive">● Registered specialists</span></article>
+    <article class="stat"><small>Tasks completed</small><strong id="completedTasks">128</strong><span class="positive">● Demo activity</span></article>
+    <article class="stat"><small>Success rate</small><strong id="successRate">94%</strong><span class="positive">● Sample metric</span></article>
+    <article class="stat"><small>Active missions</small><strong id="activeMissions">6</strong><span class="positive">● Sample metric</span></article>
+  </section>
+
+  <section class="charts">
+    <article class="panel">
+      <h3>Task activity</h3>
+      <p class="muted">Illustrative completed tasks over the selected period</p>
+      <div class="chart-wrap"><canvas id="activityChart" aria-label="Task activity chart"></canvas></div>
+    </article>
+    <article class="panel">
+      <h3>Agent performance</h3>
+      <p class="muted">Illustrative performance scores</p>
+      <div class="bars" id="performanceBars"></div>
+    </article>
+  </section>
+
+  <section class="activity">
+    <article class="panel">
+      <h3>Workforce insights</h3>
+      <div class="activity-item">Research Agent <small>Research and source discovery</small></div>
+      <div class="activity-item">Coding Agent <small>Development and debugging</small></div>
+      <div class="activity-item">Planning Agent <small>Task planning and coordination</small></div>
+      <div class="activity-item">Fact-Checking Agent <small>Evidence and claim review</small></div>
+    </article>
+    <article class="panel">
+      <h3>Recent activity</h3>
+      <div class="activity-item">Research task marked complete <small>Demo event · Today</small></div>
+      <div class="activity-item">New agent profile created <small>Demo event · Today</small></div>
+      <div class="activity-item">Approval waiting for review <small>Demo event · Yesterday</small></div>
+      <div class="activity-item">Project plan updated <small>Demo event · Yesterday</small></div>
+    </article>
+  </section>
+  <p class="muted" style="font-size:12px;margin-top:18px">Note: All analytics on this page are illustrative demo values, not live measurements.</p>
+</main>
+</div>
+<script>
+const performanceData=[
+  {name:"Research",score:92},{name:"Coding",score:88},{name:"Planning",score:95},
+  {name:"Fact-check",score:96},{name:"Writing",score:90},{name:"Data Analyst",score:86}
+];
+document.getElementById("performanceBars").innerHTML=performanceData.map(item=>`
+  <div class="bar-row"><span>${item.name}</span><div class="bar-track"><div class="bar-fill" style="width:${item.score}%"></div></div><strong>${item.score}</strong></div>
+`).join("");
+
+const canvas=document.getElementById("activityChart");
+const ctx=canvas.getContext("2d");
+function drawChart(days){
+  const rect=canvas.getBoundingClientRect();
+  const ratio=window.devicePixelRatio||1;
+  canvas.width=rect.width*ratio;canvas.height=rect.height*ratio;
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  const w=rect.width,h=rect.height;
+  ctx.clearRect(0,0,w,h);
+  const values=days===7?[12,18,14,25,21,30,27]:days===14?[10,13,17,15,22,19,25,23,29,26,32,28,35,31]:[8,12,11,16,14,19,17,23,20,26,22,28,25,31,27,33,30,36,32,38,35,40,37,43,39,45,42,47,44,50];
+  const max=Math.max(...values)+8,left=30,bottom=h-28,top=12,chartW=w-left-12,chartH=bottom-top;
+  ctx.font="11px Arial";ctx.fillStyle="#9298b1";ctx.strokeStyle="#2c3047";ctx.lineWidth=1;
+  for(let i=0;i<4;i++){const y=top+(chartH/3)*i;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-8,y);ctx.stroke()}
+  const points=values.map((v,i)=>({x:left+i*(chartW/(values.length-1)),y:bottom-(v/max)*chartH}));
+  const gradient=ctx.createLinearGradient(0,top,0,bottom);gradient.addColorStop(0,"rgba(139,92,246,.35)");gradient.addColorStop(1,"rgba(59,130,246,0)");
+  ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.lineTo(points[points.length-1].x,bottom);ctx.lineTo(points[0].x,bottom);ctx.closePath();ctx.fillStyle=gradient;ctx.fill();
+  ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle="#a78bfa";ctx.lineWidth=3;ctx.stroke();
+  points.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fillStyle="#67d8f3";ctx.fill()});
+  ctx.fillStyle="#9298b1";ctx.fillText("Tasks",left, h-7);ctx.fillText("Time →",w-55,h-7);
+}
+document.getElementById("period").addEventListener("change",e=>drawChart(Number(e.target.value)));
+new ResizeObserver(()=>drawChart(Number(document.getElementById("period").value))).observe(canvas);
+drawChart(7);
+</script>
+</body>
+</html>
