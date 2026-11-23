@@ -1,1 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXORA AI | Project Digital Twin</title>
 
+<style>
+:root{
+--bg:#080a14;--panel:#101426;--border:#252b46;
+--blue:#438bff;--violet:#9565ff;--cyan:#38d9ed;
+--text:#f3f4ff;--muted:#929bb8;--green:#45d9a0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;flex-shrink:0;background:#0c1020;border-right:1px solid var(--border);padding:24px 14px}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:5px 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
+.nav-label{font-size:10px;color:#687493;padding:15px 10px 7px;letter-spacing:1px}
+.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:12px;margin:3px 0}
+.nav-link:hover,.nav-link.active{background:#202b50;color:white}
+.nav-link.active{border-left:3px solid var(--blue)}
+main{flex:1;min-width:0;padding:30px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:30px}
+.top p{font-size:12px;color:var(--muted);margin-top:6px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
+h1{font-size:32px;margin-bottom:10px}
+.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
+.eyebrow{font-size:11px;color:var(--cyan);letter-spacing:2px;margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px 0}
+.stat,.panel{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:19px}
+.stat small{color:var(--muted);font-size:12px}
+.stat strong{display:block;font-size:28px;margin-top:12px}
+.workspace{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
+.panel h2{font-size:16px;margin-bottom:18px}
+.mission,.task,.agent{padding:14px 0;border-bottom:1px solid var(--border)}
+.mission:last-child,.task:last-child,.agent:last-child{border:0}
+.item-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.item-head strong{font-size:13px}
+.meta{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.6}
+.pill{font-size:10px;background:#202b50;color:#b9c9ff;padding:6px 9px;border-radius:20px;white-space:nowrap}
+.progress{height:7px;background:#252b43;border-radius:20px;overflow:hidden;margin-top:11px}
+.bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--violet))}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:22px 0}
+.stage{background:#151b31;border:1px solid var(--border);padding:13px 8px;text-align:center;border-radius:10px}
+.stage strong{display:block;font-size:11px;margin-top:8px}
+.stage span{font-size:21px}
+.note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:14px}
+button{background:linear-gradient(90deg,#347df5,#8651ed);border:0;color:white;padding:10px 15px;border-radius:8px;cursor:pointer}
+.empty{padding:25px 5px;text-align:center;color:var(--muted);font-size:12px}
+#toast{display:none;position:fixed;bottom:22px;right:22px;background:#192744;border:1px solid #4564a4;padding:13px 18px;border-radius:9px;font-size:12px}
+footer{margin-top:28px;border-top:1px solid var(--border);padding-top:16px;color:#737d9a;font-size:11px}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.workspace{grid-template-columns:1fr}}
+@media(max-width:750px){.sidebar{display:none}main{padding:20px 14px}h1{font-size:26px}.flow{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+
+<div class="nav-label">WORKSPACE</div>
+<a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+<a class="nav-link" href="command-center.html">⌘ Command Center</a>
+<a class="nav-link" href="workforce.html">♟ AI Workforce</a>
+<a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+
+<div class="nav-label">OPERATIONS</div>
+<a class="nav-link" href="missions.html">◉ Missions</a>
+<a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+<a class="nav-link" href="projects.html">▣ Projects</a>
+<a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+
+<div class="nav-label">INTELLIGENCE</div>
+<a class="nav-link" href="verification-center.html">✓ Verification Center</a>
+<a class="nav-link" href="execution-history.html">◷ Execution History</a>
+<a class="nav-link active" href="digital-twin.html">◇ Digital Twin</a>
+</aside>
+
+<main>
+<header class="top">
+<div>
+<strong>NEXORA / DIGITAL TWIN</strong>
+<p>Live workspace representation · Browser preview</p>
+</div>
+<div class="avatar">N</div>
+</header>
+
+<section>
+<div class="eyebrow">✦ PROJECT INTELLIGENCE / VISUALIZATION</div>
+<h1>Project <span class="gradient">Digital Twin</span></h1>
+<p class="subtitle">Visualize your missions, tasks, AI employees and project execution progress in one workspace.</p>
+</section>
+
+<section class="stats">
+<div class="stat"><small>Total Missions</small><strong id="totalMissions">0</strong></div>
+<div class="stat"><small>Total Tasks</small><strong id="totalTasks">0</strong></div>
+<div class="stat"><small>Available Agents</small><strong id="totalAgents">0</strong></div>
+<div class="stat"><small>Overall Progress</small><strong id="overallProgress">0%</strong></div>
+</section>
+
+<section class="panel" style="margin-bottom:17px">
+<h2>◈ Project Execution Flow</h2>
+
+<div class="flow">
+<div class="stage"><span>⌘</span><strong>Mission Intake</strong></div>
+<div class="stage"><span>☷</span><strong>Task Breakdown</strong></div>
+<div class="stage"><span>♟</span><strong>Agent Execution</strong></div>
+<div class="stage"><span>✓</span><strong>Verification</strong></div>
+<div class="stage"><span>◆</span><strong>Delivery</strong></div>
+</div>
+
+<p class="note">Illustrative workflow architecture. These stages describe the planned NEXORA execution process; they do not indicate that real AI execution is currently running.</p>
+</section>
+
+<div class="workspace">
+
+<section class="panel">
+<h2>◈ Mission Visualization</h2>
+<div id="missionList"></div>
+
+<h2 style="margin-top:25px">☷ Task Visualization</h2>
+<div id="taskList"></div>
+</section>
+
+<section class="panel">
+<h2>♟ Workforce Status</h2>
+<div id="agentList"></div>
+
+<h2 style="margin-top:25px">◷ Recent Activity</h2>
+<div id="activityList"></div>
+
+<p class="note">Data is read from shared browser storage. Refresh the page after changing records in another module.</p>
+<button onclick="refreshTwin()" style="margin-top:15px">↻ Refresh Digital Twin</button>
+</section>
+
+</div>
+
+<footer>© 2026 NEXORA AI · DIGITAL TWIN MODULE · ALPHA 1.1</footer>
+</main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const KEYS={
+missions:"nexoraMissions",
+tasks:"nexoraTasks",
+agents:"nexoraWorkforce",
+history:"nexoraExecutionHistory"
+};
+
+const defaultAgents=[
+{name:"Research Agent",icon:"🔎",status:"Active"},
+{name:"Coding Agent",icon:"💻",status:"Active"},
+{name:"Planning Agent",icon:"🧠",status:"Active"},
+{name:"Fact-Checking Agent",icon:"🛡️",status:"Idle"},
+{name:"Writing Agent",icon:"✍️",status:"Idle"}
+];
+
+function read(key,fallback=[]){
+try{
+const value=JSON.parse(localStorage.getItem(key));
+return Array.isArray(value)?value:fallback;
+}catch{return fallback;}
+}
+
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
+}
+
+function progress(status){
+if(status==="Completed")return 100;
+if(status==="In Progress")return 50;
+return 0;
+}
+
+function refreshTwin(){
+const missions=read(KEYS.missions);
+const tasks=read(KEYS.tasks);
+const agents=read(KEYS.agents,defaultAgents);
+const history=read(KEYS.history);
+
+document.getElementById("totalMissions").textContent=missions.length;
+document.getElementById("totalTasks").textContent=tasks.length;
+document.getElementById("totalAgents").textContent=agents.length;
+
+const records=[...missions,...tasks];
+const average=records.length?
+Math.round(records.reduce((sum,item)=>sum+progress(item.status),0)/records.length):0;
+
+document.getElementById("overallProgress").textContent=average+"%";
+
+const missionList=document.getElementById("missionList");
+missionList.replaceChildren();
+
+if(!missions.length){
+missionList.innerHTML='<div class="empty">No missions available. Create one from Command Center.</div>';
+}else{
+missions.forEach(m=>{
+const percent=progress(m.status);
+const item=document.createElement("div");
+item.className="mission";
+item.innerHTML=`
+<div class="item-head">
+<strong>${escapeHTML(m.task||"Untitled Mission")}</strong>
+<span class="pill">${escapeHTML(m.status||"Pending")}</span>
+</div>
+<div class="meta">Priority: ${escapeHTML(m.priority||"Normal")} · ${percent}% complete</div>
+<div class="progress"><div class="bar" style="width:${percent}%"></div></div>`;
+missionList.append(item);
+});
+}
+
+const taskList=document.getElementById("taskList");
+taskList.replaceChildren();
+
+if(!tasks.length){
+taskList.innerHTML='<div class="empty">No tasks have been created yet.</div>';
+}else{
+tasks.forEach(t=>{
+const item=document.createElement("div");
+item.className="task";
+item.innerHTML=`
+<div class="item-head">
+<strong>${escapeHTML(t.title||"Untitled Task")}</strong>
+<span class="pill">${escapeHTML(t.status||"Pending")}</span>
+</div>
+<div class="meta">Priority: ${escapeHTML(t.priority||"Normal")} · Due: ${escapeHTML(t.dueDate||"Not set")}</div>`;
+taskList.append(item);
+});
+}
+
+const agentList=document.getElementById("agentList");
+agentList.replaceChildren();
+
+agents.forEach(a=>{
+const item=document.createElement("div");
+item.className="agent";
+const active=["Active","Busy","active"].includes(a.status);
+item.innerHTML=`
+<div class="item-head">
+<strong>${escapeHTML(a.icon||"🤖")} ${escapeHTML(a.name)}</strong>
+<span class="pill">${active?"ACTIVE":"IDLE"}</span>
+</div>`;
+agentList.append(item);
+});
+
+const activityList=document.getElementById("activityList");
+activityList.replaceChildren();
+
+if(!history.length){
+activityList.innerHTML='<div class="empty">No recorded activity yet.</div>';
+}else{
+history.slice(0,5).forEach(event=>{
+const item=document.createElement("div");
+item.className="task";
+item.innerHTML=`
+<strong style="font-size:12px">${escapeHTML(event.action)}</strong>
+<div class="meta">${escapeHTML(event.target)}</div>`;
+activityList.append(item);
+});
+}
+}
+
+function showToast(message){
+const toast=document.getElementById("toast");
+toast.textContent=message;
+toast.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>toast.style.display="none",2500);
+}
+
+window.addEventListener("storage",refreshTwin);
+refreshTwin();
+</script>
+</body>
+</html>
