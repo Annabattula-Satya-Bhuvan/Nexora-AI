@@ -1,1 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXORA AI | Integrations</title>
+<style>
+:root{
+--bg:#080a14;--panel:#101426;--border:#252b46;
+--blue:#438bff;--violet:#9565ff;--text:#f3f4ff;
+--muted:#929bb8;--green:#45d9a0
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;flex-shrink:0;background:#0c1020;border-right:1px solid var(--border);padding:24px 14px}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:5px 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
+.nav-label{font-size:10px;color:#687493;padding:15px 10px 7px;letter-spacing:1px}
+.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:12px;margin:3px 0}
+.nav-link:hover,.nav-link.active{background:#202b50;color:white}
+.nav-link.active{border-left:3px solid var(--blue)}
+main{flex:1;min-width:0;padding:30px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+.top p{font-size:12px;color:var(--muted);margin-top:5px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
+.eyebrow{color:#38d9ed;font-size:11px;letter-spacing:2px;margin-bottom:12px}
+h1{font-size:32px;margin-bottom:10px}
+.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px 0}
+.stat,.panel,.integration{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:18px}
+.stat small{font-size:12px;color:var(--muted)}
+.stat strong{display:block;font-size:27px;margin-top:12px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:17px}
+input{background:#101729;border:1px solid #303956;border-radius:8px;padding:11px;color:white;min-width:200px}
+button{background:linear-gradient(90deg,#347df5,#8651ed);border:0;border-radius:8px;color:white;padding:10px 15px;cursor:pointer;font-weight:bold}
+button:hover{opacity:.85}
+.secondary{background:#202b50;border:1px solid #394568}
+.danger{background:#482435;border:1px solid #754057}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.integration{min-width:0}
+.integration-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.app-icon{width:45px;height:45px;border-radius:11px;background:#202b50;display:grid;place-items:center;font-size:22px}
+.status{font-size:10px;color:var(--muted);background:#252b43;padding:6px 9px;border-radius:20px}
+.status.connected{color:var(--green);background:#153a35}
+.integration h3{font-size:15px;margin-bottom:7px}
+.integration p{font-size:12px;color:var(--muted);line-height:1.6;min-height:40px}
+.integration small{display:block;color:#7885a3;font-size:10px;margin:12px 0}
+.integration button{width:100%}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:35px}
+.note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:17px}
+#toast{display:none;position:fixed;bottom:22px;right:22px;background:#192744;border:1px solid #4564a4;padding:13px 18px;border-radius:9px;font-size:12px;z-index:20}
+footer{margin-top:28px;border-top:1px solid var(--border);padding-top:16px;color:#737d9a;font-size:11px}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:750px){.sidebar{display:none}main{padding:20px 14px}h1{font-size:26px}.grid{grid-template-columns:1fr}input{min-width:0;width:100%}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+<div class="nav-label">WORKSPACE</div>
+<a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+<a class="nav-link" href="command-center.html">⌘ Command Center</a>
+<a class="nav-link" href="workforce.html">♟ AI Workforce</a>
+<a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+<div class="nav-label">OPERATIONS</div>
+<a class="nav-link" href="missions.html">◉ Missions</a>
+<a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+<a class="nav-link" href="projects.html">▣ Projects</a>
+<a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+<div class="nav-label">INTELLIGENCE</div>
+<a class="nav-link" href="digital-twin.html">◇ Digital Twin</a>
+<a class="nav-link" href="execution-history.html">◷ Execution History</a>
+<div class="nav-label">RESOURCES</div>
+<a class="nav-link" href="file-manager.html">▱ File Manager</a>
+<a class="nav-link" href="knowledge-base.html">▤ Knowledge Base</a>
+<a class="nav-link active" href="integrations.html">⌘ Integrations</a>
+</aside>
 
+<main>
+<header class="top">
+<div><strong>NEXORA / INTEGRATIONS</strong><p>External application ecosystem</p></div>
+<div class="avatar">N</div>
+</header>
+
+<section>
+<div class="eyebrow">✦ CONNECTIVITY / ECOSYSTEM</div>
+<h1>Integration <span class="gradient">Hub</span></h1>
+<p class="subtitle">Manage the external tools and services planned for your NEXORA workspace.</p>
+</section>
+
+<section class="stats">
+<div class="stat"><small>Available Integrations</small><strong id="total">0</strong></div>
+<div class="stat"><small>Connected</small><strong id="connected">0</strong></div>
+<div class="stat"><small>Disconnected</small><strong id="disconnected">0</strong></div>
+<div class="stat"><small>Categories</small><strong id="categories">0</strong></div>
+</section>
+
+<section class="panel">
+<div class="toolbar">
+<h2 style="font-size:16px">Integration Directory</h2>
+<input id="search" type="search" placeholder="Search integrations...">
+</div>
+<div class="grid" id="integrationGrid"></div>
+<p class="note">Alpha 1.2: Connect buttons only save a local demo status. They do not authenticate with external services or grant NEXORA access to external accounts. Real connections require secure backend OAuth/API implementation.</p>
+</section>
+
+<footer>© 2026 NEXORA AI · INTEGRATIONS HUB · ALPHA 1.2</footer>
+</main>
+</div>
+<div id="toast"></div>
+
+<script>
+const KEY="nexoraIntegrations";
+
+const catalog=[
+{id:"google-drive",name:"Google Drive",icon:"📁",category:"Cloud Storage",description:"Cloud file storage and document access."},
+{id:"gmail",name:"Gmail",icon:"✉️",category:"Communication",description:"Email communication and message workflows."},
+{id:"slack",name:"Slack",icon:"💬",category:"Communication",description:"Team messaging and workspace notifications."},
+{id:"github",name:"GitHub",icon:"🐙",category:"Development",description:"Repositories, issues and software development."},
+{id:"notion",name:"Notion",icon:"📓",category:"Productivity",description:"Notes, documents and knowledge management."},
+{id:"trello",name:"Trello",icon:"📋",category:"Productivity",description:"Project boards and task organization."},
+{id:"discord",name:"Discord",icon:"🎮",category:"Communication",description:"Community and team communication."},
+{id:"microsoft",name:"Microsoft 365",icon:"🪟",category:"Productivity",description:"Microsoft productivity and document services."},
+{id:"dropbox",name:"Dropbox",icon:"📦",category:"Cloud Storage",description:"Cloud file storage and sharing."},
+{id:"calendar",name:"Google Calendar",icon:"📅",category:"Productivity",description:"Calendar events and scheduling."},
+{id:"openai",name:"AI API Provider",icon:"✧",category:"Artificial Intelligence",description:"Future secure connection to an AI model API."},
+{id:"webhook",name:"Custom Webhooks",icon:"🔗",category:"Automation",description:"Connect custom automation endpoints."}
+];
+
+function load(){
+try{
+const value=JSON.parse(localStorage.getItem(KEY));
+return value&&typeof value==="object"&&!Array.isArray(value)?value:{};
+}catch{return {};}
+}
+let connections=load();
+
+function save(){
+try{localStorage.setItem(KEY,JSON.stringify(connections));return true;}
+catch{showToast("Unable to save connection status.");return false;}
+}
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function showToast(message){
+const el=document.getElementById("toast");
+el.textContent=message;
+el.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>el.style.display="none",2600);
+}
+function toggleConnection(id){
+const current=!!connections[id];
+connections[id]=!current;
+if(save()){
+render();
+showToast(current?"Demo connection disconnected.":"Demo connection enabled.");
+}
+}
+function render(){
+const query=document.getElementById("search").value.toLowerCase();
+const visible=catalog.filter(item=>
+(item.name+" "+item.category+" "+item.description).toLowerCase().includes(query)
+);
+const connected=catalog.filter(item=>connections[item.id]).length;
+
+document.getElementById("total").textContent=catalog.length;
+document.getElementById("connected").textContent=connected;
+document.getElementById("disconnected").textContent=catalog.length-connected;
+document.getElementById("categories").textContent=new Set(catalog.map(x=>x.category)).size;
+
+const grid=document.getElementById("integrationGrid");
+grid.replaceChildren();
+
+if(!visible.length){
+grid.innerHTML='<div class="empty">No integrations match your search.</div>';
+return;
+}
+visible.forEach(item=>{
+const isConnected=!!connections[item.id];
+const card=document.createElement("article");
+card.className="integration";
+const head=document.createElement("div");
+head.className="integration-head";
+const icon=document.createElement("div");
+icon.className="app-icon";
+icon.textContent=item.icon;
+const status=document.createElement("span");
+status.className="status "+(isConnected?"connected":"");
+status.textContent=isConnected?"DEMO CONNECTED":"NOT CONNECTED";
+head.append(icon,status);
+const title=document.createElement("h3");
+title.textContent=item.name;
+const description=document.createElement("p");
+description.textContent=item.description;
+const category=document.createElement("small");
+category.textContent=item.category;
+const button=document.createElement("button");
+button.className=isConnected?"danger":"";
+button.textContent=isConnected?"Disconnect":"Connect";
+button.addEventListener("click",()=>toggleConnection(item.id));
+card.append(head,title,description,category,button);
+grid.append(card);
+});
+}
+document.getElementById("search").addEventListener("input",render);
+window.addEventListener("storage",()=>{
+connections=load();
+render();
+});
+render();
+</script>
+</body>
+</html>
