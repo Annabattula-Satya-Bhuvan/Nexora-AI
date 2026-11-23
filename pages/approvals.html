@@ -1,1 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Approvals | NEXORA AI</title>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<style>
+.approvals{display:grid;grid-template-columns:235px 1fr;min-height:100vh}.side{background:#0b0d19;border-right:1px solid #292b40;padding:25px 16px}.brand{font-size:21px;font-weight:800;margin:8px 10px 30px;letter-spacing:2px}.brand span{color:#9b7cff}.nav a{display:block;padding:12px;margin:5px 0;border-radius:9px;color:#aeb1c8;text-decoration:none;font-size:14px}.nav a:hover,.nav .active{background:#211b3b;color:#c9baff}.main{padding:30px 4%;min-width:0}.muted{color:#969bb3}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:20px 0}.stat,.panel{background:#111426;border:1px solid #2b3049;border-radius:15px;padding:20px}.stat small{color:#a3a7bd}.stat strong{display:block;font-size:29px;margin-top:10px}.filters{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.filters button{border:1px solid #343950;background:#111426;color:#b9bdd1;border-radius:9px;padding:9px 14px;cursor:pointer}.filters button.active{background:#30244e;color:#d6caff;border-color:#7458c8}.approval-item{display:grid;grid-template-columns:1fr auto;gap:18px;padding:19px 0;border-bottom:1px solid #292d43}.approval-item:last-child{border:0}.approval-item h3{font-size:16px;margin:0 0 8px}.approval-item p{color:#a5a9bf;font-size:13px;line-height:1.6;margin:0 0 10px}.meta{display:flex;gap:9px;flex-wrap:wrap;color:#969bb3;font-size:12px}.tag{padding:5px 9px;border-radius:20px;background:#342a1d;color:#f4c779;font-size:11px}.buttons{display:flex;gap:8px;align-items:center}.btn{border:0;border-radius:8px;padding:10px 13px;color:white;cursor:pointer;font-weight:600}.approve{background:#167d62}.reject{background:#8c344c}.empty{text-align:center;padding:35px;color:#9da2b8}.empty strong{display:block;color:#e2e4f1;margin-bottom:7px}.result{font-size:12px;margin-top:8px;color:#8fe0bb}
+@media(max-width:850px){.approvals{grid-template-columns:1fr}.side{display:none}.main{padding:20px 15px}.approval-item{grid-template-columns:1fr}.buttons{justify-content:flex-start}}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="approvals">
+<aside class="side">
+  <div class="brand">NEXORA <span>AI</span></div>
+  <nav class="nav">
+    <a href="dashboard.html">⌂ &nbsp; Dashboard</a>
+    <a href="workforce.html">◈ &nbsp; AI Workforce</a>
+    <a href="agent-studio.html">✧ &nbsp; Agent Studio</a>
+    <a href="agent-marketplace.html">▦ &nbsp; Marketplace</a>
+    <a href="missions.html">◉ &nbsp; Missions</a>
+    <a href="task-manager.html">☷ &nbsp; Task Manager</a>
+    <a href="analytics.html">▥ &nbsp; Analytics</a>
+    <a class="active" href="approvals.html">✓ &nbsp; Approvals</a>
+    <a href="../index.html">↗ &nbsp; Back to Home</a>
+  </nav>
+</aside>
+<main class="main">
+  <header class="top">
+    <div><small class="muted">NEXORA WORKSPACE / GOVERNANCE</small><h2 style="margin:7px 0">Approval Center</h2><p class="muted">Review important actions before they proceed.</p></div>
+    <span class="muted">◈ Human oversight</span>
+  </header>
 
+  <section class="stats">
+    <article class="stat"><small>Pending review</small><strong id="pendingCount">0</strong></article>
+    <article class="stat"><small>Approved</small><strong id="approvedCount">0</strong></article>
+    <article class="stat"><small>Rejected</small><strong id="rejectedCount">0</strong></article>
+  </section>
+
+  <section class="panel">
+    <h3>Review requests</h3>
+    <p class="muted">Check the requested action and decide whether it should be allowed.</p>
+    <div class="filters" id="filters">
+      <button class="active" data-filter="all">All requests</button>
+      <button data-filter="pending">Pending</button>
+      <button data-filter="approved">Approved</button>
+      <button data-filter="rejected">Rejected</button>
+    </div>
+    <div id="approvalList"></div>
+  </section>
+  <p class="muted" style="font-size:12px;margin-top:16px">Demo only: these decisions are saved in this browser and do not authorize or block real external actions.</p>
+</main>
+</div>
+<script>
+const KEY="nexoraApprovalQueue";
+const initialRequests=[
+  {id:"APR-001",title:"Publish website content",description:"The Writing Agent has prepared content and requests review before publication.",agent:"Writing Agent",type:"External publishing",date:"Today",status:"pending"},
+  {id:"APR-002",title:"Update project source files",description:"The Coding Agent proposes changes to the project files. Review the change request before proceeding.",agent:"Coding Agent",type:"File modification",date:"Today",status:"pending"},
+  {id:"APR-003",title:"Send research report",description:"The Research Agent prepared a report for sharing with an external recipient.",agent:"Research Agent",type:"External communication",date:"Yesterday",status:"pending"},
+  {id:"APR-004",title:"Run security review",description:"The Security Agent requests permission to perform a project security review.",agent:"Security Agent",type:"Security operation",date:"Yesterday",status:"approved"}
+];
+function load(){
+  try{
+    const saved=localStorage.getItem(KEY);
+    return saved?JSON.parse(saved):initialRequests;
+  }catch{return initialRequests}
+}
+let requests=load();
+let currentFilter="all";
+const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function save(){localStorage.setItem(KEY,JSON.stringify(requests))}
+function render(){
+  const pending=requests.filter(x=>x.status==="pending").length;
+  document.getElementById("pendingCount").textContent=pending;
+  document.getElementById("approvedCount").textContent=requests.filter(x=>x.status==="approved").length;
+  document.getElementById("rejectedCount").textContent=requests.filter(x=>x.status==="rejected").length;
+  const visible=requests.filter(x=>currentFilter==="all"||x.status===currentFilter);
+  document.getElementById("approvalList").innerHTML=visible.length?visible.map(item=>`
+    <article class="approval-item">
+      <div>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.description)}</p>
+        <div class="meta"><span>${escapeHTML(item.id)}</span><span>${escapeHTML(item.agent)}</span><span>${escapeHTML(item.type)}</span><span>${escapeHTML(item.date)}</span></div>
+        ${item.status!=="pending"?`<div class="result">✓ ${item.status==="approved"?"Approved":"Rejected"}</div>`:""}
+      </div>
+      <div class="buttons">
+        ${item.status==="pending"?`
+          <button class="btn approve" data-action="approved" data-id="${item.id}">✓ Approve</button>
+          <button class="btn reject" data-action="rejected" data-id="${item.id}">✕ Reject</button>
+        `:`<span class="tag">${item.status.toUpperCase()}</span>`}
+      </div>
+    </article>`).join(""):'<div class="empty"><strong>No requests found</strong>There are no requests in this filter.</div>';
+}
+document.getElementById("filters").addEventListener("click",event=>{
+  const button=event.target.closest("[data-filter]");
+  if(!button)return;
+  currentFilter=button.dataset.filter;
+  document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b===button));
+  render();
+});
+document.getElementById("approvalList").addEventListener("click",event=>{
+  const button=event.target.closest("[data-action]");
+  if(!button)return;
+  const item=requests.find(x=>x.id===button.dataset.id);
+  if(!item||item.status!=="pending")return;
+  item.status=button.dataset.action;
+  item.reviewedAt=new Date().toISOString();
+  save();render();
+});
+render();
+</script>
+</body>
+</html>
