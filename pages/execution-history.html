@@ -1,1 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXORA AI | Execution History</title>
 
+<style>
+:root{
+--bg:#080a14;--panel:#101426;--border:#252b46;
+--blue:#438bff;--violet:#9565ff;--cyan:#38d9ed;
+--text:#f3f4ff;--muted:#929bb8;--green:#45d9a0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;flex-shrink:0;background:#0c1020;border-right:1px solid var(--border);padding:24px 14px}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;margin:5px 10px 30px;background:linear-gradient(90deg,#58a1ff,#a77aff);color:transparent;background-clip:text}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:3px;margin-top:6px}
+.nav-label{font-size:10px;color:#687493;padding:15px 10px 7px;letter-spacing:1px}
+.nav-link{display:block;padding:11px 12px;border-radius:8px;color:#aeb6ce;font-size:12px;margin:3px 0}
+.nav-link:hover,.nav-link.active{background:#202b50;color:white}
+.nav-link.active{border-left:3px solid var(--blue)}
+main{flex:1;min-width:0;padding:30px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;gap:12px}
+.top p{font-size:12px;color:var(--muted);margin-top:5px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:bold}
+h1{font-size:32px;margin-bottom:10px}
+.gradient{background:linear-gradient(90deg,#56a0ff,#a477ff);color:transparent;background-clip:text}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7}
+.eyebrow{font-size:11px;color:var(--cyan);letter-spacing:2px;margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px 0}
+.stat,.panel{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:19px}
+.stat small{color:var(--muted);font-size:12px}
+.stat strong{display:block;font-size:28px;margin-top:12px}
+.toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:17px}
+.controls{display:flex;gap:9px;flex-wrap:wrap}
+input,select{background:#101729;border:1px solid #303956;border-radius:8px;padding:11px 12px;color:white;min-width:130px}
+#search{flex:1;min-width:190px}
+button{background:linear-gradient(90deg,#347df5,#8651ed);border:0;border-radius:8px;color:white;padding:10px 14px;cursor:pointer;font-weight:bold}
+button.secondary{background:#202b50;border:1px solid #394568}
+button.danger{background:#482435;border:1px solid #754057}
+button:hover{opacity:.85}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{text-align:left;padding:14px 11px;border-bottom:1px solid var(--border);font-size:12px}
+th{color:#8996b5;font-size:10px;letter-spacing:1px}
+td{color:#dce4ff}
+td small{display:block;color:var(--muted);margin-top:5px;line-height:1.5}
+.pill{display:inline-block;background:#202b50;color:#b9c9ff;padding:6px 9px;border-radius:20px;font-size:10px}
+.empty{text-align:center;color:var(--muted);padding:35px;font-size:12px}
+.event-form{margin-bottom:20px}
+.event-form h2{font-size:16px;margin-bottom:15px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid label{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}
+.form-grid input,.form-grid select{width:100%}
+.form-grid .full{grid-column:1/-1}
+.form-actions{display:flex;gap:10px;margin-top:14px}
+.note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:15px}
+#toast{display:none;position:fixed;bottom:22px;right:22px;background:#192744;border:1px solid #4564a4;padding:13px 18px;border-radius:9px;font-size:12px}
+footer{margin-top:25px;border-top:1px solid var(--border);padding-top:16px;color:#737d9a;font-size:11px}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:750px){.sidebar{display:none}main{padding:20px 14px}h1{font-size:26px}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+<div class="logo">NEXORA AI<small>YOUR PERSONAL AI WORKFORCE</small></div>
+
+<div class="nav-label">WORKSPACE</div>
+<a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+<a class="nav-link" href="command-center.html">⌘ Command Center</a>
+<a class="nav-link" href="workforce.html">♟ AI Workforce</a>
+<a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+
+<div class="nav-label">OPERATIONS</div>
+<a class="nav-link" href="missions.html">◉ Missions</a>
+<a class="nav-link" href="task-manager.html">☷ Task Manager</a>
+<a class="nav-link" href="projects.html">▣ Projects</a>
+<a class="nav-link" href="workflow-studio.html">⌘ Workflow Studio</a>
+
+<div class="nav-label">INTELLIGENCE</div>
+<a class="nav-link" href="collective-brain.html">◉ Collective Brain</a>
+<a class="nav-link" href="verification-center.html">✓ Verification Center</a>
+<a class="nav-link active" href="execution-history.html">◷ Execution History</a>
+<a class="nav-link" href="digital-twin.html">◇ Digital Twin</a>
+</aside>
+
+<main>
+<header class="top">
+<div>
+<strong>NEXORA / EXECUTION HISTORY</strong>
+<p>Workforce activity and execution records</p>
+</div>
+<div class="avatar">N</div>
+</header>
+
+<section>
+<div class="eyebrow">✦ INTELLIGENCE / AUDIT TRAIL</div>
+<h1>Execution <span class="gradient">History</span></h1>
+<p class="subtitle">Inspect recorded missions, actions, decisions and activity across your NEXORA workspace.</p>
+</section>
+
+<section class="stats">
+<div class="stat"><small>Total Events</small><strong id="total">0</strong></div>
+<div class="stat"><small>Mission Events</small><strong id="missions">0</strong></div>
+<div class="stat"><small>Agent Events</small><strong id="agents">0</strong></div>
+<div class="stat"><small>Recorded Today</small><strong id="today">0</strong></div>
+</section>
+
+<section class="panel event-form">
+<h2>＋ Record a Demo Event</h2>
+
+<form id="eventForm">
+<div class="form-grid">
+
+<div>
+<label for="category">Event Category</label>
+<select id="category">
+<option>Mission</option>
+<option>Agent</option>
+<option>Task</option>
+<option>System</option>
+<option>Verification</option>
+</select>
+</div>
+
+<div>
+<label for="actor">Performed By</label>
+<input id="actor" maxlength="80" value="Workspace Owner" required>
+</div>
+
+<div class="full">
+<label for="action">Action</label>
+<input id="action" maxlength="120" placeholder="Example: Mission reviewed" required>
+</div>
+
+<div class="full">
+<label for="target">Description / Target</label>
+<input id="target" maxlength="300" placeholder="Describe what happened..." required>
+</div>
+
+</div>
+
+<div class="form-actions">
+<button type="submit">Record Event</button>
+</div>
+</form>
+</section>
+
+<section class="panel">
+<div class="toolbar">
+<h2 style="font-size:16px;align-self:center">Execution Records</h2>
+<div class="controls">
+<input type="search" id="search" placeholder="Search records...">
+<select id="filter">
+<option value="all">All Categories</option>
+<option>Mission</option>
+<option>Agent</option>
+<option>Task</option>
+<option>System</option>
+<option>Verification</option>
+</select>
+<button class="secondary" id="exportBtn" type="button">↓ Export CSV</button>
+<button class="danger" id="clearBtn" type="button">Clear History</button>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>CATEGORY</th>
+<th>ACTION / DETAILS</th>
+<th>PERFORMED BY</th>
+<th>STATUS</th>
+<th>TIMESTAMP</th>
+<th>OPTION</th>
+</tr>
+</thead>
+<tbody id="historyList"></tbody>
+</table>
+</div>
+
+<div id="empty" class="empty" hidden>No execution records found.</div>
+
+<p class="note">Alpha 1.1: Records are stored in your current browser. Dashboard mission submissions and manually recorded events appear here. Full agent action auditing will be connected with the backend later.</p>
+</section>
+
+<footer>© 2026 NEXORA AI · EXECUTION HISTORY · ALPHA 1.1</footer>
+</main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const KEY="nexoraExecutionHistory";
+
+function getHistory(){
+try{
+const data=JSON.parse(localStorage.getItem(KEY));
+return Array.isArray(data)?data:[];
+}catch{return [];}
+}
+
+function saveHistory(items){
+try{
+localStorage.setItem(KEY,JSON.stringify(items));
+return true;
+}catch{
+showToast("Unable to save browser history.");
+return false;
+}
+}
+
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
+}
+
+function showToast(message){
+const toast=document.getElementById("toast");
+toast.textContent=message;
+toast.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>toast.style.display="none",2500);
+}
+
+function render(){
+const events=getHistory();
+const query=document.getElementById("search").value.toLowerCase();
+const filter=document.getElementById("filter").value;
+
+const today=new Date().toDateString();
+
+document.getElementById("total").textContent=events.length;
+document.getElementById("missions").textContent=events.filter(e=>e.category==="Mission").length;
+document.getElementById("agents").textContent=events.filter(e=>e.category==="Agent").length;
+document.getElementById("today").textContent=events.filter(e=>{
+const date=new Date(e.timestamp);
+return !isNaN(date)&&date.toDateString()===today;
+}).length;
+
+const filtered=events.filter(e=>{
+const text=[
+e.category,e.action,e.actor,e.target,e.details
+].join(" ").toLowerCase();
+
+return text.includes(query)&&
+(filter==="all"||e.category===filter);
+});
+
+const body=document.getElementById("historyList");
+const empty=document.getElementById("empty");
+
+body.replaceChildren();
+empty.hidden=filtered.length!==0;
+
+filtered.forEach(event=>{
+const row=document.createElement("tr");
+const date=new Date(event.timestamp);
+const timestamp=isNaN(date)?"Unavailable":date.toLocaleString();
+
+const values=[
+event.category||"System",
+event.action||"Activity",
+event.actor||"Unknown",
+event.status||"Recorded",
+timestamp
+];
+
+values.forEach((value,index)=>{
+const cell=document.createElement("td");
+
+if(index===1){
+cell.innerHTML=`
+<strong>${escapeHTML(value)}</strong>
+<small>${escapeHTML(event.target||event.details||"")}</small>`;
+}else if(index===3){
+cell.innerHTML=`<span class="pill">${escapeHTML(value)}</span>`;
+}else{
+cell.textContent=value;
+}
+row.append(cell);
+});
+
+const actionCell=document.createElement("td");
+const remove=document.createElement("button");
+remove.type="button";
+remove.className="danger";
+remove.textContent="Delete";
+remove.addEventListener("click",()=>deleteEvent(event.id));
+actionCell.append(remove);
+row.append(actionCell);
+
+body.append(row);
+});
+}
+
+document.getElementById("eventForm").addEventListener("submit",e=>{
+e.preventDefault();
+
+const event={
+id:Date.now()+Math.random(),
+category:document.getElementById("category").value,
+actor:document.getElementById("actor").value.trim(),
+action:document.getElementById("action").value.trim(),
+target:document.getElementById("target").value.trim(),
+status:"Recorded",
+timestamp:new Date().toISOString()
+};
+
+if(!event.actor||!event.action||!event.target)return;
+
+const events=getHistory();
+events.unshift(event);
+
+if(saveHistory(events)){
+e.target.reset();
+document.getElementById("actor").value="Workspace Owner";
+render();
+showToast("Event recorded successfully.");
+}
+});
+
+function deleteEvent(id){
+if(!confirm("Delete this execution record?"))return;
+
+saveHistory(getHistory().filter(e=>e.id!==id));
+render();
+showToast("Execution record deleted.");
+}
+
+document.getElementById("clearBtn").addEventListener("click",()=>{
+if(!confirm("Delete all execution history? This cannot be undone."))return;
+
+if(saveHistory([])){
+render();
+showToast("Execution history cleared.");
+}
+});
+
+document.getElementById("exportBtn").addEventListener("click",()=>{
+const events=getHistory();
+
+if(!events.length){
+showToast("There are no records to export.");
+return;
+}
+
+const columns=["category","action","actor","target","status","timestamp"];
+
+const quote=value=>'"'+String(value??"").replace(/"/g,'""')+'"';
+
+const csv=[
+columns.join(","),
+...events.map(event=>columns.map(key=>quote(event[key])).join(","))
+].join("\r\n");
+
+const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+const url=URL.createObjectURL(blob);
+const link=document.createElement("a");
+
+link.href=url;
+link.download="nexora-execution-history.csv";
+document.body.append(link);
+link.click();
+link.remove();
+URL.revokeObjectURL(url);
+
+showToast("CSV export prepared.");
+});
+
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("filter").addEventListener("change",render);
+
+window.addEventListener("storage",render);
+
+render();
+</script>
+</body>
+</html>
