@@ -1,1 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Automation Engine | NEXORA AI</title>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<style>
+.app{display:grid;grid-template-columns:235px 1fr;min-height:100vh}
+.side{background:#0b0d19;border-right:1px solid #292b40;padding:25px 16px}
+.brand{font-size:21px;font-weight:800;margin:8px 10px 30px;letter-spacing:2px}
+.brand span{color:#9b7cff}
+.nav a{display:block;padding:12px;margin:5px 0;border-radius:9px;color:#aeb1c8;text-decoration:none;font-size:14px}
+.nav a:hover,.nav .active{background:#211b3b;color:#c9baff}
+.main{padding:30px 4%;min-width:0}
+.muted{color:#969bb3}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+.hero{padding:27px;border:1px solid #343052;border-radius:17px;background:radial-gradient(circle at 90% 15%,#49318b77,transparent 40%),linear-gradient(120deg,#17152d,#10182b);margin-bottom:22px}
+.hero h1{font-size:clamp(26px,4vw,36px);margin:8px 0}
+.hero p{color:#b8bad0;max-width:650px;line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.stat,.panel{padding:20px;background:#111426;border:1px solid #2b3049;border-radius:15px}
+.stat small{color:#9ca1ba}.stat strong{display:block;font-size:27px;margin-top:9px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 15px}
+.btn{border:0;border-radius:9px;padding:11px 15px;background:linear-gradient(100deg,#7955df,#367fe7);color:white;font-weight:700;cursor:pointer}
+.btn.secondary{background:#272b42}
+.btn.danger{background:#87394e}
+.workflow-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:15px}
+.workflow{padding:19px;background:#111426;border:1px solid #2b3049;border-radius:15px}
+.workflow h3{margin:0 0 8px;font-size:16px}
+.workflow p{font-size:13px;line-height:1.6;color:#a5abc1;min-height:42px}
+.workflow-meta{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.pill{font-size:11px;padding:5px 9px;border-radius:20px;background:#292342;color:#c7baff}
+.pill.on{background:#153c35;color:#82e1bd}
+.pill.off{background:#39232c;color:#f2a7b5}
+.workflow-actions{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #292d43;padding-top:13px}
+.workflow-actions button{font-size:12px;padding:8px 10px}
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{margin:13px 0}
+.field label{display:block;font-size:13px;color:#c5c8dc;margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #343950;border-radius:9px;background:#0c1020;color:white;font:inherit}
+.flow-step{padding:13px;border:1px solid #343950;border-radius:10px;background:#171b30;margin:10px 0;color:#d8d9e8;font-size:13px}
+.flow-step span{color:#a995ff;margin-right:8px}
+.empty{padding:30px;text-align:center;color:#9da2b8}
+#workflowDialog{width:min(620px,92vw);border:1px solid #42405e;border-radius:17px;background:#111426;color:#f4f4ff;padding:25px}
+#workflowDialog::backdrop{background:#050610c9}
+@media(max-width:850px){.app{grid-template-columns:1fr}.side{display:none}.main{padding:20px 15px}.builder{grid-template-columns:1fr}}
+@media(max-width:550px){.stats{grid-template-columns:1fr}.top,.section-head{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand">NEXORA <span>AI</span></div>
+  <nav class="nav">
+    <a href="dashboard.html">⌂ &nbsp; Dashboard</a>
+    <a href="command-center.html">✧ &nbsp; Command Center</a>
+    <a href="workforce.html">◈ &nbsp; AI Workforce</a>
+    <a href="agent-studio.html">✧ &nbsp; Agent Studio</a>
+    <a href="missions.html">◉ &nbsp; Missions</a>
+    <a class="active" href="automation.html">⟳ &nbsp; Automation</a>
+    <a href="collective-brain.html">◉ &nbsp; Collective Brain</a>
+    <a href="execution-history.html">◷ &nbsp; Execution History</a>
+    <a href="analytics.html">▥ &nbsp; Analytics</a>
+    <a href="../index.html">↗ &nbsp; Back to Home</a>
+  </nav>
+</aside>
 
+<main class="main">
+  <header class="top">
+    <div>
+      <small class="muted">NEXORA WORKSPACE / AUTOMATION ENGINE</small>
+      <h2 style="margin:7px 0">Automation Studio</h2>
+      <p class="muted">Design reusable workflows and organize automated agent tasks.</p>
+    </div>
+    <button class="btn" id="newWorkflow">＋ New workflow</button>
+  </header>
+
+  <section class="hero">
+    <div style="color:#ad99ff;font-size:12px;font-weight:700">✦ NEXORA AUTOMATION ENGINE</div>
+    <h1>Make your workforce work smarter.</h1>
+    <p>Create reusable workflow plans, define triggers, and organize the sequence of specialist agents needed for recurring tasks.</p>
+  </section>
+
+  <section class="stats">
+    <article class="stat"><small>Total workflows</small><strong id="totalCount">0</strong></article>
+    <article class="stat"><small>Enabled workflows</small><strong id="enabledCount">0</strong></article>
+    <article class="stat"><small>Disabled workflows</small><strong id="disabledCount">0</strong></article>
+  </section>
+
+  <div class="section-head">
+    <div><h3 style="margin:0">Your workflows</h3><small class="muted">Manage your automation templates</small></div>
+    <select id="statusFilter" style="background:#111426;color:white;border:1px solid #343950;padding:10px;border-radius:9px">
+      <option value="all">All workflows</option>
+      <option value="enabled">Enabled</option>
+      <option value="disabled">Disabled</option>
+    </select>
+  </div>
+
+  <section class="workflow-grid" id="workflowGrid"></section>
+
+  <section class="panel" style="margin-top:22px">
+    <h3>How a workflow is organized</h3>
+    <p class="muted">A workflow template describes a trigger, an ordered sequence of agent tasks, and an expected result.</p>
+    <div class="builder">
+      <div>
+        <div class="flow-step"><span>01</span> Trigger — event or schedule</div>
+        <div class="flow-step"><span>02</span> Planning Agent — break down the task</div>
+        <div class="flow-step"><span>03</span> Specialist Agent — perform assigned work</div>
+        <div class="flow-step"><span>04</span> Verification Agent — review the result</div>
+        <div class="flow-step"><span>05</span> Human approval — when required</div>
+      </div>
+      <div>
+        <h3>Execution model</h3>
+        <p class="muted" style="line-height:1.8;font-size:13px">This page saves workflow definitions in your browser. It does not schedule background jobs or execute agents. Real triggers, scheduling, orchestration and execution will be connected through the NEXORA backend.</p>
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+
+<dialog id="workflowDialog">
+  <h2 id="dialogTitle">Create workflow</h2>
+  <form id="workflowForm">
+    <div class="field">
+      <label for="workflowName">Workflow name</label>
+      <input id="workflowName" required maxlength="70" placeholder="e.g. Weekly research report">
+    </div>
+    <div class="field">
+      <label for="workflowDescription">Description</label>
+      <textarea id="workflowDescription" rows="3" maxlength="300" placeholder="What should this workflow accomplish?"></textarea>
+    </div>
+    <div class="field">
+      <label for="workflowTrigger">Trigger type</label>
+      <select id="workflowTrigger">
+        <option>Manual start</option>
+        <option>Scheduled</option>
+        <option>New task created</option>
+        <option>Project updated</option>
+        <option>Approval completed</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="workflowAgents">Agent sequence</label>
+      <select id="workflowAgents">
+        <option>Planning → Research → Fact-checking</option>
+        <option>Planning → Coding → Testing</option>
+        <option>Research → Data Analyst → Writing</option>
+        <option>Research → Writing → Fact-checking</option>
+        <option>Security → Coding → Testing</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="workflowEnabled">Initial status</label>
+      <select id="workflowEnabled">
+        <option value="true">Enabled</option>
+        <option value="false">Disabled</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+      <button class="btn" type="submit">Save workflow</button>
+      <button class="btn secondary" type="button" id="cancelDialog">Cancel</button>
+    </div>
+    <p id="dialogMessage" class="muted" role="status"></p>
+  </form>
+</dialog>
+
+<script>
+const STORAGE_KEY="nexoraAutomationWorkflows";
+const starterWorkflows=[
+  {id:"WF-001",name:"Weekly Research Brief",description:"Prepare a structured research report and verify key findings.",trigger:"Scheduled",agents:"Planning → Research → Fact-checking",enabled:true},
+  {id:"WF-002",name:"Website Development Review",description:"Organize a development task and review the proposed implementation.",trigger:"Manual start",agents:"Planning → Coding → Testing",enabled:true},
+  {id:"WF-003",name:"Business Intelligence Report",description:"Research a topic, analyze available data and prepare a report.",trigger:"New task created",agents:"Research → Data Analyst → Writing",enabled:false}
+];
+const $=id=>document.getElementById(id);
+let workflows=[];
+let editingId=null;
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function loadWorkflows(){
+  try{
+    const saved=localStorage.getItem(STORAGE_KEY);
+    workflows=saved?JSON.parse(saved):starterWorkflows;
+    if(!Array.isArray(workflows))workflows=starterWorkflows;
+  }catch{workflows=starterWorkflows}
+}
+function saveWorkflows(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(workflows));
+}
+function render(){
+  $("totalCount").textContent=workflows.length;
+  $("enabledCount").textContent=workflows.filter(w=>w.enabled).length;
+  $("disabledCount").textContent=workflows.filter(w=>!w.enabled).length;
+  const filter=$("statusFilter").value;
+  const visible=workflows.filter(w=>filter==="all"||(filter==="enabled"?w.enabled:!w.enabled));
+  $("workflowGrid").innerHTML=visible.length?visible.map(w=>`
+    <article class="workflow">
+      <h3>${escapeHTML(w.name)}</h3>
+      <p>${escapeHTML(w.description||"No description provided.")}</p>
+      <div class="workflow-meta">
+        <span class="pill">${escapeHTML(w.trigger)}</span>
+        <span class="pill ${w.enabled?"on":"off"}">${w.enabled?"Enabled":"Disabled"}</span>
+      </div>
+      <small class="muted">AGENT SEQUENCE</small>
+      <p style="min-height:0;margin-top:6px">${escapeHTML(w.agents)}</p>
+      <div class="workflow-actions">
+        <button class="btn secondary" data-action="edit" data-id="${escapeHTML(w.id)}">Edit</button>
+        <div style="display:flex;gap:7px">
+          <button class="btn secondary" data-action="toggle" data-id="${escapeHTML(w.id)}">${w.enabled?"Disable":"Enable"}</button>
+          <button class="btn danger" data-action="delete" data-id="${escapeHTML(w.id)}">Delete</button>
+        </div>
+      </div>
+    </article>`).join(""):'<div class="empty">No workflows in this view.</div>';
+}
+function openDialog(workflow=null){
+  editingId=workflow?.id||null;
+  $("dialogTitle").textContent=workflow?"Edit workflow":"Create workflow";
+  $("workflowName").value=workflow?.name||"";
+  $("workflowDescription").value=workflow?.description||"";
+  $("workflowTrigger").value=workflow?.trigger||"Manual start";
+  $("workflowAgents").value=workflow?.agents||"Planning → Research → Fact-checking";
+  $("workflowEnabled").value=String(workflow?.enabled??true);
+  $("dialogMessage").textContent="";
+  $("workflowDialog").showModal();
+}
+$("newWorkflow").addEventListener("click",()=>openDialog());
+$("cancelDialog").addEventListener("click",()=>$("workflowDialog").close());
+$("statusFilter").addEventListener("change",render);
+
+$("workflowForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  const data={
+    name:$("workflowName").value.trim(),
+    description:$("workflowDescription").value.trim(),
+    trigger:$("workflowTrigger").value,
+    agents:$("workflowAgents").value,
+    enabled:$("workflowEnabled").value==="true"
+  };
+  if(!data.name)return;
+  if(editingId){
+    const index=workflows.findIndex(w=>w.id===editingId);
+    if(index>=0)workflows[index]={...workflows[index],...data};
+  }else{
+    workflows.unshift({id:"WF-"+Date.now(),...data});
+  }
+  saveWorkflows();
+  render();
+  $("workflowDialog").close();
+});
+
+$("workflowGrid").addEventListener("click",event=>{
+  const button=event.target.closest("[data-action]");
+  if(!button)return;
+  const workflow=workflows.find(w=>w.id===button.dataset.id);
+  if(!workflow)return;
+  if(button.dataset.action==="edit")openDialog(workflow);
+  if(button.dataset.action==="toggle"){
+    workflow.enabled=!workflow.enabled;
+    saveWorkflows();render();
+  }
+  if(button.dataset.action==="delete"){
+    if(confirm("Delete this workflow template?")){
+      workflows=workflows.filter(w=>w.id!==workflow.id);
+      saveWorkflows();render();
+    }
+  }
+});
+
+loadWorkflows();
+render();
+</script>
+</body>
+</html>
