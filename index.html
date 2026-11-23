@@ -1,86 +1,551 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXORA AI | AI Workforce</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b18">
+<meta name="description" content="NEXORA AI — Your intelligent AI workforce. Research, plan, build and automate with specialized AI agents.">
+<title>NEXORA AI — One Command. An Entire Workforce.</title>
 
-    <!-- Main stylesheets -->
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/responsive.css">
+<style>
+:root {
+  --bg:#080b18;
+  --panel:#11172a;
+  --purple:#9670ff;
+  --cyan:#39d9f5;
+  --text:#f4f5ff;
+  --muted:#9aa5c1;
+  --border:rgba(255,255,255,.09);
+}
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth}
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  line-height:1.6;
+}
+a {color:inherit;text-decoration:none}
+button {font:inherit;cursor:pointer}
+.container {width:min(1160px,90%);margin:auto}
+
+/* NAVIGATION */
+header {
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,11,24,.91);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.nav {
+  min-height:76px;display:flex;
+  justify-content:space-between;align-items:center;
+  gap:20px;
+}
+.logo {font-size:23px;font-weight:900;letter-spacing:2px}
+.logo span {color:var(--purple)}
+.logo small {
+  display:block;font-size:9px;color:var(--muted);
+  letter-spacing:3px;font-weight:500;
+}
+.nav-links {display:flex;align-items:center;gap:25px}
+.nav-links>a,.menu-label {
+  color:#c2c9dc;font-size:13px;
+  background:none;border:0;
+}
+.nav-links>a:hover,.menu-label:hover {color:white}
+.menu {position:relative}
+.menu-label {padding:12px 0}
+.dropdown {
+  display:none;position:absolute;right:-120px;top:42px;
+  width:min(650px,90vw);
+  padding:22px;background:#11172a;
+  border:1px solid var(--border);border-radius:16px;
+  box-shadow:0 20px 60px #0009;
+  grid-template-columns:1fr 1fr;gap:22px;
+}
+.menu:hover .dropdown,.menu:focus-within .dropdown {display:grid}
+.dropdown h4 {
+  color:var(--purple);font-size:11px;
+  text-transform:uppercase;letter-spacing:1.5px;
+  margin-bottom:10px;
+}
+.dropdown a {
+  display:block;padding:6px 0;
+  color:#bdc7dc;font-size:12px;
+}
+.dropdown a:hover {color:var(--cyan)}
+.nav-cta,.primary {
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:11px 19px;border-radius:9px;
+  background:linear-gradient(110deg,#8060ef,#4c9cf8);
+  color:white;font-weight:700;font-size:13px;
+  border:0;transition:.2s;
+}
+.nav-cta:hover,.primary:hover {transform:translateY(-2px);filter:brightness(1.15)}
+.mobile-menu {display:none}
+
+/* HERO */
+.hero {
+  min-height:690px;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 75% 45%,#47308c45,transparent 43%),
+    radial-gradient(ellipse at 15% 80%,#087b9950,transparent 38%);
+}
+.hero-grid {
+  display:grid;grid-template-columns:1.05fr .95fr;
+  align-items:center;gap:55px;padding:85px 0;
+}
+.eyebrow {
+  color:var(--cyan);font-size:11px;
+  letter-spacing:3px;font-weight:800;
+  margin-bottom:22px;
+}
+h1 {
+  font-size:clamp(43px,6vw,76px);
+  line-height:1.08;letter-spacing:-3px;
+  margin-bottom:23px;
+}
+.gradient {
+  background:linear-gradient(90deg,#a78bfa,#43d9f5);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-copy {
+  color:var(--muted);font-size:16px;
+  max-width:540px;margin-bottom:30px;
+}
+.actions {display:flex;gap:13px;flex-wrap:wrap}
+.secondary {
+  padding:11px 19px;border:1px solid #ffffff30;
+  border-radius:9px;color:white;font-size:13px;
+}
+.secondary:hover {background:#ffffff12}
+.hero-note {margin-top:24px;color:#8490aa;font-size:11px}
+
+/* WORKFORCE VISUAL */
+.command-card {
+  position:relative;background:linear-gradient(145deg,#171e37,#0d1224);
+  border:1px solid #ffffff18;border-radius:22px;
+  padding:25px;box-shadow:0 30px 100px #0008;
+}
+.card-top {display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.card-top strong {font-size:14px}
+.live {font-size:10px;color:#55e7b0}
+.live:before {
+  content:"";display:inline-block;width:7px;height:7px;
+  background:#55e7b0;border-radius:50%;margin-right:7px;
+}
+.command-input {
+  background:#090e1d;border:1px solid #ffffff18;
+  border-radius:12px;padding:16px;margin-bottom:20px;
+}
+.command-input small {color:#8996b2;font-size:10px}
+.command-input p {font-size:13px;margin-top:7px;color:#e5eaff}
+.agent-list {display:grid;gap:10px}
+.agent {
+  display:flex;align-items:center;gap:12px;
+  padding:12px;background:#ffffff07;
+  border:1px solid #ffffff0c;border-radius:11px;
+}
+.agent-icon {
+  width:38px;height:38px;display:grid;place-items:center;
+  background:#8c6cff22;border-radius:10px;font-size:19px;
+}
+.agent-info {flex:1}
+.agent-info strong {display:block;font-size:12px}
+.agent-info small {font-size:10px;color:var(--muted)}
+.agent-status {font-size:9px;color:#63dfad}
+.progress {
+  height:5px;background:#ffffff12;border-radius:9px;
+  margin-top:20px;overflow:hidden;
+}
+.progress span {
+  display:block;width:72%;height:100%;
+  background:linear-gradient(90deg,var(--purple),var(--cyan));
+}
+
+/* GENERAL SECTIONS */
+section {padding:90px 0}
+.section-heading {text-align:center;max-width:700px;margin:0 auto 45px}
+.section-heading h2 {font-size:clamp(29px,4vw,43px);margin-bottom:12px}
+.section-heading p {color:var(--muted);font-size:14px}
+.features {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:17px;
+}
+.feature {
+  background:linear-gradient(145deg,#141b30,#0e1425);
+  border:1px solid var(--border);border-radius:15px;
+  padding:25px;transition:.25s;
+}
+.feature:hover {transform:translateY(-5px);border-color:#9270ff77}
+.feature-icon {font-size:25px;margin-bottom:16px}
+.feature h3 {font-size:16px;margin-bottom:9px}
+.feature p {font-size:12px;color:var(--muted)}
+.workflow {
+  background:linear-gradient(135deg,#11182c,#15112b);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.steps {
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.step {
+  text-align:center;padding:22px 13px;
+  border:1px solid var(--border);
+  background:#ffffff06;border-radius:13px;
+}
+.step span {font-size:25px}
+.step h3 {font-size:14px;margin:9px 0}
+.step p {font-size:11px;color:var(--muted)}
+.step-number {color:var(--cyan);font-size:10px!important}
+
+/* MODULE LINKS */
+.module-grid {
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+}
+.module-link {
+  padding:16px;background:#11172a;
+  border:1px solid var(--border);border-radius:10px;
+  font-size:12px;color:#d4d9eb;
+  transition:.2s;
+}
+.module-link:hover {
+  border-color:var(--purple);color:white;
+  transform:translateY(-2px);
+}
+.module-link span {display:block;font-size:18px;margin-bottom:7px}
+
+/* CTA AND FOOTER */
+.cta {
+  text-align:center;
+  background:radial-gradient(ellipse at center,#593c9b55,transparent 65%);
+}
+.cta h2 {font-size:clamp(30px,5vw,48px);margin-bottom:13px}
+.cta p {color:var(--muted);margin-bottom:25px}
+footer {border-top:1px solid var(--border);padding:32px 0}
+.footer-content {
+  display:flex;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;color:var(--muted);font-size:11px;
+}
+.footer-links {display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a:hover {color:white}
+
+/* MOBILE */
+@media(max-width:850px) {
+  .nav-links {display:none}
+  .mobile-menu {display:block;position:relative}
+  .mobile-menu summary {
+    list-style:none;cursor:pointer;padding:10px 14px;
+    border:1px solid var(--border);border-radius:8px;
+  }
+  .mobile-menu[open] .mobile-links {
+    position:absolute;right:0;top:48px;width:250px;
+    max-height:75vh;overflow:auto;padding:15px;
+    background:#11172a;border:1px solid var(--border);
+    border-radius:12px;display:grid;gap:12px;
+  }
+  .mobile-links a {font-size:12px;color:#d4d9eb}
+  .hero-grid {grid-template-columns:1fr;gap:40px}
+  .hero {min-height:auto}
+  .features {grid-template-columns:repeat(2,1fr)}
+  .steps {grid-template-columns:repeat(2,1fr)}
+  .module-grid {grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px) {
+  .features {grid-template-columns:1fr}
+  h1 {letter-spacing:-2px}
+  section {padding:65px 0}
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h2>NEXORA AI</h2>
-    <p>Your Personal AI Workforce</p>
+<div class="container nav">
+  <a class="logo" href="index.html">NEXORA<span> AI</span>
+    <small>YOUR PERSONAL AI WORKFORCE</small>
+  </a>
+
+  <nav class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#features">Capabilities</a>
+    <a href="#workflow">How It Works</a>
+    <div class="menu">
+      <button class="menu-label" type="button">Explore Platform ▾</button>
+      <div class="dropdown">
+        <div>
+          <h4>Core Workspace</h4>
+          <a href="pages/dashboard.html">Dashboard</a>
+          <a href="pages/command-center.html">Command Center</a>
+          <a href="pages/workforce.html">AI Workforce</a>
+          <a href="pages/agent-studio.html">Agent Studio</a>
+          <a href="pages/agent-marketplace.html">Agent Marketplace</a>
+          <h4>Task Management</h4>
+          <a href="pages/missions.html">Missions</a>
+          <a href="pages/task-manager.html">Task Manager</a>
+          <a href="pages/projects.html">Projects</a>
+          <a href="pages/workflow-studio.html">Workflow Studio</a>
+          <a href="pages/mission-templates.html">Mission Templates</a>
+        </div>
+        <div>
+          <h4>Intelligence & Collaboration</h4>
+          <a href="pages/war-room.html">War Room</a>
+          <a href="pages/collective-brain.html">Collective Brain</a>
+          <a href="pages/verification-center.html">Verification Center</a>
+          <a href="pages/execution-history.html">Execution History</a>
+          <a href="pages/digital-twin.html">Digital Twin</a>
+          <h4>Knowledge & Resources</h4>
+          <a href="pages/knowledge-base.html">Knowledge Base</a>
+          <a href="pages/file-manager.html">File Manager</a>
+          <a href="pages/integrations.html">Integrations</a>
+          <h4>Analytics & Administration</h4>
+          <a href="pages/analytics.html">Analytics</a>
+          <a href="pages/automation.html">Automation</a>
+          <a href="pages/notifications.html">Notifications</a>
+          <a href="pages/user-management.html">User Management</a>
+          <a href="pages/security.html">Security</a>
+          <a href="pages/approvals.html">Approvals</a>
+          <a href="pages/subscription.html">Subscription</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <a class="nav-cta" href="pages/dashboard.html">Launch NEXORA ↗</a>
+
+  <details class="mobile-menu">
+    <summary>☰ Menu</summary>
+    <div class="mobile-links">
+      <a href="#home">Home</a>
+      <a href="#features">Capabilities</a>
+      <a href="#workflow">How It Works</a>
+      <a href="pages/dashboard.html">Dashboard</a>
+      <a href="pages/command-center.html">Command Center</a>
+      <a href="pages/workforce.html">AI Workforce</a>
+      <a href="pages/agent-studio.html">Agent Studio</a>
+      <a href="pages/agent-marketplace.html">Agent Marketplace</a>
+      <a href="pages/missions.html">Missions</a>
+      <a href="pages/task-manager.html">Task Manager</a>
+      <a href="pages/projects.html">Projects</a>
+      <a href="pages/workflow-studio.html">Workflow Studio</a>
+      <a href="pages/mission-templates.html">Mission Templates</a>
+      <a href="pages/war-room.html">War Room</a>
+      <a href="pages/collective-brain.html">Collective Brain</a>
+      <a href="pages/verification-center.html">Verification Center</a>
+      <a href="pages/execution-history.html">Execution History</a>
+      <a href="pages/digital-twin.html">Digital Twin</a>
+      <a href="pages/knowledge-base.html">Knowledge Base</a>
+      <a href="pages/file-manager.html">File Manager</a>
+      <a href="pages/integrations.html">Integrations</a>
+      <a href="pages/analytics.html">Analytics</a>
+      <a href="pages/automation.html">Automation</a>
+      <a href="pages/notifications.html">Notifications</a>
+      <a href="pages/user-management.html">User Management</a>
+      <a href="pages/security.html">Security</a>
+      <a href="pages/approvals.html">Approvals</a>
+      <a href="pages/subscription.html">Subscription</a>
+    </div>
+  </details>
+</div>
 </header>
 
 <main>
-    <h1>NEXORA Command Hub</h1>
-    <p>One Command. An Entire Workforce.</p>
+<section class="hero" id="home">
+<div class="container hero-grid">
+  <div>
+    <div class="eyebrow">✦ THE FUTURE OF INTELLIGENT WORK</div>
+    <h1>One Command.<br><span class="gradient">An Entire Workforce.</span></h1>
+    <p class="hero-copy">
+      Meet NEXORA AI — an intelligent workspace where specialized AI
+      agents collaborate to research, plan, create, verify, and automate
+      complex work. Your ideas deserve an entire workforce.
+    </p>
+    <div class="actions">
+      <a class="primary" href="pages/dashboard.html">Explore NEXORA →</a>
+      <a class="secondary" href="#features">Discover Capabilities</a>
+    </div>
+    <p class="hero-note">YOUR TEAM. YOUR INTELLIGENCE. YOUR FUTURE.</p>
+  </div>
 
-    <h2>Core Workspace</h2>
-    <nav>
-        <a href="pages/dashboard.html">Dashboard</a>
-        <a href="pages/command-center.html">Command Center</a>
-        <a href="pages/workforce.html">AI Workforce</a>
-        <a href="pages/agent-studio.html">Agent Studio</a>
-        <a href="pages/agent-marketplace.html">Agent Marketplace</a>
-    </nav>
+  <div class="command-card">
+    <div class="card-top">
+      <strong>✦ NEXORA COMMAND CENTER</strong>
+      <span class="live">WORKFORCE PREVIEW</span>
+    </div>
+    <div class="command-input">
+      <small>YOUR NEXT MISSION</small>
+      <p>Build a business website and prepare a launch strategy...</p>
+    </div>
+    <div class="agent-list">
+      <div class="agent">
+        <div class="agent-icon">🔎</div>
+        <div class="agent-info"><strong>Research Agent</strong><small>Researching opportunities</small></div>
+        <span class="agent-status">READY</span>
+      </div>
+      <div class="agent">
+        <div class="agent-icon">🧠</div>
+        <div class="agent-info"><strong>Planning Agent</strong><small>Organizing the mission</small></div>
+        <span class="agent-status">READY</span>
+      </div>
+      <div class="agent">
+        <div class="agent-icon">💻</div>
+        <div class="agent-info"><strong>Coding Agent</strong><small>Development specialist</small></div>
+        <span class="agent-status">READY</span>
+      </div>
+      <div class="agent">
+        <div class="agent-icon">🛡️</div>
+        <div class="agent-info"><strong>Verification Agent</strong><small>Quality and review</small></div>
+        <span class="agent-status">READY</span>
+      </div>
+    </div>
+    <div class="progress"><span></span></div>
+    <p style="font-size:10px;color:#8996b2;margin-top:9px">
+      A preview of the coordinated NEXORA workforce experience
+    </p>
+  </div>
+</div>
+</section>
 
-    <h2>Task Management</h2>
-    <nav>
-        <a href="pages/missions.html">Missions</a>
-        <a href="pages/task-manager.html">Task Manager</a>
-        <a href="pages/projects.html">Projects</a>
-        <a href="pages/workflow-studio.html">Workflow Studio</a>
-        <a href="pages/mission-templates.html">Mission Templates</a>
-    </nav>
+<section id="features">
+<div class="container">
+  <div class="section-heading">
+    <div class="eyebrow">THE NEXORA ECOSYSTEM</div>
+    <h2>More Than an AI Chatbot.</h2>
+    <p>A connected AI workforce designed to organize intelligence and turn complex requests into structured work.</p>
+  </div>
 
-    <h2>Intelligence & Collaboration</h2>
-    <nav>
-        <a href="pages/war-room.html">War Room</a>
-        <a href="pages/collective-brain.html">Collective Brain</a>
-        <a href="pages/verification-center.html">Verification Center</a>
-        <a href="pages/execution-history.html">Execution History</a>
-        <a href="pages/digital-twin.html">Digital Twin</a>
-    </nav>
+  <div class="features">
+    <article class="feature">
+      <div class="feature-icon">🧠</div>
+      <h3>Intelligence Core</h3>
+      <p>Understand objectives, break down complex requests, and coordinate specialized agents.</p>
+    </article>
+    <article class="feature">
+      <div class="feature-icon">👥</div>
+      <h3>AI Workforce</h3>
+      <p>Bring research, coding, planning, writing, analysis, and verification specialists together.</p>
+    </article>
+    <article class="feature">
+      <div class="feature-icon">⚡</div>
+      <h3>Workflow Automation</h3>
+      <p>Organize repeatable processes into structured workflows and coordinated tasks.</p>
+    </article>
+    <article class="feature">
+      <div class="feature-icon">🎯</div>
+      <h3>Mission Control</h3>
+      <p>Create assignments, organize responsibilities, and monitor progress in one workspace.</p>
+    </article>
+    <article class="feature">
+      <div class="feature-icon">🛡️</div>
+      <h3>Verification Center</h3>
+      <p>Review outputs, check information, and support quality assurance before approval.</p>
+    </article>
+    <article class="feature">
+      <div class="feature-icon">📊</div>
+      <h3>Workforce Analytics</h3>
+      <p>Explore activity, execution history, mission progress, and performance information.</p>
+    </article>
+  </div>
+</div>
+</section>
 
-    <h2>Knowledge & Resources</h2>
-    <nav>
-        <a href="pages/knowledge-base.html">Knowledge Base</a>
-        <a href="pages/file-manager.html">File Manager</a>
-        <a href="pages/integrations.html">Integrations</a>
-    </nav>
+<section class="workflow" id="workflow">
+<div class="container">
+  <div class="section-heading">
+    <div class="eyebrow">HOW NEXORA WORKS</div>
+    <h2>From One Command to Coordinated Work.</h2>
+    <p>A simple vision for human-directed, multi-agent collaboration.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span>✍️</span>
+      <h3>01. Give a Command</h3>
+      <p>Describe the result you want to achieve.</p>
+    </div>
+    <div class="step">
+      <span>🧠</span>
+      <h3>02. Plan the Work</h3>
+      <p>Break the objective into clear tasks.</p>
+    </div>
+    <div class="step">
+      <span>🤝</span>
+      <h3>03. Coordinate Agents</h3>
+      <p>Assign work to relevant specialists.</p>
+    </div>
+    <div class="step">
+      <span>🚀</span>
+      <h3>04. Review Results</h3>
+      <p>Bring outputs together for review and delivery.</p>
+    </div>
+  </div>
+</div>
+</section>
 
-    <h2>Analytics & Automation</h2>
-    <nav>
-        <a href="pages/analytics.html">Analytics</a>
-        <a href="pages/automation.html">Automation</a>
-        <a href="pages/notifications.html">Notifications</a>
-    </nav>
+<section id="modules">
+<div class="container">
+  <div class="section-heading">
+    <div class="eyebrow">ONE CONNECTED WORKSPACE</div>
+    <h2>Explore the NEXORA Platform.</h2>
+    <p>Access your workspace modules from one central destination.</p>
+  </div>
 
-    <h2>Administration</h2>
-    <nav>
-        <a href="pages/user-management.html">User Management</a>
-        <a href="pages/security.html">Security</a>
-        <a href="pages/approvals.html">Approvals</a>
-        <a href="pages/subscription.html">Subscription</a>
-    </nav>
+  <div class="module-grid">
+    <a class="module-link" href="pages/dashboard.html"><span>📊</span>Dashboard</a>
+    <a class="module-link" href="pages/command-center.html"><span>⌘</span>Command Center</a>
+    <a class="module-link" href="pages/workforce.html"><span>👥</span>AI Workforce</a>
+    <a class="module-link" href="pages/agent-studio.html"><span>🧪</span>Agent Studio</a>
+    <a class="module-link" href="pages/agent-marketplace.html"><span>🛍️</span>Agent Marketplace</a>
+    <a class="module-link" href="pages/missions.html"><span>🎯</span>Missions</a>
+    <a class="module-link" href="pages/task-manager.html"><span>☑️</span>Task Manager</a>
+    <a class="module-link" href="pages/projects.html"><span>📁</span>Projects</a>
+    <a class="module-link" href="pages/workflow-studio.html"><span>🔀</span>Workflow Studio</a>
+    <a class="module-link" href="pages/mission-templates.html"><span>📋</span>Mission Templates</a>
+    <a class="module-link" href="pages/war-room.html"><span>⚔️</span>War Room</a>
+    <a class="module-link" href="pages/collective-brain.html"><span>🧠</span>Collective Brain</a>
+    <a class="module-link" href="pages/verification-center.html"><span>🛡️</span>Verification Center</a>
+    <a class="module-link" href="pages/execution-history.html"><span>📜</span>Execution History</a>
+    <a class="module-link" href="pages/digital-twin.html"><span>🌐</span>Digital Twin</a>
+    <a class="module-link" href="pages/knowledge-base.html"><span>📚</span>Knowledge Base</a>
+    <a class="module-link" href="pages/file-manager.html"><span>🗂️</span>File Manager</a>
+    <a class="module-link" href="pages/integrations.html"><span>🔌</span>Integrations</a>
+    <a class="module-link" href="pages/analytics.html"><span>📈</span>Analytics</a>
+    <a class="module-link" href="pages/automation.html"><span>⚙️</span>Automation</a>
+    <a class="module-link" href="pages/notifications.html"><span>🔔</span>Notifications</a>
+    <a class="module-link" href="pages/user-management.html"><span>👤</span>User Management</a>
+    <a class="module-link" href="pages/security.html"><span>🔐</span>Security</a>
+    <a class="module-link" href="pages/approvals.html"><span>✅</span>Approvals</a>
+    <a class="module-link" href="pages/subscription.html"><span>💎</span>Subscription</a>
+  </div>
+</div>
+</section>
+
+<section class="cta">
+<div class="container">
+  <div class="eyebrow">YOUR AI WORKFORCE STARTS HERE</div>
+  <h2>Think Bigger. <span class="gradient">Build Smarter.</span></h2>
+  <p>Explore the NEXORA workspace and discover a new way to organize work with AI.</p>
+  <a class="primary" href="pages/dashboard.html">Enter NEXORA Workspace →</a>
+</div>
+</section>
 </main>
 
 <footer>
-    NEXORA AI © 2026
+<div class="container footer-content">
+  <div>
+    <strong style="color:white;letter-spacing:2px">NEXORA AI</strong>
+    <p>One Command. An Entire Workforce.</p>
+    <p>© 2026 NEXORA AI. All rights reserved.</p>
+  </div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#features">Capabilities</a>
+    <a href="#modules">Platform</a>
+    <a href="README.md">About Project</a>
+  </div>
+</div>
 </footer>
-
-<!-- Main JavaScript entry point -->
-<script type="module" src="js/app.js"></script>
 
 </body>
 </html>
