@@ -3,357 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXORA AI | Collective Brain</title>
+<title>Collective Brain | NEXORA AI</title>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,Arial,sans-serif;background:#080d1b;color:#eef2ff;min-height:100vh}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:245px;background:#0d1528;border-right:1px solid #202c46;padding:28px 17px;flex-shrink:0}
-.logo{font-size:22px;font-weight:800;margin-bottom:38px}
-.logo span{color:#8b7cff}
-.nav a{display:block;text-decoration:none;color:#9eabc5;padding:12px;border-radius:9px;font-size:13px;margin:4px 0}
-.nav a:hover,.nav a.active{background:#202b49;color:white}
-.nav-label{font-size:10px;letter-spacing:2px;color:#697895;margin:22px 10px 10px}
-main{flex:1;padding:35px;min-width:0}
-.header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:25px}
-h1{font-size:29px}
-.subtitle{color:#8997b4;font-size:14px;margin-top:8px}
-button{border:0;border-radius:8px;padding:10px 14px;background:#7164ed;color:white;font-weight:700;cursor:pointer}
-button:hover{background:#887cff}
-button.secondary{background:#26334e}
-button.danger{background:#6c2c42}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
-.stat,.panel,.knowledge-card{background:#101a30;border:1px solid #24314e;border-radius:13px;padding:18px}
-.stat small{color:#91a0bd}
-.stat strong{display:block;font-size:26px;margin-top:8px}
-.notice{font-size:12px;color:#a7b4cd;line-height:1.6;background:#171d37;border:1px solid #39365f;padding:12px;border-radius:9px;margin-bottom:18px}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-input,select,textarea{background:#0b1427;border:1px solid #2b3a5a;color:white;border-radius:8px;padding:11px;font:inherit}
-input{flex:1;min-width:180px}
-select{min-width:145px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.knowledge-card{min-width:0}
-.card-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
-.category{font-size:10px;color:#b7aaff;background:#29264d;padding:5px 8px;border-radius:20px}
-.status{font-size:10px;color:#f5cf82}
-.status.approved{color:#6ee7b7}
-.knowledge-card h3{font-size:16px;margin:13px 0 8px}
-.knowledge-card p{font-size:13px;color:#aab7ce;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
-.meta{font-size:10px;color:#7888a6;margin-top:12px}
-.card-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
-.card-actions button{font-size:11px;padding:8px 10px}
-.empty{grid-column:1/-1;text-align:center;color:#8997b4;padding:45px 10px;font-size:13px}
-.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:18px;z-index:5}
-.modal.show{display:flex}
-.modal-box{background:#101a30;border:1px solid #344363;border-radius:15px;padding:22px;width:100%;max-width:540px;max-height:90vh;overflow:auto}
-.modal-box h2{margin-bottom:18px}
-.field{margin-bottom:14px}
-.field label{display:block;color:#9eabc5;font-size:12px;margin-bottom:7px}
-.field input,.field select,.field textarea{width:100%}
-.field textarea{min-height:120px;resize:vertical}
-.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:750px){
-.sidebar{width:65px;padding:20px 7px}
-.logo{font-size:0;margin-bottom:25px}
-.logo:after{content:"N";font-size:22px}
-.nav-label{display:none}
-.nav a{font-size:0;text-align:center;padding:13px 5px}
-.nav a:first-letter{font-size:17px}
-main{padding:22px 14px}
-.grid{grid-template-columns:1fr}
-h1{font-size:25px}
-}
+:root{--bg:#090b17;--panel:#111426;--panel2:#171a30;--line:#272b45;--text:#f4f4fb;--muted:#969bb5;--purple:#9b7bff;--cyan:#35d6e8;--green:#40d69a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}.layout{display:flex;min-height:100vh}.sidebar{width:245px;background:#0d1020;border-right:1px solid var(--line);padding:25px 17px;flex-shrink:0}.brand{font-size:21px;font-weight:800;letter-spacing:1px;margin:5px 10px 30px}.brand span{color:var(--purple)}.nav-label{font-size:10px;color:#777e9d;letter-spacing:1.5px;margin:24px 10px 9px}.nav-link{display:block;color:#aeb3ca;text-decoration:none;padding:11px 12px;border-radius:9px;font-size:13px;margin:3px 0}.nav-link:hover,.nav-link.active{background:#201b3c;color:#c7b6ff}.sidebar-note{font-size:11px;color:#727995;line-height:1.6;margin:30px 10px}.main{flex:1;min-width:0;padding:34px;max-width:1500px;margin:auto;width:100%}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.eyebrow{color:var(--purple);font-size:11px;letter-spacing:1.7px;font-weight:700}.title{font-size:30px;margin:8px 0}.sub{color:var(--muted);font-size:13px;line-height:1.6}.pill{border:1px solid #33445b;color:#75d8c2;background:#10251f;border-radius:30px;padding:8px 12px;font-size:11px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:22px 0}.stat,.panel,.memory-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:19px}.stat small{color:var(--muted);font-size:12px}.stat strong{display:block;font-size:27px;margin-top:9px}.stat em{font-style:normal;color:var(--cyan);font-size:11px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 14px}.section-head h2{font-size:17px;margin:0}.btn{border:0;border-radius:9px;padding:10px 15px;background:linear-gradient(120deg,#7957e8,#536ee8);color:white;font-weight:700;cursor:pointer;font-size:12px}.btn.secondary{background:#20243a;border:1px solid var(--line);color:#d5d8e8}.btn.danger{background:#3a202d;color:#ff9cad}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.field{background:#0d1020;border:1px solid var(--line);border-radius:9px;padding:11px 12px;color:var(--text);font:inherit;font-size:12px;min-width:0}.toolbar .field{flex:1;min-width:170px}.memory-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.memory-card h3{font-size:14px;margin:10px 0 7px}.memory-card p{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 14px;white-space:pre-wrap;overflow-wrap:anywhere}.tag{display:inline-block;background:#252044;color:#c7b5ff;border-radius:20px;padding:5px 9px;font-size:10px}.meta{font-size:10px;color:#7f86a2;display:flex;justify-content:space-between;gap:8px;margin-top:12px}.actions{display:flex;gap:7px;flex-wrap:wrap}.actions button{font-size:10px;padding:7px 9px}.empty{text-align:center;color:var(--muted);padding:35px;font-size:13px}.modal{display:none;position:fixed;inset:0;background:#050611d9;z-index:10;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-box{width:min(520px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:23px}.modal-box h2{margin-top:0}.modal-box label{display:block;color:var(--muted);font-size:11px;margin:13px 0 6px}.modal-box input,.modal-box textarea,.modal-box select{width:100%}.modal-box textarea{min-height:115px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.notice{color:#8e96b5;font-size:11px;line-height:1.6;margin-top:20px;border-top:1px solid var(--line);padding-top:14px}
+@media(max-width:850px){.sidebar{width:190px}.main{padding:22px}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.layout{display:block}.sidebar{width:100%;padding:12px}.brand{margin:5px 8px 12px}.sidebar nav{display:flex;overflow:auto;gap:5px}.nav-label,.sidebar-note{display:none}.nav-link{white-space:nowrap}.main{padding:18px}.top{align-items:flex-start;flex-direction:column}.grid,.memory-list{grid-template-columns:1fr}.title{font-size:25px}}
 </style>
 </head>
 <body>
 <div class="layout">
 <aside class="sidebar">
-<div class="logo">NEXORA<span> AI</span></div>
-<nav class="nav">
-<div class="nav-label">WORKSPACE</div>
-<a href="../index.html">⌂ Home</a>
-<a href="dashboard.html">▦ Dashboard</a>
-<a href="command-center.html">⌘ Command Center</a>
-<a href="workforce.html">♟ Workforce</a>
-<a href="agent-studio.html">✧ Agent Studio</a>
-<a href="agent-marketplace.html">▤ Marketplace</a>
-<div class="nav-label">OPERATIONS</div>
-<a href="missions.html">◎ Missions</a>
-<a href="task-manager.html">☷ Task Manager</a>
-<a href="projects.html">▣ Projects</a>
-<a href="workflow-studio.html">◇ Workflow Studio</a>
-<a href="mission-templates.html">▤ Mission Templates</a>
-<div class="nav-label">INTELLIGENCE</div>
-<a href="war-room.html">⚡ AI War Room</a>
-<a class="active" href="collective-brain.html">◉ Collective Brain</a>
-<a href="verification-center.html">✓ Verification Center</a>
-<a href="execution-history.html">◷ Execution History</a>
-<a href="digital-twin.html">◇ Digital Twin</a>
-<div class="nav-label">RESOURCES</div>
-<a href="knowledge-base.html">▤ Knowledge Base</a>
-<a href="file-manager.html">▱ File Manager</a>
-<a href="integrations.html">⌘ Integrations</a>
-<a href="analytics.html">▥ Analytics</a>
-</nav>
+  <div class="brand">✦ NEXORA<span> AI</span></div>
+  <nav>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-link" href="dashboard.html">◈ Dashboard</a>
+    <a class="nav-link" href="command-center.html">⌘ Command Center</a>
+    <a class="nav-link" href="workforce.html">♙ AI Workforce</a>
+    <a class="nav-link" href="agent-studio.html">✧ Agent Studio</a>
+    <div class="nav-label">INTELLIGENCE</div>
+    <a class="nav-link" href="war-room.html">⚡ AI War Room</a>
+    <a class="nav-link active" href="collective-brain.html">◉ Collective Brain</a>
+    <a class="nav-link" href="knowledge-base.html">▤ Knowledge Base</a>
+    <a class="nav-link" href="execution-history.html">◷ Execution History</a>
+    <div class="nav-label">MANAGEMENT</div>
+    <a class="nav-link" href="missions.html">◎ Missions</a>
+    <a class="nav-link" href="projects.html">▣ Projects</a>
+    <a class="nav-link" href="automation.html">⟳ Automation</a>
+    <a class="nav-link" href="../index.html">← Landing Page</a>
+  </nav>
+  <p class="sidebar-note">NEXORA ALPHA 1.0<br>Shared knowledge preview</p>
 </aside>
 
-<main>
-<div class="header">
-<div>
-<h1>◉ Collective Brain</h1>
-<p class="subtitle">A shared library of approved knowledge for your AI workforce.</p>
-</div>
-<button onclick="openModal()">+ Add Knowledge</button>
-</div>
+<main class="main">
+  <header class="top">
+    <div>
+      <div class="eyebrow">SHARED INTELLIGENCE</div>
+      <h1 class="title">Collective Brain</h1>
+      <p class="sub">A shared space for knowledge approved for use across your AI workforce.</p>
+    </div>
+    <span class="pill">● LOCAL DEMO</span>
+  </header>
 
-<div class="notice">
-Demo mode: knowledge entries are saved in this browser using local storage. Approved entries are marked as shared knowledge, but agents cannot access them automatically until backend integration is implemented.
-</div>
+  <section class="grid">
+    <div class="stat"><small>Knowledge entries</small><strong id="totalCount">0</strong><em>Stored in this browser</em></div>
+    <div class="stat"><small>Approved entries</small><strong id="approvedCount">0</strong><em>Available to the demo workforce</em></div>
+    <div class="stat"><small>Pending review</small><strong id="pendingCount">0</strong><em>Awaiting your approval</em></div>
+  </section>
 
-<section class="stats">
-<div class="stat"><small>Total Entries</small><strong id="totalCount">0</strong></div>
-<div class="stat"><small>Approved</small><strong id="approvedCount">0</strong></div>
-<div class="stat"><small>Pending Review</small><strong id="pendingCount">0</strong></div>
-<div class="stat"><small>Categories</small><strong id="categoryCount">0</strong></div>
-</section>
+  <div class="section-head">
+    <h2>Shared knowledge library</h2>
+    <button class="btn" id="addBtn">＋ Add knowledge</button>
+  </div>
 
-<div class="toolbar">
-<input id="search" placeholder="Search shared knowledge..." oninput="render()">
-<select id="filter" onchange="render()">
-<option value="all">All Entries</option>
-<option value="Approved">Approved Only</option>
-<option value="Pending">Pending Review</option>
-</select>
-<select id="categoryFilter" onchange="render()">
-<option value="all">All Categories</option>
-<option>Research</option>
-<option>Projects</option>
-<option>Technical</option>
-<option>Business</option>
-<option>General</option>
-</select>
-</div>
+  <div class="toolbar">
+    <input class="field" id="searchInput" type="search" placeholder="Search knowledge...">
+    <select class="field" id="filterSelect" aria-label="Filter knowledge">
+      <option value="all">All entries</option>
+      <option value="approved">Approved</option>
+      <option value="pending">Pending review</option>
+    </select>
+    <select class="field" id="categorySelect" aria-label="Filter category">
+      <option value="all">All categories</option>
+      <option>Project</option><option>Research</option><option>Process</option><option>Technical</option><option>Other</option>
+    </select>
+  </div>
 
-<section class="grid" id="knowledgeGrid"></section>
+  <section class="memory-list" id="memoryList"></section>
+  <p class="notice">Privacy principle: only entries marked Approved are intended for shared agent access. This frontend preview stores entries in browser localStorage; it does not create a secure shared database or transmit knowledge to AI agents. Keep confidential information out of this demo.</p>
 </main>
 </div>
 
-<div class="modal" id="knowledgeModal">
-<div class="modal-box">
-<h2>Add Knowledge</h2>
-<form id="knowledgeForm">
-<div class="field">
-<label for="title">Knowledge Title</label>
-<input id="title" maxlength="120" required placeholder="Enter a clear title">
-</div>
-<div class="field">
-<label for="category">Category</label>
-<select id="category" required>
-<option>Research</option>
-<option>Projects</option>
-<option>Technical</option>
-<option>Business</option>
-<option>General</option>
-</select>
-</div>
-<div class="field">
-<label for="content">Knowledge / Information</label>
-<textarea id="content" maxlength="5000" required placeholder="Enter useful information that can be shared with the workforce..."></textarea>
-</div>
-<div class="field">
-<label for="source">Source or Reference (optional)</label>
-<input id="source" maxlength="300" placeholder="Add a source, URL or reference">
-</div>
-<div class="modal-actions">
-<button type="button" class="secondary" onclick="closeModal()">Cancel</button>
-<button type="submit">Save Entry</button>
-</div>
-</form>
-</div>
+<div class="modal" id="entryModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <h2 id="modalTitle">Add knowledge</h2>
+    <form id="entryForm">
+      <label for="entryTitle">Title</label>
+      <input class="field" id="entryTitle" maxlength="100" required placeholder="e.g. Project goals">
+      <label for="entryCategory">Category</label>
+      <select class="field" id="entryCategory">
+        <option>Project</option><option>Research</option><option>Process</option><option>Technical</option><option>Other</option>
+      </select>
+      <label for="entryContent">Knowledge / notes</label>
+      <textarea class="field" id="entryContent" maxlength="5000" required placeholder="Write the information your team should be able to reference..."></textarea>
+      <label for="entryStatus">Sharing status</label>
+      <select class="field" id="entryStatus">
+        <option value="pending">Pending review</option>
+        <option value="approved">Approved for sharing</option>
+      </select>
+      <div class="modal-actions">
+        <button type="button" class="btn secondary" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn">Save entry</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script>
-const KEY = "nexoraCollectiveBrain";
+const STORAGE_KEY = "nexoraCollectiveBrain";
+const starterEntries = [
+  {id:1,title:"NEXORA project vision",category:"Project",content:"NEXORA AI is designed as a personal AI workforce where specialized agents collaborate to help users organize and complete work.",status:"approved",createdAt:new Date().toISOString()},
+  {id:2,title:"Knowledge sharing principle",category:"Process",content:"Only approved shared knowledge should be made available across agents. Private agent memory should remain separate.",status:"approved",createdAt:new Date().toISOString()},
+  {id:3,title:"Frontend development notes",category:"Technical",content:"The current GitHub Pages frontend is a demo. Real AI execution requires a separately deployed backend and connected AI providers.",status:"pending",createdAt:new Date().toISOString()}
+];
+let entries = loadEntries();
+let editingId = null;
 
-function readEntries(){
+function loadEntries(){
   try{
-    return JSON.parse(localStorage.getItem(KEY)) || [];
-  }catch{
-    return [];
-  }
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : starterEntries;
+  }catch(error){return starterEntries}
 }
-
-function saveEntries(entries){
-  localStorage.setItem(KEY, JSON.stringify(entries));
+function saveEntries(){localStorage.setItem(STORAGE_KEY,JSON.stringify(entries))}
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 }
-
-function openModal(){
-  document.getElementById("knowledgeModal").classList.add("show");
-}
-
-function closeModal(){
-  document.getElementById("knowledgeModal").classList.remove("show");
-}
-
-document.getElementById("knowledgeForm").addEventListener("submit", function(event){
-  event.preventDefault();
-
-  const entries = readEntries();
-
-  entries.unshift({
-    id: Date.now().toString(),
-    title: document.getElementById("title").value.trim(),
-    category: document.getElementById("category").value,
-    content: document.getElementById("content").value.trim(),
-    source: document.getElementById("source").value.trim(),
-    status: "Pending",
-    created: new Date().toISOString()
-  });
-
-  saveEntries(entries);
-  this.reset();
-  closeModal();
-  render();
-});
-
-function approveEntry(id){
-  const entries = readEntries();
-  const item = entries.find(entry => entry.id === id);
-  if(!item) return;
-
-  item.status = "Approved";
-  item.approvedAt = new Date().toISOString();
-
-  saveEntries(entries);
-  render();
-}
-
-function deleteEntry(id){
-  if(!confirm("Delete this knowledge entry?")) return;
-
-  saveEntries(readEntries().filter(entry => entry.id !== id));
-  render();
-}
-
-function copyEntry(id){
-  const item = readEntries().find(entry => entry.id === id);
-  if(!item) return;
-
-  const text = item.title + "\n\n" + item.content +
-    (item.source ? "\n\nSource: " + item.source : "");
-
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text)
-      .then(() => alert("Knowledge copied."))
-      .catch(() => alert("Could not copy automatically. Please copy the entry manually."));
-  }else{
-    alert("Clipboard access is unavailable in this browser.");
-  }
-}
-
 function render(){
-  const entries = readEntries();
-  const search = document.getElementById("search").value.toLowerCase();
-  const status = document.getElementById("filter").value;
-  const category = document.getElementById("categoryFilter").value;
-
-  const approved = entries.filter(entry => entry.status === "Approved");
-  const pending = entries.filter(entry => entry.status === "Pending");
-  const categories = new Set(entries.map(entry => entry.category));
-
-  document.getElementById("totalCount").textContent = entries.length;
-  document.getElementById("approvedCount").textContent = approved.length;
-  document.getElementById("pendingCount").textContent = pending.length;
-  document.getElementById("categoryCount").textContent = categories.size;
-
-  const filtered = entries.filter(entry => {
-    const matchesSearch =
-      entry.title.toLowerCase().includes(search) ||
-      entry.content.toLowerCase().includes(search) ||
-      (entry.source || "").toLowerCase().includes(search);
-
-    const matchesStatus = status === "all" || entry.status === status;
-    const matchesCategory = category === "all" || entry.category === category;
-
-    return matchesSearch && matchesStatus && matchesCategory;
-  });
-
-  const grid = document.getElementById("knowledgeGrid");
-  grid.replaceChildren();
-
-  if(!filtered.length){
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = entries.length
-      ? "No entries match your search or filters."
-      : "Your Collective Brain is empty. Add your first knowledge entry.";
-    grid.append(empty);
-    return;
-  }
-
-  filtered.forEach(item => {
-    const card = document.createElement("article");
-    card.className = "knowledge-card";
-
-    const top = document.createElement("div");
-    top.className = "card-top";
-
-    const categoryTag = document.createElement("span");
-    categoryTag.className = "category";
-    categoryTag.textContent = item.category;
-
-    const statusTag = document.createElement("span");
-    statusTag.className = "status " + (item.status === "Approved" ? "approved" : "");
-    statusTag.textContent = item.status;
-
-    top.append(categoryTag, statusTag);
-
-    const title = document.createElement("h3");
-    title.textContent = item.title;
-
-    const content = document.createElement("p");
-    content.textContent = item.content;
-
-    const source = document.createElement("div");
-    source.className = "meta";
-    source.textContent = item.source ? "Source: " + item.source : "No source provided";
-
-    const date = document.createElement("div");
-    date.className = "meta";
-    date.textContent = "Added: " + new Date(item.created).toLocaleString();
-
-    const actions = document.createElement("div");
-    actions.className = "card-actions";
-
-    const copy = document.createElement("button");
-    copy.className = "secondary";
-    copy.textContent = "Copy";
-    copy.onclick = () => copyEntry(item.id);
-    actions.append(copy);
-
-    if(item.status !== "Approved"){
-      const approve = document.createElement("button");
-      approve.textContent = "Approve";
-      approve.onclick = () => approveEntry(item.id);
-      actions.append(approve);
-    }
-
-    const remove = document.createElement("button");
-    remove.className = "danger";
-    remove.textContent = "Delete";
-    remove.onclick = () => deleteEntry(item.id);
-    actions.append(remove);
-
-    card.append(top, title, content, source, date, actions);
-    grid.append(card);
-  });
+  document.getElementById("totalCount").textContent=entries.length;
+  document.getElementById("approvedCount").textContent=entries.filter(x=>x.status==="approved").length;
+  document.getElementById("pendingCount").textContent=entries.filter(x=>x.status==="pending").length;
+  const query=document.getElementById("searchInput").value.toLowerCase();
+  const status=document.getElementById("filterSelect").value;
+  const category=document.getElementById("categorySelect").value;
+  const filtered=entries.filter(x=>
+    (x.title+" "+x.content).toLowerCase().includes(query) &&
+    (status==="all"||x.status===status) &&
+    (category==="all"||x.category===category)
+  );
+  const list=document.getElementById("memoryList");
+  if(!filtered.length){list.innerHTML='<div class="panel empty">No matching knowledge entries. Add one to get started.</div>';return}
+  list.innerHTML=filtered.map(x=>`
+    <article class="memory-card">
+      <span class="tag">${escapeHTML(x.category)}</span>
+      <h3>${escapeHTML(x.title)}</h3>
+      <p>${escapeHTML(x.content)}</p>
+      <div class="meta"><span>${x.status==="approved"?"✓ Approved":"◷ Pending review"}</span><span>${new Date(x.createdAt).toLocaleDateString()}</span></div>
+      <div class="actions" style="margin-top:13px">
+        ${x.status==="pending"?`<button class="btn" onclick="approveEntry(${x.id})">Approve</button>`:`<button class="btn secondary" onclick="setPending(${x.id})">Move to pending</button>`}
+        <button class="btn secondary" onclick="editEntry(${x.id})">Edit</button>
+        <button class="btn danger" onclick="deleteEntry(${x.id})">Delete</button>
+      </div>
+    </article>`).join("");
 }
-
-document.getElementById("knowledgeModal").addEventListener("click", function(event){
-  if(event.target === this) closeModal();
+function openModal(entry){
+  editingId=entry?entry.id:null;
+  document.getElementById("modalTitle").textContent=entry?"Edit knowledge":"Add knowledge";
+  document.getElementById("entryTitle").value=entry?.title||"";
+  document.getElementById("entryCategory").value=entry?.category||"Project";
+  document.getElementById("entryContent").value=entry?.content||"";
+  document.getElementById("entryStatus").value=entry?.status||"pending";
+  document.getElementById("entryModal").classList.add("show");
+}
+function closeModal(){document.getElementById("entryModal").classList.remove("show")}
+function editEntry(id){const entry=entries.find(x=>x.id===id);if(entry)openModal(entry)}
+function approveEntry(id){entries=entries.map(x=>x.id===id?{...x,status:"approved"}:x);saveEntries();render()}
+function setPending(id){entries=entries.map(x=>x.id===id?{...x,status:"pending"}:x);saveEntries();render()}
+function deleteEntry(id){
+  if(!confirm("Delete this knowledge entry?"))return;
+  entries=entries.filter(x=>x.id!==id);saveEntries();render();
+}
+document.getElementById("addBtn").addEventListener("click",()=>openModal());
+document.getElementById("cancelBtn").addEventListener("click",closeModal);
+document.getElementById("searchInput").addEventListener("input",render);
+document.getElementById("filterSelect").addEventListener("change",render);
+document.getElementById("categorySelect").addEventListener("change",render);
+document.getElementById("entryForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  const data={
+    title:document.getElementById("entryTitle").value.trim(),
+    category:document.getElementById("entryCategory").value,
+    content:document.getElementById("entryContent").value.trim(),
+    status:document.getElementById("entryStatus").value
+  };
+  if(!data.title||!data.content)return;
+  if(editingId){
+    entries=entries.map(x=>x.id===editingId?{...x,...data}:x);
+  }else{
+    entries.unshift({id:Date.now(),...data,createdAt:new Date().toISOString()});
+  }
+  saveEntries();closeModal();render();
 });
-
+document.getElementById("entryModal").addEventListener("click",event=>{
+  if(event.target.id==="entryModal")closeModal();
+});
 render();
 </script>
 </body>
